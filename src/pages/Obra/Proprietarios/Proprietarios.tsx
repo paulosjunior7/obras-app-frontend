@@ -25,8 +25,8 @@ import {
 } from "../../../graphql/generated";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import useDebounce from "../../../hooks/useDebound";
 import ListagemVinculoCliente from "./ListagemVinculoCliente";
+import useDebounce from "../../../hooks/useDebound";
 
 const Proprietarios = () => {
   const { slug } = useParams<{ slug: string }>();

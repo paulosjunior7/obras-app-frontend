@@ -111,61 +111,61 @@ function CadastroPessoa() {
     onSubmit: (values) => {
       Number(slug) > 0
         ? editarPessoa({
-            variables: {
-              id: Number(slug),
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj!,
-                cpf: values.cpf!,
-                complement: values.complement,
-                fantasyName: values.fantasyName!,
-                corporateName: values.corporateName!,
-                eMail: values.eMail,
-                typePeople:
-                  values.typePeople! == "FISICA"
-                    ? TypePeopleEnumType.Fisica
-                    : TypePeopleEnumType.Juridica,
-                active: values.active!,
-                constructor: values.constructor,
-                investor: values.investor,
-                client: values.client,
-              },
+          variables: {
+            id: Number(slug),
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj!,
+              cpf: values.cpf!,
+              complement: values.complement,
+              fantasyName: values.fantasyName!,
+              corporateName: values.corporateName!,
+              eMail: values.eMail,
+              typePeople:
+                values.typePeople! == "FISICA"
+                  ? TypePeopleEnumType.Fisica
+                  : TypePeopleEnumType.Juridica,
+              active: values.active!,
+              constructor: values.constructor,
+              investor: values.investor,
+              client: values.client,
             },
-          })
+          },
+        })
         : criarPessoa({
-            variables: {
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj!,
-                complement: values.complement,
-                fantasyName: values.fantasyName!,
-                corporateName: values.corporateName!,
-                eMail: values.eMail,
-                typePeople:
-                  values.typePeople! == "FISICA"
-                    ? TypePeopleEnumType.Fisica
-                    : TypePeopleEnumType.Juridica,
-                active: values.active!,
-                constructor: values.constructor,
-                investor: values.investor,
-                client: values.client,
-              },
+          variables: {
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj!,
+              complement: values.complement,
+              fantasyName: values.fantasyName!,
+              corporateName: values.corporateName!,
+              eMail: values.eMail,
+              typePeople:
+                values.typePeople! == "FISICA"
+                  ? TypePeopleEnumType.Fisica
+                  : TypePeopleEnumType.Juridica,
+              active: values.active!,
+              constructor: values.constructor,
+              investor: values.investor,
+              client: values.client,
             },
-          });
+          },
+        });
     },
   });
 
@@ -278,7 +278,7 @@ function CadastroPessoa() {
                       </RadioGroup>
                     </Grid>
                     {formik.values.typePeople ===
-                    TypePeopleEnumType.Juridica ? (
+                      TypePeopleEnumType.Juridica ? (
                       <>
                         <Grid item xs={12} md={6}>
                           <TextField
@@ -352,27 +352,25 @@ function CadastroPessoa() {
                         onChange={formik.handleChange}
                         value={formik.values.telephone}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="telephone"
-                            label="Telefone"
-                            value={formik.values.telephone}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.telephone &&
-                              Boolean(formik.errors.telephone)
-                            }
-                            helperText={
-                              formik.touched.telephone &&
-                              formik.errors.telephone
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="telephone"
+                          label="Telefone"
+                          value={formik.values.telephone}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.telephone &&
+                            Boolean(formik.errors.telephone)
+                          }
+                          helperText={
+                            formik.touched.telephone &&
+                            formik.errors.telephone
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -381,27 +379,25 @@ function CadastroPessoa() {
                         onChange={formik.handleChange}
                         value={formik.values.cellPhone}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="cellPhone"
-                            label="Celular"
-                            value={formik.values.cellPhone}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.cellPhone &&
-                              Boolean(formik.errors.cellPhone)
-                            }
-                            helperText={
-                              formik.touched.cellPhone &&
-                              formik.errors.cellPhone
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="cellPhone"
+                          label="Celular"
+                          value={formik.values.cellPhone}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.cellPhone &&
+                            Boolean(formik.errors.cellPhone)
+                          }
+                          helperText={
+                            formik.touched.cellPhone &&
+                            formik.errors.cellPhone
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
@@ -411,25 +407,23 @@ function CadastroPessoa() {
                           onChange={formik.handleChange}
                           value={formik.values.cpf}
                         >
-                          {() => (
-                            <TextField
-                              fullWidth
-                              size="small"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                              name="cpf"
-                              label="CPF"
-                              value={formik.values.cpf}
-                              onChange={formik.handleChange}
-                              error={
-                                formik.touched.cpf && Boolean(formik.errors.cpf)
-                              }
-                              helperText={
-                                formik.touched.cpf && formik.errors.cpf
-                              }
-                            />
-                          )}
+                          <TextField
+                            fullWidth
+                            size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            name="cpf"
+                            label="CPF"
+                            value={formik.values.cpf}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.cpf && Boolean(formik.errors.cpf)
+                            }
+                            helperText={
+                              formik.touched.cpf && formik.errors.cpf
+                            }
+                          />
                         </InputMask>
                       </Grid>
                     ) : (
@@ -439,26 +433,24 @@ function CadastroPessoa() {
                           onChange={formik.handleChange}
                           value={formik.values.cnpj}
                         >
-                          {() => (
-                            <TextField
-                              fullWidth
-                              size="small"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                              name="cnpj"
-                              label="CNPJ"
-                              value={formik.values.cnpj}
-                              onChange={formik.handleChange}
-                              error={
-                                formik.touched.cnpj &&
-                                Boolean(formik.errors.cnpj)
-                              }
-                              helperText={
-                                formik.touched.cnpj && formik.errors.cnpj
-                              }
-                            />
-                          )}
+                          <TextField
+                            fullWidth
+                            size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            name="cnpj"
+                            label="CNPJ"
+                            value={formik.values.cnpj}
+                            onChange={formik.handleChange}
+                            error={
+                              formik.touched.cnpj &&
+                              Boolean(formik.errors.cnpj)
+                            }
+                            helperText={
+                              formik.touched.cnpj && formik.errors.cnpj
+                            }
+                          />
                         </InputMask>
                       </Grid>
                     )}
@@ -486,26 +478,24 @@ function CadastroPessoa() {
                         onChange={formik.handleChange}
                         value={formik.values.zipCode}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="zipCode"
-                            label="CEP"
-                            value={formik.values.zipCode}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.zipCode &&
-                              Boolean(formik.errors.zipCode)
-                            }
-                            helperText={
-                              formik.touched.zipCode && formik.errors.zipCode
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="zipCode"
+                          label="CEP"
+                          value={formik.values.zipCode}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.zipCode &&
+                            Boolean(formik.errors.zipCode)
+                          }
+                          helperText={
+                            formik.touched.zipCode && formik.errors.zipCode
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     <Grid item xs={12} md={6}>

@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import UnidadeResidencial from "./UnidadeResidencial";
 import Detalhes from "./Detalhe";
-import Cliente from "./Cliente";
 interface IFormInputs {
   descricao: string;
   detalhe: number;

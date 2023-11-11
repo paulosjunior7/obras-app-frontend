@@ -76,44 +76,44 @@ function CadastroFornecedor() {
     onSubmit: (values) => {
       Number(slug) > 0
         ? editarFornecedor({
-            variables: {
-              id: Number(slug),
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj!,
-                complement: values.complement,
-                name: values.name!,
-                eMail: values.eMail,
-                active: values.active!,
-              },
+          variables: {
+            id: Number(slug),
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj!,
+              complement: values.complement,
+              name: values.name!,
+              eMail: values.eMail,
+              active: values.active!,
             },
-          })
+          },
+        })
         : criarFornecedor({
-            variables: {
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj!,
-                complement: values.complement,
-                name: values.name!,
-                eMail: values.eMail,
-                active: values.active!,
-              },
+          variables: {
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj!,
+              complement: values.complement,
+              name: values.name!,
+              eMail: values.eMail,
+              active: values.active!,
             },
-          });
+          },
+        });
     },
   });
 
@@ -192,27 +192,25 @@ function CadastroFornecedor() {
                         onChange={formik.handleChange}
                         value={formik.values.telephone}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="telephone"
-                            label="Telefone"
-                            value={formik.values.telephone}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.telephone &&
-                              Boolean(formik.errors.telephone)
-                            }
-                            helperText={
-                              formik.touched.telephone &&
-                              formik.errors.telephone
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="telephone"
+                          label="Telefone"
+                          value={formik.values.telephone}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.telephone &&
+                            Boolean(formik.errors.telephone)
+                          }
+                          helperText={
+                            formik.touched.telephone &&
+                            formik.errors.telephone
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -221,27 +219,25 @@ function CadastroFornecedor() {
                         onChange={formik.handleChange}
                         value={formik.values.cellPhone}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="cellPhone"
-                            label="Celular"
-                            value={formik.values.cellPhone}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.cellPhone &&
-                              Boolean(formik.errors.cellPhone)
-                            }
-                            helperText={
-                              formik.touched.cellPhone &&
-                              formik.errors.cellPhone
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="cellPhone"
+                          label="Celular"
+                          value={formik.values.cellPhone}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.cellPhone &&
+                            Boolean(formik.errors.cellPhone)
+                          }
+                          helperText={
+                            formik.touched.cellPhone &&
+                            formik.errors.cellPhone
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -250,25 +246,23 @@ function CadastroFornecedor() {
                         onChange={formik.handleChange}
                         value={formik.values.cnpj}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="cnpj"
-                            label="CNPJ"
-                            value={formik.values.cnpj}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.cnpj && Boolean(formik.errors.cnpj)
-                            }
-                            helperText={
-                              formik.touched.cnpj && formik.errors.cnpj
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="cnpj"
+                          label="CNPJ"
+                          value={formik.values.cnpj}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.cnpj && Boolean(formik.errors.cnpj)
+                          }
+                          helperText={
+                            formik.touched.cnpj && formik.errors.cnpj
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -295,26 +289,24 @@ function CadastroFornecedor() {
                         onChange={formik.handleChange}
                         value={formik.values.zipCode}
                       >
-                        {() => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            name="zipCode"
-                            label="CEP"
-                            value={formik.values.zipCode}
-                            onChange={formik.handleChange}
-                            error={
-                              formik.touched.zipCode &&
-                              Boolean(formik.errors.zipCode)
-                            }
-                            helperText={
-                              formik.touched.zipCode && formik.errors.zipCode
-                            }
-                          />
-                        )}
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          name="zipCode"
+                          label="CEP"
+                          value={formik.values.zipCode}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.zipCode &&
+                            Boolean(formik.errors.zipCode)
+                          }
+                          helperText={
+                            formik.touched.zipCode && formik.errors.zipCode
+                          }
+                        />
                       </InputMask>
                     </Grid>
                     <Grid item xs={12} md={6}>

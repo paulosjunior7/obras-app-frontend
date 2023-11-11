@@ -85,64 +85,64 @@ const Detalhes = () => {
 
       Number(slug) > 0
         ? editarConstrucao({
-            variables: {
-              id: Number(slug),
-              input: {
-                address: values.address,
-                art: Number(values.art),
-                batchArea: Number(values.batchArea),
-                buildingArea: Number(values.buildingArea),
-                city: values.city,
-                cno: Number(values.cno),
-                complement: values.complement,
-                dateBegin: parseISO(values.dateBegin),
-                dateEnd: null,
-                identifier: values.identifier,
-                latitude: Number(0),
-                license: Number(values.license),
-                longitude: Number(0),
-                motherEnrollment: values?.motherEnrollment,
-                municipalRegistration: Number(values.municipalRegistration),
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                saleValue: values.saleValue,
-                state: values.state,
-                undergroundUse: Number(values.undergroundUse),
-                zipCode: values.zipCode,
-                statusConstruction: StatusConstructionEnumType.Vendida,
-                active: true,
-              },
+          variables: {
+            id: Number(slug),
+            input: {
+              address: values.address,
+              art: Number(values.art),
+              batchArea: Number(values.batchArea),
+              buildingArea: Number(values.buildingArea),
+              city: values.city,
+              cno: Number(values.cno),
+              complement: values.complement,
+              dateBegin: parseISO(values.dateBegin),
+              dateEnd: null,
+              identifier: values.identifier,
+              latitude: Number(0),
+              license: Number(values.license),
+              longitude: Number(0),
+              motherEnrollment: values?.motherEnrollment,
+              municipalRegistration: Number(values.municipalRegistration),
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              saleValue: values.saleValue,
+              state: values.state,
+              undergroundUse: Number(values.undergroundUse),
+              zipCode: values.zipCode,
+              statusConstruction: StatusConstructionEnumType.Vendida,
+              active: true,
             },
-          })
+          },
+        })
         : criarConstrucao({
-            variables: {
-              input: {
-                address: values.address,
-                art: Number(values.art),
-                batchArea: Number(values.batchArea),
-                buildingArea: Number(values.buildingArea),
-                city: values.city,
-                cno: Number(values.cno),
-                complement: values.complement,
-                dateBegin: parseISO(values.dateBegin),
-                dateEnd: null,
-                identifier: values.identifier,
-                latitude: Number(0),
-                license: Number(values.license),
-                longitude: Number(0),
-                motherEnrollment: values?.motherEnrollment,
-                municipalRegistration: Number(values.municipalRegistration),
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                saleValue: values.saleValue,
-                state: values.state,
-                undergroundUse: Number(values.undergroundUse),
-                zipCode: values.zipCode,
-                statusConstruction: StatusConstructionEnumType.Vendida,
-                active: true,
-              },
+          variables: {
+            input: {
+              address: values.address,
+              art: Number(values.art),
+              batchArea: Number(values.batchArea),
+              buildingArea: Number(values.buildingArea),
+              city: values.city,
+              cno: Number(values.cno),
+              complement: values.complement,
+              dateBegin: parseISO(values.dateBegin),
+              dateEnd: null,
+              identifier: values.identifier,
+              latitude: Number(0),
+              license: Number(values.license),
+              longitude: Number(0),
+              motherEnrollment: values?.motherEnrollment,
+              municipalRegistration: Number(values.municipalRegistration),
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              saleValue: values.saleValue,
+              state: values.state,
+              undergroundUse: Number(values.undergroundUse),
+              zipCode: values.zipCode,
+              statusConstruction: StatusConstructionEnumType.Vendida,
+              active: true,
             },
-          });
+          },
+        });
     },
   });
 
@@ -219,93 +219,93 @@ const Detalhes = () => {
   });
 
   return (
-      <div className="mb-2 rounded-lg border p-12 mt-2 border-gray-200 shadow-md  bg-white">
-        <form onSubmit={formik.handleSubmit}>
-          <Typography className="text-slate-900 font-bold text-sm">
-            Detalhes
-          </Typography>
-          <br />
-          <Grid container spacing={3} xs={12} direction="row">
-            <Grid item xs={12} md={3}>
-              <TextField
-                fullWidth
+    <div className="mb-2 rounded-lg border p-12 mt-2 border-gray-200 shadow-md  bg-white">
+      <form onSubmit={formik.handleSubmit}>
+        <Typography className="text-slate-900 font-bold text-sm">
+          Detalhes
+        </Typography>
+        <br />
+        <Grid container spacing={3} xs={12} direction="row">
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="email"
+              name="identifier"
+              label="Indetificador"
+              value={formik.values.identifier}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.identifier && Boolean(formik.errors.identifier)
+              }
+              helperText={
+                formik.touched.identifier && formik.errors.identifier
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel shrink>Status</InputLabel>
+              <Select
                 size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="email"
-                name="identifier"
-                label="Indetificador"
-                value={formik.values.identifier}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.identifier && Boolean(formik.errors.identifier)
-                }
-                helperText={
-                  formik.touched.identifier && formik.errors.identifier
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <FormControl sx={{ width: "100%" }}>
-                <InputLabel shrink>Status</InputLabel>
-                <Select
-                  size="small"
-                  fullWidth
-                  open={open}
-                  onClose={handleClose}
-                  onOpen={handleOpen}
-                  value={status}
-                  label="Status"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={1}>planejamento</MenuItem>
-                  <MenuItem value={2}>construção</MenuItem>
-                  <MenuItem value={3}>finalizada</MenuItem>
-                  <MenuItem value={4}>vendida</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+                fullWidth
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={status}
+                label="Status"
+                onChange={handleChange}
+              >
+                <MenuItem value={1}>planejamento</MenuItem>
+                <MenuItem value={2}>construção</MenuItem>
+                <MenuItem value={3}>finalizada</MenuItem>
+                <MenuItem value={4}>vendida</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
 
-            <Grid item xs={12} md={3}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="dateBegin"
-                name="dateBegin"
-                label="Data início"
-                type="date"
-                value={formik.values.dateBegin}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.dateBegin && Boolean(formik.errors.dateBegin)
-                }
-                // helperText={
-                //   formik?.touched?.dateBegin && formik?.errors?.dateBegin
-                // }
-              />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="dateEnd"
-                name="dateEnd"
-                label="Data final"
-                type="date"
-                value={formik.values.dateEnd}
-                onChange={formik.handleChange}
-                error={formik.touched.dateEnd && Boolean(formik.errors.dateEnd)}
-                // helperText={formik.touched.dateEnd && formik.errors.dateEnd}
-              />
-            </Grid>
-            {/* <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="dateBegin"
+              name="dateBegin"
+              label="Data início"
+              type="date"
+              value={formik.values.dateBegin}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.dateBegin && Boolean(formik.errors.dateBegin)
+              }
+            // helperText={
+            //   formik?.touched?.dateBegin && formik?.errors?.dateBegin
+            // }
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="dateEnd"
+              name="dateEnd"
+              label="Data final"
+              type="date"
+              value={formik.values.dateEnd}
+              onChange={formik.handleChange}
+              error={formik.touched.dateEnd && Boolean(formik.errors.dateEnd)}
+            // helperText={formik.touched.dateEnd && formik.errors.dateEnd}
+            />
+          </Grid>
+          {/* <Grid item xs={12} md={3}>
             <TextField
               fullWidth
               size="small"
@@ -339,340 +339,338 @@ const Detalhes = () => {
               helperText={formik.touched.longitude && formik.errors.longitude}
             />
           </Grid> */}
-          </Grid>
-          <br />
-          <Typography className="text-slate-900 font-bold font">
-            Endereço
-          </Typography>
-          <br />
-          <Grid container spacing={2} xs={12} direction="row">
-            <Grid item xs={12} md={3}>
-              <InputMask
-                mask="99999-999"
-                onChange={formik.handleChange}
-                value={formik.values.zipCode}
-              >
-                {() => (
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    name="zipCode"
-                    label="CEP"
-                    value={formik.values.zipCode}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.zipCode && Boolean(formik.errors.zipCode)
-                    }
-                    helperText={formik.touched.zipCode && formik.errors.zipCode}
-                  />
-                )}
-              </InputMask>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="address"
-                name="address"
-                label="Logradouro"
-                value={formik.values.address}
-                onChange={formik.handleChange}
-                error={formik.touched.address && Boolean(formik.errors.address)}
-                helperText={formik.touched.address && formik.errors.address}
-              />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="number"
-                name="number"
-                label="Número"
-                value={formik.values.number}
-                onChange={formik.handleChange}
-                error={formik.touched.number && Boolean(formik.errors.number)}
-                helperText={formik.touched.number && formik.errors.number}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="city"
-                name="city"
-                label="Cidade"
-                value={formik.values.city}
-                onChange={formik.handleChange}
-                error={formik.touched.city && Boolean(formik.errors.city)}
-                helperText={formik.touched.city && formik.errors.city}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="state"
-                name="state"
-                label="Estado"
-                value={formik.values.state}
-                onChange={formik.handleChange}
-                error={formik.touched.state && Boolean(formik.errors.state)}
-                helperText={formik.touched.state && formik.errors.state}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="neighbourhood"
-                name="neighbourhood"
-                label="Bairro"
-                value={formik.values.neighbourhood}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.neighbourhood &&
-                  Boolean(formik.errors.neighbourhood)
-                }
-                helperText={
-                  formik.touched.neighbourhood && formik.errors.neighbourhood
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="complement"
-                name="complement"
-                label="Complemento"
-                value={formik.values.complement}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.complement && Boolean(formik.errors.complement)
-                }
-                helperText={
-                  formik.touched.complement && formik.errors.complement
-                }
-              />
-            </Grid>
-          </Grid>
-          <br />
-          <Typography className="text-slate-900 font-bold text-sm">
-            Informações complementares
-          </Typography>
-          <br />
-          <Grid container spacing={2} xs={12} direction="row">
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="batchArea"
-                name="batchArea"
-                label="Area lote"
-                type="number"
-                value={formik.values.batchArea}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.batchArea && Boolean(formik.errors.batchArea)
-                }
-                helperText={formik.touched.batchArea && formik.errors.batchArea}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="buildingArea"
-                name="buildingArea"
-                label="Área construída"
-                type="number"
-                value={formik.values.buildingArea}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.buildingArea &&
-                  Boolean(formik.errors.buildingArea)
-                }
-                helperText={
-                  formik.touched.buildingArea && formik.errors.buildingArea
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="municipalRegistration"
-                name="municipalRegistration"
-                label="Inscrição municipal"
-                type="number"
-                value={formik.values.municipalRegistration}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.municipalRegistration &&
-                  Boolean(formik.errors.municipalRegistration)
-                }
-                helperText={
-                  formik.touched.municipalRegistration &&
-                  formik.errors.municipalRegistration
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="license"
-                name="license"
-                label="Alvará"
-                type="number"
-                value={formik.values.license}
-                onChange={formik.handleChange}
-                error={formik.touched.license && Boolean(formik.errors.license)}
-                helperText={formik.touched.license && formik.errors.license}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="undergroundUse"
-                name="undergroundUse"
-                label="Uso de solo"
-                type="number"
-                value={formik.values.undergroundUse}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.undergroundUse &&
-                  Boolean(formik.errors.undergroundUse)
-                }
-                helperText={
-                  formik.touched.undergroundUse && formik.errors.undergroundUse
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="cno"
-                name="cno"
-                label="CNO"
-                type="number"
-                value={formik.values.cno}
-                onChange={formik.handleChange}
-                error={formik.touched.cno && Boolean(formik.errors.cno)}
-                helperText={formik.touched.cno && formik.errors.cno}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="art"
-                name="art"
-                label="Art"
-                type="number"
-                value={formik.values.art}
-                onChange={formik.handleChange}
-                error={formik.touched.art && Boolean(formik.errors.art)}
-                helperText={formik.touched.art && formik.errors.art}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="motherEnrollment"
-                name="motherEnrollment"
-                label="Matricula Mãe"
-                type="number"
-                value={formik.values.motherEnrollment}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.motherEnrollment &&
-                  Boolean(formik.errors.motherEnrollment)
-                }
-                helperText={
-                  formik.touched.motherEnrollment &&
-                  formik.errors.motherEnrollment
-                }
-              />
-            </Grid>
-            <br />
-            <br />
-            <Grid
-              container
-              xs={12}
-              direction="row"
-              justifyContent="flex-end"
-              className="mt-12"
+        </Grid>
+        <br />
+        <Typography className="text-slate-900 font-bold font">
+          Endereço
+        </Typography>
+        <br />
+        <Grid container spacing={2} xs={12} direction="row">
+          <Grid item xs={12} md={3}>
+            <InputMask
+              mask="99999-999"
+              onChange={formik.handleChange}
+              value={formik.values.zipCode}
             >
-              <Grid item>
-                <button
-                  type="button"
-                  className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={() => navigate("/obras")}
-                >
-                  Cancelar
-                </button>
-              </Grid>
-              <Grid item>
-                <button
-                  type="submit"
-                  className="inline-flex justify-center py-2 px-4 ml-2  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Salvar
-                </button>
-              </Grid>
+              <TextField
+                fullWidth
+                size="small"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="zipCode"
+                label="CEP"
+                value={formik.values.zipCode}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.zipCode && Boolean(formik.errors.zipCode)
+                }
+                helperText={formik.touched.zipCode && formik.errors.zipCode}
+              />
+            </InputMask>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="address"
+              name="address"
+              label="Logradouro"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              error={formik.touched.address && Boolean(formik.errors.address)}
+              helperText={formik.touched.address && formik.errors.address}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="number"
+              name="number"
+              label="Número"
+              value={formik.values.number}
+              onChange={formik.handleChange}
+              error={formik.touched.number && Boolean(formik.errors.number)}
+              helperText={formik.touched.number && formik.errors.number}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="city"
+              name="city"
+              label="Cidade"
+              value={formik.values.city}
+              onChange={formik.handleChange}
+              error={formik.touched.city && Boolean(formik.errors.city)}
+              helperText={formik.touched.city && formik.errors.city}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="state"
+              name="state"
+              label="Estado"
+              value={formik.values.state}
+              onChange={formik.handleChange}
+              error={formik.touched.state && Boolean(formik.errors.state)}
+              helperText={formik.touched.state && formik.errors.state}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="neighbourhood"
+              name="neighbourhood"
+              label="Bairro"
+              value={formik.values.neighbourhood}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.neighbourhood &&
+                Boolean(formik.errors.neighbourhood)
+              }
+              helperText={
+                formik.touched.neighbourhood && formik.errors.neighbourhood
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="complement"
+              name="complement"
+              label="Complemento"
+              value={formik.values.complement}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.complement && Boolean(formik.errors.complement)
+              }
+              helperText={
+                formik.touched.complement && formik.errors.complement
+              }
+            />
+          </Grid>
+        </Grid>
+        <br />
+        <Typography className="text-slate-900 font-bold text-sm">
+          Informações complementares
+        </Typography>
+        <br />
+        <Grid container spacing={2} xs={12} direction="row">
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="batchArea"
+              name="batchArea"
+              label="Area lote"
+              type="number"
+              value={formik.values.batchArea}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.batchArea && Boolean(formik.errors.batchArea)
+              }
+              helperText={formik.touched.batchArea && formik.errors.batchArea}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="buildingArea"
+              name="buildingArea"
+              label="Área construída"
+              type="number"
+              value={formik.values.buildingArea}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.buildingArea &&
+                Boolean(formik.errors.buildingArea)
+              }
+              helperText={
+                formik.touched.buildingArea && formik.errors.buildingArea
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="municipalRegistration"
+              name="municipalRegistration"
+              label="Inscrição municipal"
+              type="number"
+              value={formik.values.municipalRegistration}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.municipalRegistration &&
+                Boolean(formik.errors.municipalRegistration)
+              }
+              helperText={
+                formik.touched.municipalRegistration &&
+                formik.errors.municipalRegistration
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="license"
+              name="license"
+              label="Alvará"
+              type="number"
+              value={formik.values.license}
+              onChange={formik.handleChange}
+              error={formik.touched.license && Boolean(formik.errors.license)}
+              helperText={formik.touched.license && formik.errors.license}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="undergroundUse"
+              name="undergroundUse"
+              label="Uso de solo"
+              type="number"
+              value={formik.values.undergroundUse}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.undergroundUse &&
+                Boolean(formik.errors.undergroundUse)
+              }
+              helperText={
+                formik.touched.undergroundUse && formik.errors.undergroundUse
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="cno"
+              name="cno"
+              label="CNO"
+              type="number"
+              value={formik.values.cno}
+              onChange={formik.handleChange}
+              error={formik.touched.cno && Boolean(formik.errors.cno)}
+              helperText={formik.touched.cno && formik.errors.cno}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="art"
+              name="art"
+              label="Art"
+              type="number"
+              value={formik.values.art}
+              onChange={formik.handleChange}
+              error={formik.touched.art && Boolean(formik.errors.art)}
+              helperText={formik.touched.art && formik.errors.art}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="motherEnrollment"
+              name="motherEnrollment"
+              label="Matricula Mãe"
+              type="number"
+              value={formik.values.motherEnrollment}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.motherEnrollment &&
+                Boolean(formik.errors.motherEnrollment)
+              }
+              helperText={
+                formik.touched.motherEnrollment &&
+                formik.errors.motherEnrollment
+              }
+            />
+          </Grid>
+          <br />
+          <br />
+          <Grid
+            container
+            xs={12}
+            direction="row"
+            justifyContent="flex-end"
+            className="mt-12"
+          >
+            <Grid item>
+              <button
+                type="button"
+                className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={() => navigate("/obras")}
+              >
+                Cancelar
+              </button>
+            </Grid>
+            <Grid item>
+              <button
+                type="submit"
+                className="inline-flex justify-center py-2 px-4 ml-2  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Salvar
+              </button>
             </Grid>
           </Grid>
-        </form>
-      </div>
+        </Grid>
+      </form>
+    </div>
   );
 };
 
