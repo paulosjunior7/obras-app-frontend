@@ -1,0 +1,7 @@
+mutation EditarCargo($id : Int!, $input: ResponsibilityInputType!) {
+  responsibilities {
+    updateResponsibility(id : $id, responsibility :$input) {
+      id
+    }
+  }
+}

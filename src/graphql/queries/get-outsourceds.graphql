@@ -1,0 +1,36 @@
+query getTerceirizados($pagination: PaginationDetailsType, $filter: OutsourcedFilterByInputType, $sort: OutsourcedByInputType ){
+  outsourceds {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        neighbourhood
+        number
+        state
+        telephone
+        zipCode
+        active
+        address
+        cellPhone
+        city
+        cnpj
+        cpf
+        complement
+        corporateName
+        eMail
+        fantasyName
+        typePeople
+        company {
+          id
+          corporateName
+        }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

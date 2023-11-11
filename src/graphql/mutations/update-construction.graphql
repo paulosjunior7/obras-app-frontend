@@ -1,0 +1,8 @@
+mutation EditarConstrucao($id: Int!, $input: ConstructionInputType!) {
+  constructions  {
+    updateConstruction(id : $id , construction :$input) {
+      id
+    }
+  }
+}
+

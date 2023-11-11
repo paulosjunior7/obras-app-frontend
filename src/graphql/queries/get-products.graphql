@@ -1,0 +1,20 @@
+query getProdutos($pagination: PaginationDetailsType, $filter: ProductFilterByInputType, $sort: ProductByInputType ){
+  products{
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        detail
+        description
+        changeDate
+        active
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

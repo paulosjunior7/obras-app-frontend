@@ -1,0 +1,17 @@
+query getVinculoClientesObraByID($id: Int!){
+  constructionInvestors{
+    findById(id : $id ){
+         id
+        peopleId
+        constructionId
+        active
+        people {
+          id
+          fantasyName
+          cnpj
+          cpf
+          typePeople
+        }  
+    }
+  }
+}

@@ -1,0 +1,26 @@
+query getPessoaID($id: Int!){
+  peoples {
+    findById(id : $id ){
+       id
+        neighbourhood
+        number
+        state
+        telephone
+        zipCode
+        active
+        address
+        cellPhone
+        city
+        cnpj
+        cpf
+        complement
+        corporateName
+        eMail
+        fantasyName
+        typePeople
+        constructor
+        client
+        investor
+    }
+  }
+}

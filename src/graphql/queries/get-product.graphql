@@ -1,0 +1,11 @@
+query getProdutoByID($id: Int!){
+  products{
+    findById(id : $id ){
+        id
+        detail
+        description
+        changeDate
+        active
+    }
+  }
+}

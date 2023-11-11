@@ -1,0 +1,19 @@
+query getUnidadeResidencialById($id: Int!){
+  constructionHouses {
+    findById(id : $id ){
+        id
+        description
+        constructionId
+        permeableArea
+        fractionBatch
+        buildingArea
+        energyConsumptionUnit
+        saleValue
+        waterConsumptionUnit
+        active
+        construction {
+          id
+        }
+    }
+  }
+}

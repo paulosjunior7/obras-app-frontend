@@ -1,0 +1,7 @@
+mutation EditarGrupoProduto($id : Int!, $input: GroupInputType!) {
+  group {
+    updateGroup(id : $id, group :$input) {
+      id
+    }
+  }
+}

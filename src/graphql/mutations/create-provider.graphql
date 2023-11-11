@@ -1,0 +1,7 @@
+mutation CriarFornecedor($input: ProviderInputType!) {
+  providers {
+    createProvider(provider :$input) {
+      id
+    }
+  }
+}

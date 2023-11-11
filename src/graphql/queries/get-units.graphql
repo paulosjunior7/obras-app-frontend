@@ -1,0 +1,19 @@
+query getUnidades($pagination: PaginationDetailsType, $filter: UnityFilterByInputType, $sort: UnityByInputType ){
+  unity {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        description
+        multiplier
+        active
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

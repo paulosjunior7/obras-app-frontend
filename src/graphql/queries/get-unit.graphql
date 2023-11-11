@@ -1,0 +1,10 @@
+query getUnidadeByID($id: Int!){
+  unity {
+    findById(id : $id ){
+        id
+        description
+        multiplier
+        active
+    }
+  }
+}

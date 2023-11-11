@@ -1,0 +1,28 @@
+query getUnidadeResidencials($pagination: PaginationDetailsType, $filter: ConstructionHouseFilterByInputType, $sort: ConstructionHouseByInputType ){
+  constructionHouses {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        description
+        constructionId
+        permeableArea
+        fractionBatch
+        buildingArea
+        energyConsumptionUnit
+        saleValue
+        waterConsumptionUnit
+        active
+        construction {
+          id
+        }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

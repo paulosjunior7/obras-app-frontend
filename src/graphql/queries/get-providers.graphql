@@ -1,0 +1,33 @@
+query getFornecedores($pagination: PaginationDetailsType, $filter: ProviderFilterByInputType, $sort: ProviderByInputType ){
+  providers {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        neighbourhood
+        number
+        state
+        telephone
+        zipCode
+        active
+        address
+        cellPhone
+        city
+        cnpj
+        complement
+        name
+        eMail
+        company {
+          id
+          corporateName
+        }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

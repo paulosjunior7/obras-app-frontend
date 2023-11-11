@@ -1,0 +1,7 @@
+mutation CriarUnidade($input: UnityInputType!) {
+  unity  {
+    createUnity(unity :$input) {
+      id
+    }
+  }
+}

@@ -1,0 +1,20 @@
+query getDocumentos($pagination: PaginationDetailsType, $filter: DocumentationFilterByInputType, $sort: DocumentationByInputType ){
+  documentations{
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        description
+        creationDate
+        changeDate
+        active
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

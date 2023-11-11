@@ -1,0 +1,7 @@
+mutation EditarUnidade($id : Int!, $input: UnityInputType!) {
+  unity {
+    updateUnity(id :$id, unity :$input) {
+      id
+    }
+  }
+}

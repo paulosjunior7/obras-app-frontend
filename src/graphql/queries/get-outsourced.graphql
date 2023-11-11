@@ -1,0 +1,23 @@
+query getTerceirizadoByID($id: Int!){
+  outsourceds {
+    findById(id : $id ){
+       id
+        neighbourhood
+        number
+        state
+        telephone
+        zipCode
+        active
+        address
+        cellPhone
+        city
+        cnpj
+        cpf
+        complement
+        corporateName
+        eMail
+        fantasyName
+        typePeople
+    }
+  }
+}

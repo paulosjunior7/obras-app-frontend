@@ -1,0 +1,11 @@
+query getDocumentacaoByID($id: Int!){
+  documentations {
+    findById(id : $id ){
+        id
+        description
+        creationDate
+        changeDate
+        active
+    }
+  }
+}

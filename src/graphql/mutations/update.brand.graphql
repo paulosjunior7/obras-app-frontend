@@ -1,0 +1,7 @@
+mutation EditarMarca($id : Int!, $input: BrandInputType!) {
+  brands {
+    updateBrand(id : $id, brand :$input) {
+      id
+    }
+  }
+}

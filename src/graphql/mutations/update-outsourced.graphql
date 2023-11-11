@@ -1,0 +1,7 @@
+mutation EditarTercerizado($id : Int!, $input: OutsourcedInputType!) {
+  outsourceds {
+    updateOutsourced (id : $id, outsourced :$input) {
+      id
+    }
+  }
+}

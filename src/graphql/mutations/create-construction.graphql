@@ -1,0 +1,7 @@
+mutation CriarConstrucao($input: ConstructionInputType!) {
+  constructions  {
+    createConstruction(construction :$input) {
+      id
+    }
+  }
+}

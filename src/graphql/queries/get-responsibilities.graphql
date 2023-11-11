@@ -1,0 +1,19 @@
+query getCargos($pagination: PaginationDetailsType, $filter: ResponsibilityFilterByInputType, $sort: ResponsibilityByInputType ){
+  responsibilities {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        description
+        changeDate
+        active
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

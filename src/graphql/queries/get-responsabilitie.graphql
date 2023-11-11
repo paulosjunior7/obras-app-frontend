@@ -1,0 +1,10 @@
+query getCargoByID($id: Int!){
+  responsibilities {
+    findById(id : $id ){
+         id
+        description
+        changeDate
+        active
+    }
+  }
+}

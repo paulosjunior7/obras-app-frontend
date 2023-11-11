@@ -1,0 +1,7 @@
+mutation CriarDespesa($input: ExpenseInputType!) {
+  expenses  {
+    createExpense(expense :$input) {
+      id
+    }
+  }
+}

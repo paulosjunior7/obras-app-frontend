@@ -1,0 +1,7 @@
+mutation CriarTercerizado( $input: OutsourcedInputType!) {
+  outsourceds {
+    createOutsourced (outsourced :$input) {
+      id
+    }
+  }
+}

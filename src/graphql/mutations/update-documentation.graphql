@@ -1,0 +1,7 @@
+mutation EditarDocumento($id : Int!, $input: DocumentationInputType!) {
+  documentations {
+    updateDocumentation(id : $id, documentation :$input) {
+      id
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation CriarVinculoClienteConstrucao($input: ConstructionInvestorInputType!) {
+  constructionInvestors  {
+    createConstructionInvestor(constructionInvestor :$input) {
+      id
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation EditarUnidadeResindecial($id: Int!, $input: ConstructionHouseInputType!) {
+  constructionHouse  {
+    updateConstructionHouse(id : $id , constructionHouse :$input) {
+      id
+    }
+  }
+}
+
+

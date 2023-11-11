@@ -1,7 +1,9 @@
 import { useFormik } from "formik";
 import { useState } from "react";
+import LeftModal from "../../../components/LeftModal";
+import { PencilSimple, Trash } from "phosphor-react";
 
-export interface ICasa {
+export interface IUnidadeResidencial {
   id: string;
   descricao?: string;
   fracao_terreno?: string;
@@ -17,32 +19,14 @@ export interface ICasa {
   data_criacao?: string;
 }
 
-const mockCasas = [
-  {
-    id: '1',
-    descricao: 'Casa 1',
-    fracao_terreno: 'F1',
-    area_construida: '200.0 m²',
-    area_permeavel: '50.0 m²',
-    matricula: 'MAT-001',
-    un_cons_energia: '220V',
-    un_cons_agua: 'Cedae',
-    valor_venda: 'R$ 500,000.00',
-    id_usuario_cadastro: '1',
-    id_usuario_alteracao: '1',
-    data_alteracao: '2023-03-10',
-    data_criacao: '2023-01-15',
-  },
-  // Adicione outras casas aqui
-];
-
-export default function Casas() {
-  const [casas, setCasas] = useState<ICasa[]>([]);
+export default function UnidadeResidencial() {
+  const [casas, setCasas] = useState<IUnidadeResidencial[]>([]);
   const [showModalCadastro, setShowModalCadastro] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const formik = useFormik<ICasa>({
+  const formik = useFormik<IUnidadeResidencial>({
     initialValues: {
-      id: '',
+      id: Date.now().toString(),
       descricao: '',
       fracao_terreno: '',
       area_construida: '',
@@ -56,9 +40,35 @@ export default function Casas() {
       data_alteracao: '',
       data_criacao: '',
     },
-
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      if (isEditing) {
+
+        const newCasas = casas.map((casa) => {
+          if (casa.id === values.id) {
+            return {
+              ...casa,
+              ...values,
+            };
+          }
+          return casa;
+        });
+        setCasas(newCasas);
+        setIsEditing(false);
+
+      } else {
+        let casa = {
+          id_usuario_cadastro: '1',
+          id_usuario_alteracao: '1',
+          data_alteracao: '2023-03-10',
+          data_criacao: '2023-01-15',
+          ...values,
+        };
+        setCasas([...casas, casa]);
+        setIsEditing(false);
+      }
+
+      setShowModalCadastro(false);
+      formik.resetForm();
     }
   });
 
@@ -68,13 +78,15 @@ export default function Casas() {
     setCasas(newCasas);
   }
 
-  const handleInsert = (e: any) => {
+  const handleEdit = (e: any, id: string) => {
     e.preventDefault();
-    const casa = mockCasas.find((casa) => casa.descricao === formik.values.descricao);
+    const casa = casas.find((casa) => casa.id === id);
     if (casa) {
-      setCasas([...casas, casa]);
+      formik.setValues(casa);
+      setIsEditing(true);
+      setShowModalCadastro(true);
     }
-  };
+  }
 
   return (
     <>
@@ -92,7 +104,9 @@ export default function Casas() {
         </div>
       </div>
 
-      {showModalCadastro ? (<form className="border rounded-md p-6 mt-5">
+      <LeftModal showleftModal={showModalCadastro} setShowLeftModal={setShowModalCadastro}
+        title="Cadastrar Unidade Residencial"
+      >
         <div className="grid grid-cols-2 gap-4 mt-5">
           <div className="flex flex-col">
             <label htmlFor="identificador">Descrição</label>
@@ -210,13 +224,17 @@ export default function Casas() {
             <button className="border-[#003569] text-[#003569] border px-4 py-2 rounded-md"
               onClick={() => {
                 setShowModalCadastro(false);
+                formik.resetForm();
               }}
             >Cancelar</button>
-            <button type="submit" className="bg-[#003569] text-white px-4 py-2 rounded-md w-[100px]">Salvar</button>
+            <button
+              onClick={() => {
+                formik.handleSubmit();
+              }}
+              className="bg-[#003569] text-white px-4 py-2 rounded-md w-[100px]">Salvar</button>
           </div>
         </div>
-
-      </form>) : null}
+      </LeftModal>
 
       <table className="min-w-full divide-y divide-gray-200 mt-5">
         <thead className="bg-gray-50">
@@ -243,7 +261,16 @@ export default function Casas() {
               <td className="px-6 py-4 whitespace-nowrap text-center">{item.un_cons_energia}</td>
               <td className="px-6 py-4 whitespace-nowrap text-center">{item.un_cons_agua}</td>
               <td className="px-6 py-4 whitespace-nowrap text-center">{item.valor_venda}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-center">
+              <td className="px-6 py-4 whitespace-nowrap text-center gap-3 flex">
+                <button
+                  type="button"
+                  className="text-red-500 hover:text-red-700"
+                  onClick={(e) => {
+                    handleEdit(e, item.id);
+                  }}
+                >
+                  <PencilSimple size={20} />
+                </button>
                 <button
                   type="button"
                   className="text-red-500 hover:text-red-700"
@@ -251,7 +278,7 @@ export default function Casas() {
                     handleDelete(e, item.id);
                   }}
                 >
-                  Excluir
+                  <Trash size={20} />
                 </button>
               </td>
             </tr>

@@ -1,0 +1,26 @@
+query getVinculoClientesObra($pagination: PaginationDetailsType, $filter: ConstructionInvestorFilterByInputType, $sort: ConstructionInvestorByInputType ){
+  constructionInvestors {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        peopleId
+        constructionId
+        active
+        people {
+          id
+          fantasyName
+          cnpj
+          cpf
+          typePeople
+        }   
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

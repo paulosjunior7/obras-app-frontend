@@ -1,0 +1,7 @@
+mutation EditarFornecedor($id : Int!, $input: ProviderInputType!) {
+  providers {
+    updateProvider (id : $id, provider :$input) {
+      id
+    }
+  }
+}

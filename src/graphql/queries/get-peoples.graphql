@@ -1,0 +1,33 @@
+query getPessoas($pagination: PaginationDetailsType, $filter: PeopleFilterByInputType, $sort: PeopleByInputType ){
+  peoples {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        neighbourhood
+        number
+        state
+        telephone
+        zipCode
+        active
+        address
+        cellPhone
+        city
+        cnpj
+        complement
+        fantasyName
+        corporateName
+        eMail
+        constructor
+        client
+        investor
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

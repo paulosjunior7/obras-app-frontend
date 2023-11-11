@@ -1,0 +1,7 @@
+mutation CriarCargo($input: ResponsibilityInputType!) {
+  responsibilities {
+    createResponsibility(responsibility :$input) {
+      id
+    }
+  }
+}

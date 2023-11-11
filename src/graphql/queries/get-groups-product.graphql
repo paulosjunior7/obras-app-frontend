@@ -1,0 +1,24 @@
+query getGruposProduto($pagination: PaginationDetailsType, $filter: GroupFilterByInputType, $sort: GroupByInputType ){
+  group {
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+        id
+        description
+        creationDate
+        changeDate
+        active
+        company {
+          id
+          corporateName
+        }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

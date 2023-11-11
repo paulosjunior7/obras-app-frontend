@@ -1,0 +1,10 @@
+query getDespesaByID($id: Int!){
+  expenses {
+    findById(id : $id ){
+        id
+        description
+        changeDate
+        active
+    }
+  }
+}

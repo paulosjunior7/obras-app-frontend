@@ -1,0 +1,7 @@
+mutation CriarDocumento($input: DocumentationInputType!) {
+  documentations  {
+    createDocumentation(documentation :$input) {
+      id
+    }
+  }
+}

@@ -1,11 +1,70 @@
+import React, { useState } from "react";
+import { Buildings } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
+import { ConstructionType, useGetObrasQuery } from "../../graphql/generated";
 import Container from "../../components/Container";
 
 export default function Obras() {
-  const navigate = useNavigate()
+  const [obras, setObras] = useState<ConstructionType[]>([]);
+  const [pesquisa, setPesquisa] = useState("");
+  const [page, setPage] = useState(1);
+  const [start, setStart] = useState(0);
+  const [offset, setOffset] = useState(5);
+  const [totalBullets, setTotalBullets] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const [showModalDelete, setShowModalDelete] = useState<ConstructionType>(
+    {} as ConstructionType
+  );
+
+  const navigate = useNavigate();
+
+  const { loading, refetch } = useGetObrasQuery({
+    variables: {
+      pagination: {
+        pageNumber: page,
+        pageSize: offset,
+      },
+      filter: {
+        // description: pesquisa,
+        active: true,
+      },
+    },
+    nextFetchPolicy: "cache-and-network",
+    onCompleted: (data) => {
+      if (data && data.constructions?.findall) {
+        const { items, totalCount, pageInfo } = data.constructions.findall;
+        setObras(items as ConstructionType[]);
+        setTotalCount(totalCount!);
+        const quantidade = items?.length!;
+        const _count = quantidade > totalCount! ? totalCount! : quantidade;
+        const bulletCount = _count
+          ? Math.abs(Math.ceil(totalCount! / offset))
+          : 0;
+        setTotalBullets(bulletCount);
+      }
+    },
+  });
+
+  // const [editarProduto] = useEditarProdutoMutation({
+  //   onCompleted: (resposta) => {
+  //     toast.success("Produto excluído", {
+  //       position: toast.POSITION.BOTTOM_RIGHT,
+  //       className: "foo-bar",
+  //     });
+  //     refetch();
+  //     setShowModalDelete({} as ProductType);
+  //   },
+  //   onError: (error) => {
+  //     toast.error("Falha ao excluir produto", {
+  //       position: toast.POSITION.BOTTOM_RIGHT,
+  //       className: "foo-bar",
+  //     });
+  //   },
+  // });
+
   return (
-    <Container>
-      <div className="flex flex-col w-full py-4 h-screen px-6 scroll-smooth	">
+    <div>
+      <div className="flex flex-col w-full py-4 h-screen scroll-smooth	">
         <div className="flex justify-between">
 
           <h4 className="text-2xl font-normal">Minhas Obras</h4>
@@ -35,6 +94,23 @@ export default function Obras() {
           ))
         }
       </div>
-    </Container>
-  )
+    </div>
+
+    // <div className="container mx-auto px-12 py-8 mt-5 flex justify-start ">
+    //   <div className="flex flex-wrap -mx-1 lg:-mx-4">
+    //     {obras.map((obra: ConstructionType) => (
+    //       <div>
+    //         <span>{obra.identifier}</span>
+    //       </div>
+    //       // <Card
+    //       //   id={Number(obra.id)}
+    //       //   title={obra.identifier}
+    //       //   description="Aqui você vai encontrar os principais recursos para criar e gerenciar suas obras"
+    //       //   icon={<Buildings size={35} />}
+    //       // />
+    //     ))}
+    //   </div>
+    // </div>
+  );
 }
+

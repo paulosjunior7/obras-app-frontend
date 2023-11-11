@@ -1,0 +1,7 @@
+mutation CriarMarca($input: BrandInputType!) {
+  brands  {
+    createBrand(brand :$input) {
+      id
+    }
+  }
+}

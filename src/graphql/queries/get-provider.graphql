@@ -1,0 +1,20 @@
+query getFornecedorByID($id: Int!){
+  providers{
+    findById(id : $id ){
+       id
+        neighbourhood
+        number
+        state
+        telephone
+        zipCode
+        active
+        address
+        cellPhone
+        city
+        cnpj
+        complement
+        name
+        eMail
+    }
+  }
+}

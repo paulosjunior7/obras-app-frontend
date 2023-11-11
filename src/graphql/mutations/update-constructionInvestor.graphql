@@ -1,0 +1,8 @@
+mutation EditarVinculoClienteConstrucao($id: Int!, $input: ConstructionInvestorInputType!) {
+  constructionInvestors  {
+    updateConstructionInvestor(id : $id , constructionInvestor :$input) {
+      id
+    }
+  }
+}
+

@@ -1,0 +1,7 @@
+mutation CriarPessoa($input: PeopleInputType!) {
+  peoples {
+    createPeople(people :$input) {
+      id
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation EditarPessoa($id : Int!, $input: PeopleInputType!) {
+  peoples {
+    updatePeople (id : $id, people :$input) {
+      id
+    }
+  }
+}

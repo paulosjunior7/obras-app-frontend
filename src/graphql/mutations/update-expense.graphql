@@ -1,0 +1,7 @@
+mutation EditarDespesa($id : Int!, $input: ExpenseInputType!) {
+  expenses {
+    updateExpense(id : $id, expense :$input) {
+      id
+    }
+  }
+}

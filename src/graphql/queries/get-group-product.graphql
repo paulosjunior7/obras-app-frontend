@@ -1,0 +1,10 @@
+query getGrupoByID($id: Int!){
+  group {
+    findById(id : $id ){
+        id
+        description
+        changeDate
+        active
+    }
+  }
+}

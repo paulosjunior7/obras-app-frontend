@@ -1,0 +1,39 @@
+query getObras($pagination: PaginationDetailsType, $filter: ConstructionFilterByInputType, $sort: ConstructionByInputType ){
+  constructions{
+    findall(pagination: $pagination, filter: $filter, sort: $sort){
+      items {
+          id
+          address
+          art
+          batchArea
+          buildingArea
+          city
+          cno
+          complement
+          dateBegin
+          dateEnd
+          identifier
+          latitude
+          license
+          longitude
+          motherEnrollment
+          municipalRegistration
+          neighbourhood
+          number
+          saleValue
+          state
+          undergroundUse
+          zipCode
+          active
+          statusConstruction
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}

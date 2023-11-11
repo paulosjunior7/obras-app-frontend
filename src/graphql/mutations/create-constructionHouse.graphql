@@ -1,0 +1,7 @@
+mutation CriarUnidadeResidencial($input: ConstructionHouseInputType!) {
+  constructionHouse  {
+    createConstructionHouse(constructionHouse :$input) {
+      id
+    }
+  }
+}

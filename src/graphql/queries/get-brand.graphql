@@ -1,0 +1,10 @@
+query getMarcaByID($id: Int!){
+  brands{
+    findById(id : $id ){
+        id
+        description
+        changeDate
+        active
+    }
+  }
+}

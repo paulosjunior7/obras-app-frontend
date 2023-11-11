@@ -1,0 +1,7 @@
+mutation CriarGrupoProduto($input: GroupInputType!) {
+  group  {
+    createGroup(group :$input) {
+      id
+    }
+  }
+}

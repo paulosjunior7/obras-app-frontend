@@ -1,0 +1,7 @@
+mutation EditarProduto($id : Int!, $input: ProductInputType!) {
+  products {
+    updateProduct(id : $id, product :$input) {
+      id
+    }
+  }
+}
