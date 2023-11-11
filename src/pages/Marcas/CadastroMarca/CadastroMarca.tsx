@@ -29,14 +29,13 @@ function CadastroMarca() {
     })
     .required();
 
-
   const [criarMarca] = useCriarMarcaMutation({
     onCompleted: (resposta) => {
       toast.success("Marca cadastrada", {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "foo-bar",
       });
-      navigate("/");
+      navigate("/marcas");
     },
     onError: (error) => {
       toast.error("Falha ao cadastrar marca", {
@@ -72,22 +71,22 @@ function CadastroMarca() {
     onSubmit: (values) => {
       Number(slug) > 0
         ? editarMarca({
-          variables: {
-            id: Number(slug),
-            input: {
-              description: values.description,
-              active: true,
+            variables: {
+              id: Number(slug),
+              input: {
+                description: values.description,
+                active: true,
+              },
             },
-          },
-        })
+          })
         : criarMarca({
-          variables: {
-            input: {
-              description: values.description,
-              active: true,
+            variables: {
+              input: {
+                description: values.description,
+                active: true,
+              },
             },
-          },
-        });
+          });
     },
   });
 
