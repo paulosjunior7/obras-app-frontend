@@ -71,10 +71,9 @@ export default function Construcao() {
   });
   const [showleftModal, setShowLeftModal] = useState(false);
 
-
   return (
     <Container>
-      <LeftModal showleftModal={showleftModal} setShowLeftModal={setShowLeftModal}
+      {/* <LeftModal showleftModal={showleftModal} setShowLeftModal={setShowLeftModal}
         title="Cadastrar Casa"
       >
         <div className="grid grid-cols-2 gap-4 mt-5">
@@ -167,6 +166,10 @@ export default function Construcao() {
         onClick={() => setShowLeftModal(showleftModal => !showleftModal)}
       >Abrir
       </button>
+       */}
+      <h4 className="text-3xl font-medium leading-none mb-3">
+        Cadastrar Construção</h4>
+
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
         <Tab label="Detalhes" selected onClick={() => { }}>
           <Detalhes formik={formik} />

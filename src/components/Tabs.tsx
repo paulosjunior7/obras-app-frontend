@@ -12,7 +12,7 @@ const Tabs = ({ children, selectedTab, setSelectedTab }: TabsProps) => {
   };
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col border p-5 bg-white rounded-xl">
       <div className="grid grid-cols-4 gap-1 w-full">
         {children.map((tab, index) => (
           <Tab
