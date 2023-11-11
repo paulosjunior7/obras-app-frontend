@@ -12,14 +12,13 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import LeftModal from "../../../components/LeftModal";
+import FooterCadastro from "../../../components/FooterCadastro";
 
 interface IFormInputs {
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  // setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function CadastroProduto({
-  setShowModal,
-}: IFormInputs) {
+export default function CadastroProduto() {
   const navigate = useNavigate();
   const { slug } = useParams<{ slug: string }>();
 
@@ -156,22 +155,11 @@ export default function CadastroProduto({
         />
 
       </div>
-      <div>
-        <div className="flex justify-end w-full gap-2 col-span-2">
-          <button
-            className="border-[#003569] text-[#003569] border px-4 py-2 rounded-md"
-            onClick={() => navigate("/produtos")}
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            className="bg-[#003569] text-white px-4 py-2 rounded-md w-[100px]"
-          >
-            Salvar
-          </button>
-        </div>
-      </div>
+      <FooterCadastro
+        navigate={navigate}
+        hef="/produtos"
+      />
     </form>
   );
 }
+

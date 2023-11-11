@@ -32,7 +32,7 @@ export function Router() {
     <Routes>
       <Route path="*" element={<Navigate to="/" />} />
 
-      <Route path="/obras/nova" element={<Construcao />} />
+      <Route path="/obras/cadastro" element={<Construcao />} />
       <Route path="/" element={<Home />} />
       <Route path="/produtos" element={<Produtos />} />
       <Route path="/produtos/edicao/:slug" element={<CadastroProduto />} />

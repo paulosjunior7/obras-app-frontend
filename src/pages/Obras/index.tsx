@@ -3,6 +3,7 @@ import { Buildings } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { ConstructionType, useGetObrasQuery } from "../../graphql/generated";
 import Container from "../../components/Container";
+import PageHeader from "../../components/HeaderPage";
 
 export default function Obras() {
   const [obras, setObras] = useState<ConstructionType[]>([]);
@@ -64,16 +65,14 @@ export default function Obras() {
 
   return (
     <div>
-      <div className="flex flex-col w-full py-4 h-screen scroll-smooth	">
-        <div className="flex justify-between">
-
-          <h4 className="text-2xl font-normal">Minhas Obras</h4>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            onClick={() => {
-              navigate("/obras/nova")
-            }}
-          >Adicionar</button>
-        </div>
+      <div className="flex flex-col ">
+        <PageHeader
+          setSearch={setPesquisa}
+          title="Construçōes"
+          button="Nova Construção"
+          onClick={() => navigate("/obras/cadastro")}
+          loading={loading}
+        />
         <div className="w-full bg-gray-100 h-16 mt-3 border-b-2 grid grid-cols-9 items-center px-4 rounded-t-md">
           <div className="col-span-4 font-semibold text-sm">Descriçao</div>
           <div className="col-span-2 font-semibold text-sm">Status</div>

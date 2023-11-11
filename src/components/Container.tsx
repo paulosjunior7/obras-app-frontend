@@ -1,6 +1,6 @@
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-white w-full h-full px-[calc(9rem)] py-9 scroll-smooth">
+    <div className="w-full h-full py-2 scroll-smooth">
       <div className="mx-auto w-full">{children}</div>
     </div>
   );

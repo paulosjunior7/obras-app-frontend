@@ -136,8 +136,8 @@ function Terceirizados() {
     <div className="w-full">
       <PageHeader
         setSearch={setPesquisa}
-        title="terceirizados"
-        button="Novo Produto"
+        title="Terceirizados"
+        button="Cadastrar terceirizado"
         onClick={() => navigate("/terceirizados/cadastro")}
         loading={loading}
       />

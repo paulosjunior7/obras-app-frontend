@@ -13,14 +13,46 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     // setExpanded(!expanded);
   };
 
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+
+  const toggleSubMenu = (path: string) => {
+    if (expandedItems.includes(path)) {
+      setExpandedItems(expandedItems.filter(item => item !== path));
+    } else {
+      setExpandedItems([...expandedItems, path]);
+    }
+  };
+
   const menu = [
+    {
+      label: "Construções",
+      path: "/obras",
+    },
+    {
+      label: "Dashboard",
+      path: "/dashboard",
+    },
     {
       label: "Produtos",
       path: "/produtos",
-    },
-    {
-      label: "Marcas",
-      path: "/marcas",
+      subMenu: [
+        {
+          label: "Produtos",
+          path: "/produtos",
+        },
+        {
+          label: "Unidades",
+          path: "/unidades",
+        },
+        {
+          label: "Grupos de Produto",
+          path: "/grupos-produto",
+        },
+        {
+          label: "Marcas",
+          path: "/marcas",
+        }
+      ],
     },
     {
       label: "Documentos",
@@ -36,7 +68,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     },
     {
       label: "Terceirizado",
-      path: "/terceirizado",
+      path: "/terceirizados",
     },
     {
       label: "Cargos",
@@ -46,39 +78,64 @@ function Sidebar({ children }: { children: React.ReactNode }) {
       label: "Pessoas",
       path: "/pessoas",
     },
-    {
-      label: "Unidades",
-      path: "/unidades",
-    },
-    {
-      label: "Grupos de Produto",
-      path: "/grupos",
-    },
+
   ];
 
   return (
     <>
-      <div className="flex w-full h-screen ">
-        <div className="flex w-[240px] bg-[#FFF] border-r flex-col shadow-lg">
-          {
-            menu.map((item: any) => {
-              return (
+      <div className="flex w-full h-full ">
+        <div className="flex w-[240px] bg-[#FFF] border-r flex-col shadow-lg ">
+          {menu.map((item: any) => (
+            <div key={item.path} className="first:font-bold">
+              {item.subMenu ? (
                 <div
                   onClick={() => {
-                    navigate(item.path)
+                    toggleSubMenu(item.path);
                   }}
-                  className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100">
+                  className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100 "
+                >
                   <span className="font-normal leading-normal text-xs inline-block">
                     {item.label}
                   </span>
-                  <SvgIcon name="arrow-down" className="transform -rotate-90"
+                  <SvgIcon
+                    name="arrow-down"
+                    className={`transform ${expandedItems.includes(item.path) ? 'rotate-0' : '-rotate-90'}`}
                   />
                 </div>
-              )
-            }
-            )}
+              ) : (
+                <div
+                  onClick={() => {
+                    navigate(item.path);
+                  }}
+                  className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
+                >
+                  <span className="font-normal leading-normal text-xs inline-block">
+                    {item.label}
+                  </span>
+                </div>
+              )}
+              {expandedItems.includes(item.path) && item.subMenu && (
+                <div className="ml-5 shadow-sm"> {/* Adicione margem à esquerda para alinhar com o item pai */}
+                  {item.subMenu.map((subItem: any) => (
+                    <div
+                      key={subItem.path}
+                      onClick={() => {
+                        navigate(subItem.path);
+                      }}
+                      className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
+                    >
+                      <span className="font-normal leading-normal text-xs inline-block">
+                        {subItem.label}
+                      </span>
+                      {/* Se os subitens também puderem ter submenus, você pode adicionar um ícone de seta aqui */}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-        <div className="flex w-full bg-[#F1F5F9] py-4">
+        <div className="flex w-full bg-[#F1F5F9] py-4 h-full">
           <div className="flex w-full max-w-[1200px] mx-auto">
             {children}
           </div>
@@ -86,9 +143,6 @@ function Sidebar({ children }: { children: React.ReactNode }) {
       </div>
     </>
   )
-
-
-
   // return (
   //   <>
 
