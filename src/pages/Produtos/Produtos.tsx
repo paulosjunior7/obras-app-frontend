@@ -142,7 +142,7 @@ function Produtos() {
           showleftModal={showModal}
           setShowLeftModal={setShowModal}
         >
-          <CadastroProduto setShowModal={setShowModal} />
+          <CadastroProduto />
         </LeftModal>
 
         <PageHeader

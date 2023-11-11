@@ -83,7 +83,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className="flex w-full h-full ">
+      <div className="flex w-full h-full min-h-screen">
         <div className="flex w-[240px] bg-[#FFF] border-r flex-col shadow-lg ">
           {menu.map((item: any) => (
             <div key={item.path} className="first:font-bold">
@@ -135,7 +135,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
             </div>
           ))}
         </div>
-        <div className="flex w-full bg-[#F1F5F9] py-4 h-full">
+        <div className="flex w-full bg-[#F1F5F9] py-4 h-full min-h-screen">
           <div className="flex w-full max-w-[1200px] mx-auto">
             {children}
           </div>

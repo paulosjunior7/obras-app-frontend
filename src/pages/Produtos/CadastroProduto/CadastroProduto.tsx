@@ -35,7 +35,7 @@ export default function CadastroProduto() {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "foo-bar",
       });
-      setShowModal ? setShowModal(false) : navigate("/produtos");
+      navigate("/produtos")
     },
     onError: (error) => {
       toast.error("Falha ao cadastrar produto", {
@@ -51,7 +51,7 @@ export default function CadastroProduto() {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "foo-bar",
       });
-      setShowModal ? setShowModal(false) : navigate("/produtos");
+      navigate("/produtos")
     },
     onError: (error) => {
       toast.error("Falha ao alterar produto", {
