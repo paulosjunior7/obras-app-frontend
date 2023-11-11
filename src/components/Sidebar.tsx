@@ -92,7 +92,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
                   onClick={() => {
                     toggleSubMenu(item.path);
                   }}
-                  className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100 "
+                  className="flex flex-row w-full h-[56px] items-center justify-between px-6 cursor-pointer hover:bg-slate-100 "
                 >
                   <span className="font-normal leading-normal text-xs inline-block">
                     {item.label}
@@ -107,7 +107,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
                   onClick={() => {
                     navigate(item.path);
                   }}
-                  className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
+                  className="flex flex-row w-full h-[56px] items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
                 >
                   <span className="font-normal leading-normal text-xs inline-block">
                     {item.label}
@@ -122,7 +122,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
                       onClick={() => {
                         navigate(subItem.path);
                       }}
-                      className="flex flex-row w-full h-[56px] border-b items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
+                      className="flex flex-row w-full h-[56px] items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
                     >
                       <span className="font-normal leading-normal text-xs inline-block">
                         {subItem.label}

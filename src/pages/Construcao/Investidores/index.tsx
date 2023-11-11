@@ -114,7 +114,7 @@ export default function Investidores() {
     <>
       <div className="flex justify-between">
         <div className="flex justify-between w-full mt-5 bg-gradient-to-r from-gray-100 to-gray-50 p-2 rounded-md">
-          <h4 className="text-2xl font-normal">Investidores</h4>
+          <h4 className="text-lg font-normal">Investidores</h4>
         </div>
       </div>
 

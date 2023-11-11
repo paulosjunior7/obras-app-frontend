@@ -23,9 +23,9 @@ export default function LeftModal({
         onClick={() => setShowLeftModal(showleftModal => !showleftModal)}>
       </div>
 
-      <div className={`fixed left-0 h-full w-2/4 border-l shadow-sm z-20 top-0 
-       bg-white border-gray-300 transform -translate-x-full transition duration-500 ease-in-out 
-       ${showleftModal ? 'translate-x-0' : ''
+      <div className={`fixed right-0 h-full w-2/4 border-l shadow-sm z-20 top-0 
+       bg-white border-gray-300 transform translate-x-full transition duration-500 ease-in-out 
+       ${showleftModal ? '-translate-x-0' : ''
         }
        `}
       >

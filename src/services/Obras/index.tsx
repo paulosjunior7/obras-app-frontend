@@ -8,7 +8,7 @@ export default function Obras() {
       <div className="flex flex-col w-full py-4 h-screen px-6 scroll-smooth	">
         <div className="flex justify-between">
 
-          <h4 className="text-2xl font-normal">Minhas Obras</h4>
+          <h4 className="text-lg font-normal">Minhas Obras</h4>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
             onClick={() => {
               navigate("/obras/nova")

@@ -42,8 +42,8 @@ interface TabProps {
 export const Tab = ({ label, selected, onClick }: TabProps) => {
   return (
     <div
-      className={`h-8 w-full ${selected ? "bg-[#003569] text-white" : "text-blue-800 bg-[#EDF1F5]"
-        } rounded-t-md flex items-center justify-center text-base font-medium cursor-pointer`}
+      className={`h-8 w-full ${selected ? "bg-[#003569] text-white" : "bg-[#EDF1F5]"
+        } rounded-t-md flex items-center justify-center text-sm font-medium cursor-pointer`}
       onClick={onClick}
     >
       {label}

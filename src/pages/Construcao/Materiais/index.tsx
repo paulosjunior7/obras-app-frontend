@@ -132,7 +132,7 @@ export default function Materiais() {
     <>
       <div className="flex justify-between">
         <div className="flex justify-between w-full mt-5 bg-gradient-to-r from-gray-100 to-gray-50 p-2 rounded-md">
-          <h4 className="text-2xl font-normal">Materiais</h4>
+          <h4 className="text-lg font-normal">Materiais</h4>
           {!showModalCadastro ? (
             <button
               className="bg-[#003569] text-white px-4 py-2 rounded-md"
