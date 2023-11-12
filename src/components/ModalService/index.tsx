@@ -50,18 +50,18 @@ const Modal: React.FC = () => {
    * Serviço para ocultar o modal
    */
   ModalService.hide = (config) => {
-    config.onClose?.();
+    config?.onClose?.();
     dispatch({
       type: EModalActions.HIDE,
       payload: {
         content: "",
-        data: config.data,
+        data: config?.data,
       },
     });
   };
 
   const closeMe = () => {
-    state.onClose && state.onClose();
+    state?.onClose && state.onClose();
     ModalService.hide();
   };
 

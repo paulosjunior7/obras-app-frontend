@@ -15,9 +15,7 @@ export const useModalProduto = () => {
       onConfirm: () => {
         childRef.current?.salvar();
       },
-      onClose: () => {
-        refresh?.();
-      },
+      onClose: refresh,
     });
   };
 
