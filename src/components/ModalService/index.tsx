@@ -49,12 +49,13 @@ const Modal: React.FC = () => {
   /**
    * Serviço para ocultar o modal
    */
-  ModalService.hide = (data?: any) => {
+  ModalService.hide = (config) => {
+    config.onClose?.();
     dispatch({
       type: EModalActions.HIDE,
       payload: {
         content: "",
-        data,
+        data: config.data,
       },
     });
   };

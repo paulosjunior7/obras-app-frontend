@@ -20,7 +20,7 @@ function Produtos() {
   const [pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(1);
   const [start, setStart] = useState(0);
-  const [offset, setOffset] = useState(10);
+  const [offset, setOffset] = useState(20);
   const [totalBullets, setTotalBullets] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [showModalDelete, setShowModalDelete] = useState<ProductType>(
@@ -143,12 +143,9 @@ function Produtos() {
           setSearch={setPesquisa}
           title="Produtos"
           button="Novo Produto"
-          onClick={() =>
-            modalCadastroProduto.mostrar(() => {
-              console.log("Novo");
-              refetch();
-            })
-          }
+          onClick={() => {
+            modalCadastroProduto.mostrar(refetch);
+          }}
           loading={loading}
         />
         <Table

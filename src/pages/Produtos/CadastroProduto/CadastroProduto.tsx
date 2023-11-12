@@ -13,6 +13,8 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
 import { ModalService } from "../../../components/ModalService";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/app";
 
 interface IFormInputs {
   // setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +28,7 @@ export const CadastroProduto = forwardRef<CadastroProdutoProps, {}>(
   (props, ref) => {
     const navigate = useNavigate();
     const { slug } = useParams<{ slug: string }>();
+    const state = useSelector((state: RootState) => state.modalReducer);
 
     const salvar = () => {
       console.log("Teste");
@@ -50,7 +53,9 @@ export const CadastroProduto = forwardRef<CadastroProdutoProps, {}>(
           position: toast.POSITION.BOTTOM_RIGHT,
           className: "foo-bar",
         });
-        ModalService.hide();
+        ModalService.hide({
+          onClose: state.onClose,
+        });
         navigate("/produtos");
       },
       onError: (error) => {

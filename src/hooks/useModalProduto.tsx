@@ -8,7 +8,7 @@ import {
 export const useModalProduto = () => {
   const childRef = useRef<CadastroProdutoProps>(null);
 
-  const mostrar = (refresh: () => void) => {
+  const mostrar = (refresh?: () => void) => {
     ModalService.show({
       content: <CadastroProduto ref={childRef} />,
       title: "Cadastro de Produto",
@@ -16,7 +16,7 @@ export const useModalProduto = () => {
         childRef.current?.salvar();
       },
       onClose: () => {
-        refresh();
+        refresh?.();
       },
     });
   };
