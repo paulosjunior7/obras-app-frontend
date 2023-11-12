@@ -17,7 +17,7 @@ interface IModalServiceAPIs {
     data?: any;
     closeOutsideModal?: boolean;
   }) => void;
-  hide: (...args: any[]) => void;
+  hide: (...args: any) => void;
   closeMe: (...args: any[]) => void;
 }
 

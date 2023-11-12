@@ -11,8 +11,6 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
-import CadastroProduto from "./CadastroProduto";
-import LeftModal from "../../components/LeftModal";
 import { useModalProduto } from "../../hooks/useModalProduto";
 
 function Produtos() {
@@ -31,7 +29,7 @@ function Produtos() {
 
   const navigate = useNavigate();
 
-  const { loading, refetch } = useGetProdutosQuery({
+  const { loading, refetch, client } = useGetProdutosQuery({
     variables: {
       pagination: {
         pageNumber: page,
@@ -95,7 +93,7 @@ function Produtos() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/produtos/edicao/${id}`);
+    modalCadastroProduto.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -144,7 +142,7 @@ function Produtos() {
           title="Produtos"
           button="Novo Produto"
           onClick={() => {
-            modalCadastroProduto.mostrar(refetch);
+            modalCadastroProduto.mostrar(() => refetch());
           }}
           loading={loading}
         />
