@@ -1,7 +1,10 @@
-import { BrowserRouter } from "react-router-dom"
-import { Router } from "./routes"
-import Header from "./components/Header"
-import Sidebar from "./components/Sidebar"
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { Router } from "./routes";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+import Modal from "./components/ModalService";
+import { Store } from "./redux";
 
 function App() {
   return (
@@ -9,11 +12,14 @@ function App() {
       <BrowserRouter>
         <Header />
         <Sidebar>
-          <Router />
+          <Provider store={Store}>
+            <Router />
+            <Modal />
+          </Provider>
         </Sidebar>
-      </BrowserRouter >
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

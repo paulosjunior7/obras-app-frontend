@@ -13,18 +13,21 @@ import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import CadastroProduto from "./CadastroProduto";
 import LeftModal from "../../components/LeftModal";
+import { useModalProduto } from "../../hooks/useModalProduto";
 
 function Produtos() {
   const [produtos, setProdutos] = useState<ProductType[]>([]);
   const [pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(1);
   const [start, setStart] = useState(0);
-  const [offset, setOffset] = useState(5);
+  const [offset, setOffset] = useState(10);
   const [totalBullets, setTotalBullets] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [showModalDelete, setShowModalDelete] = useState<ProductType>(
     {} as ProductType
   );
+
+  const modalCadastroProduto = useModalProduto();
 
   const navigate = useNavigate();
 
@@ -133,23 +136,19 @@ function Produtos() {
     { heading: "Status", value: "active" },
   ];
 
-  const [showModal, setShowModal] = useState(false);
   return (
     <div className="w-full">
       <>
-        <LeftModal
-          title="Cadastro de Produto"
-          showleftModal={showModal}
-          setShowLeftModal={setShowModal}
-        >
-          <CadastroProduto />
-        </LeftModal>
-
         <PageHeader
           setSearch={setPesquisa}
           title="Produtos"
           button="Novo Produto"
-          onClick={() => setShowModal(true)}
+          onClick={() =>
+            modalCadastroProduto.mostrar(() => {
+              console.log("Novo");
+              refetch();
+            })
+          }
           loading={loading}
         />
         <Table

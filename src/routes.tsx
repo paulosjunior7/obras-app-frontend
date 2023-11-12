@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Produtos from "./pages/Produtos";
-import CadastroProduto from "./pages/Produtos/CadastroProduto";
 import Marcas from "./pages/Marcas";
 import CadastroMarca from "./pages/Marcas/CadastroMarca";
 import Documentacao from "./pages/Documentos";
@@ -35,8 +34,6 @@ export function Router() {
       <Route path="/obras/cadastro" element={<Construcao />} />
       <Route path="/" element={<Home />} />
       <Route path="/produtos" element={<Produtos />} />
-      <Route path="/produtos/edicao/:slug" element={<CadastroProduto />} />
-      <Route path="/produtos/cadastro" element={<CadastroProduto />} />
 
       <Route path="/marcas" element={<Marcas />} />
       <Route path="/marcas/edicao/:slug" element={<CadastroMarca />} />
