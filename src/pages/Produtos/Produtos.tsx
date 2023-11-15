@@ -27,9 +27,7 @@ function Produtos() {
 
   const modalCadastroProduto = useModalProduto();
 
-  const navigate = useNavigate();
-
-  const { loading, refetch, client } = useGetProdutosQuery({
+  const { loading, refetch } = useGetProdutosQuery({
     variables: {
       pagination: {
         pageNumber: page,
@@ -40,7 +38,7 @@ function Produtos() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.products?.findall) {
         const { items, totalCount, pageInfo } = data.products.findall;
@@ -113,15 +111,15 @@ function Produtos() {
 
   const ActionsButtons = (row: any) => {
     return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
+      <div className="py-4 px-3 text-center flex gap-5 justify-center">
         <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
+          size={14}
+          className="cursor-pointer"
           onClick={() => handleEdit(row.id)}
         />
         <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
+          size={14}
+          className="cursor-pointer"
           onClick={() => setShowModalDelete(row)}
         />
       </div>
@@ -131,7 +129,6 @@ function Produtos() {
   const column = [
     { heading: "Descricao", value: "description" },
     { heading: "Detalhe", value: "detail" },
-    { heading: "Status", value: "active" },
   ];
 
   return (
