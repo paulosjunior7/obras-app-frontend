@@ -140,7 +140,7 @@ function CadastroFornecedor() {
       });
     },
     skip: !!!slug,
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   return (

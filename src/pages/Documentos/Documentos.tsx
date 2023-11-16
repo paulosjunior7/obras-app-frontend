@@ -37,7 +37,7 @@ function Documentos() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.documentations?.findall) {
         const { items, totalCount, pageInfo } = data.documentations.findall;

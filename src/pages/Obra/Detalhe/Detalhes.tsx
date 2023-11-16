@@ -183,7 +183,7 @@ const Detalhes = () => {
       id: Number(slug),
     },
     skip: !!!slug,
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (response) => {
       formik.setValues({
         address: response.constructions?.findById?.address!,

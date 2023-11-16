@@ -73,24 +73,24 @@ function CadastroUnidade() {
       console.log(slug);
       Number(slug) > 0
         ? editarUnidade({
-            variables: {
-              id: Number(slug),
-              input: {
-                description: values.description,
-                multiplier: Number(values.multiplier),
-                active: true,
-              },
+          variables: {
+            id: Number(slug),
+            input: {
+              description: values.description,
+              multiplier: Number(values.multiplier),
+              active: true,
             },
-          })
+          },
+        })
         : criarUnidade({
-            variables: {
-              input: {
-                description: values.description,
-                multiplier: Number(values.multiplier),
-                active: true,
-              },
+          variables: {
+            input: {
+              description: values.description,
+              multiplier: Number(values.multiplier),
+              active: true,
             },
-          });
+          },
+        });
     },
   });
 
@@ -107,7 +107,7 @@ function CadastroUnidade() {
       });
     },
     skip: !!!slug,
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   return (

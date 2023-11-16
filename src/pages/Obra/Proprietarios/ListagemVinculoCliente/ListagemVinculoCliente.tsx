@@ -44,7 +44,7 @@ const ListagemVinculoCliente: React.FC = () => {
       },
       filter: {},
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.constructionInvestors?.findall) {
         const { items, totalCount, pageInfo } =
@@ -122,7 +122,7 @@ const ListagemVinculoCliente: React.FC = () => {
   return (
     <>
       <Table
-        handleEdit={() => {}}
+        handleEdit={() => { }}
         setShowModalDelete={setShowModalDelete}
         column={column}
         data={vinculocliente.map((item: ConstructionInvestorType) => ({

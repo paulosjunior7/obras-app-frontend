@@ -38,7 +38,7 @@ function Cargos() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.responsibilities?.findall?.items) {
         const { items, totalCount, pageInfo } = data.responsibilities?.findall!;

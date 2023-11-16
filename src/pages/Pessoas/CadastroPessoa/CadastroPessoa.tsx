@@ -201,7 +201,7 @@ function CadastroPessoa() {
       });
     },
     skip: !!!slug,
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   return (

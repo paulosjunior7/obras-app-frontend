@@ -37,7 +37,7 @@ function Fornecedores() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.providers?.findall) {
         const { items, totalCount, pageInfo } = data.providers.findall;

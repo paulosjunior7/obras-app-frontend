@@ -67,22 +67,22 @@ function CadastroDespesa() {
     onSubmit: (values) => {
       Number(slug) > 0
         ? editarDespesa({
-            variables: {
-              id: Number(slug),
-              input: {
-                description: values.description,
-                active: true,
-              },
+          variables: {
+            id: Number(slug),
+            input: {
+              description: values.description,
+              active: true,
             },
-          })
+          },
+        })
         : criarDespesa({
-            variables: {
-              input: {
-                description: values.description,
-                active: true,
-              },
+          variables: {
+            input: {
+              description: values.description,
+              active: true,
             },
-          });
+          },
+        });
     },
   });
 
@@ -98,7 +98,7 @@ function CadastroDespesa() {
       });
     },
     skip: !!!slug,
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   return (

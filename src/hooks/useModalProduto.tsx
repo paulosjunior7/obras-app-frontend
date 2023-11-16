@@ -1,9 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { ModalService } from "../components/ModalService";
-import {
-  CadastroProduto,
-  CadastroProdutoProps,
-} from "../pages/Produtos/CadastroProduto/CadastroProduto";
+import { CadastroProduto, CadastroProdutoProps } from "../pages/Produtos/CadastroProduto";
 
 export const useModalProduto = () => {
   const childRef = useRef<CadastroProdutoProps>(null);

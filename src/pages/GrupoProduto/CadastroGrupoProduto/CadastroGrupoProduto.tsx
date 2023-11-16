@@ -72,22 +72,22 @@ function CadastroGrupoProduto() {
     onSubmit: (values) => {
       Number(slug) > 0
         ? editarGrupo({
-            variables: {
-              id: Number(slug),
-              input: {
-                description: values.description,
-                active: values.active,
-              },
+          variables: {
+            id: Number(slug),
+            input: {
+              description: values.description,
+              active: values.active,
             },
-          })
+          },
+        })
         : criarGrupo({
-            variables: {
-              input: {
-                description: values.description,
-                active: values.active,
-              },
+          variables: {
+            input: {
+              description: values.description,
+              active: values.active,
             },
-          });
+          },
+        });
     },
   });
 
@@ -102,7 +102,7 @@ function CadastroGrupoProduto() {
         id: response?.group?.findById?.id!,
       });
     },
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   return (

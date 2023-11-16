@@ -37,7 +37,7 @@ function Despesas() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.expenses?.findall) {
         const { items, totalCount, pageInfo } = data.expenses.findall;

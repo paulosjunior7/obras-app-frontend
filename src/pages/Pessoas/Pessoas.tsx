@@ -39,7 +39,7 @@ function Pessoas() {
         active: true
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.peoples?.findall) {
         const { items, totalCount, pageInfo } = data.peoples.findall;

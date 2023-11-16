@@ -13,7 +13,7 @@ export default function Header() {
           <span className="text-sm font-normal text-black">
             Juliana Machado
           </span>
-          <span className="text-xs font-semibold text-black">
+          <span className="text-xs text-right font-semibold text-black">
             JMS Construtora
           </span>
         </div>

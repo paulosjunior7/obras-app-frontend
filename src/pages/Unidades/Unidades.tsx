@@ -40,7 +40,7 @@ function Unidades() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.unity?.findall?.items) {
         const { items, totalCount, pageInfo } = data.unity?.findall!;
@@ -113,24 +113,24 @@ function Unidades() {
 
   const ActionsButtons = (row: any) => {
     return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
+      <div className="py-4 px-3 text-center flex gap-5 justify-center">
         <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
+          size={14}
+          className="cursor-pointer"
           onClick={() => handleEdit(row.id)}
         />
         <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
+          size={14}
+          className="cursor-pointer"
           onClick={() => setShowModalDelete(row)}
         />
       </div>
     );
   };
 
+
   const column = [
     { heading: "Descricao", value: "description" },
-    { heading: "Status", value: "active" },
   ];
 
   return (

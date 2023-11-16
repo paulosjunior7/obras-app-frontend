@@ -47,7 +47,7 @@ const ListagemUnidadeResidencial: React.FC = () => {
       },
       filter: {},
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.constructionHouses?.findall) {
         const { items, totalCount, pageInfo } = data.constructionHouses.findall;
@@ -129,7 +129,7 @@ const ListagemUnidadeResidencial: React.FC = () => {
   return (
     <>
       <Table
-        handleEdit={() => {}}
+        handleEdit={() => { }}
         setShowModalDelete={setShowModalDelete}
         column={column}
         data={unidadesResidencial}

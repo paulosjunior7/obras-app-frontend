@@ -76,36 +76,36 @@ function CadastroUnidadeResidencial() {
     onSubmit: (values) => {
       Number(idUnidade) > 0
         ? editarUnidadeResidencial({
-            variables: {
-              id: Number(idUnidade),
-              input: {
-                description: values.description,
-                constructionId: values.constructionId,
-                permeableArea: values.permeableArea,
-                fractionBatch: values.fractionBatch,
-                buildingArea: values.buildingArea,
-                energyConsumptionUnit: values.energyConsumptionUnit,
-                saleValue: values.saleValue,
-                waterConsumptionUnit: values.waterConsumptionUnit,
-                active: true,
-              },
+          variables: {
+            id: Number(idUnidade),
+            input: {
+              description: values.description,
+              constructionId: values.constructionId,
+              permeableArea: values.permeableArea,
+              fractionBatch: values.fractionBatch,
+              buildingArea: values.buildingArea,
+              energyConsumptionUnit: values.energyConsumptionUnit,
+              saleValue: values.saleValue,
+              waterConsumptionUnit: values.waterConsumptionUnit,
+              active: true,
             },
-          })
+          },
+        })
         : criarUnidadeResidencial({
-            variables: {
-              input: {
-                description: values.description,
-                constructionId: values.constructionId,
-                permeableArea: values.permeableArea,
-                fractionBatch: values.fractionBatch,
-                buildingArea: values.buildingArea,
-                energyConsumptionUnit: values.energyConsumptionUnit,
-                saleValue: values.saleValue,
-                waterConsumptionUnit: values.waterConsumptionUnit,
-                active: true,
-              },
+          variables: {
+            input: {
+              description: values.description,
+              constructionId: values.constructionId,
+              permeableArea: values.permeableArea,
+              fractionBatch: values.fractionBatch,
+              buildingArea: values.buildingArea,
+              energyConsumptionUnit: values.energyConsumptionUnit,
+              saleValue: values.saleValue,
+              waterConsumptionUnit: values.waterConsumptionUnit,
+              active: true,
             },
-          });
+          },
+        });
     },
   });
 
@@ -128,7 +128,7 @@ function CadastroUnidadeResidencial() {
       });
     },
     skip: !!!idUnidade,
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
   });
 
   return (

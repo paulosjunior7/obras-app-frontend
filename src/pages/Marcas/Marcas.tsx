@@ -12,6 +12,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalMarca } from "../../hooks/useModalMarca";
 
 function Marcas() {
 
@@ -27,6 +28,8 @@ function Marcas() {
     {} as BrandType
   );
 
+  const modalCadastroMarca = useModalMarca();
+
   const navigate = useNavigate();
 
   const { loading, refetch } = useGetMarcasQuery({
@@ -40,7 +43,7 @@ function Marcas() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.brands?.findall?.items) {
         const { items, totalCount, pageInfo } = data.brands?.findall!;
@@ -95,7 +98,7 @@ function Marcas() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/marcas/edicao/${id}`);
+    modalCadastroMarca.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -140,7 +143,9 @@ function Marcas() {
         setSearch={setPesquisa}
         title="Marcas"
         button="Nova Marca"
-        onClick={() => navigate("/marcas/cadastro")}
+        onClick={() => {
+          modalCadastroMarca.mostrar(() => refetch());
+        }}
         loading={loading}
       />
       <Table

@@ -42,7 +42,7 @@ function GruposProduto() {
         active: true,
       },
     },
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       if (data && data.group?.findall?.items) {
         const { items, totalCount, pageInfo } = data.group?.findall!;
