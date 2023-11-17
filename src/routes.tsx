@@ -19,10 +19,8 @@ import Login from "./pages/Login/Login";
 import Pessoas from "./pages/Pessoas";
 import CadastroPessoa from "./pages/Pessoas/CadastroPessoa";
 import Unidades from "./pages/Unidades";
-import CadastroUnidade from "./pages/Unidades/CadastroUnidade";
 import Obra from "./pages/Obra";
 import GrupoProduto from "./pages/GrupoProduto";
-import CadastroGrupoProduto from "./pages/GrupoProduto/CadastroGrupoProduto";
 import Obras from "./pages/Obras";
 import Construcao from "./pages/Construcao";
 
@@ -91,18 +89,8 @@ export function Router() {
       </Route> */}
 
       <Route path="/unidades" element={<Unidades />} />
-      <Route path="/unidades/edicao/:slug" element={<CadastroUnidade />} />
-      <Route path="/unidades/cadastro" element={<CadastroUnidade />} />
 
       <Route path="/grupos-produto" element={<GrupoProduto />} />
-      <Route
-        path="/grupos-produto/edicao/:slug"
-        element={<CadastroGrupoProduto />}
-      />
-      <Route
-        path="/grupos-produto/cadastro"
-        element={<CadastroGrupoProduto />}
-      />
 
       <Route path="/login" element={<Login />} />
     </Routes>
