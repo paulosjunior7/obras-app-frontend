@@ -14,6 +14,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalGrupoProduto } from "../../hooks/useModalGrupoProduto";
 
 function GruposProduto() {
   const [grupos, setGrupos] = useState<GroupType[] | undefined>([
@@ -30,6 +31,8 @@ function GruposProduto() {
   );
 
   const navigate = useNavigate();
+
+  const modalCadastroGrupo = useModalGrupoProduto();
 
   const { loading, refetch } = useGetGruposProdutoQuery({
     variables: {
@@ -96,7 +99,7 @@ function GruposProduto() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/grupos-produto/edicao/${id}`);
+    modalCadastroGrupo.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -141,7 +144,9 @@ function GruposProduto() {
         setSearch={setPesquisa}
         title="Grupos"
         button="Novo Grupo"
-        onClick={() => navigate("/grupos-produto/cadastro")}
+        onClick={() => {
+          modalCadastroGrupo.mostrar(() => refetch());
+        }}
         loading={loading}
       />
       <Table

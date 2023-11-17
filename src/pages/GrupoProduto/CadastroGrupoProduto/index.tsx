@@ -1,1 +1,1 @@
-export { default } from "./CadastroGrupoProduto";
+export * from "./CadastroGrupoProduto";
