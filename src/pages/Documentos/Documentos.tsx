@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   DocumentationType,
   useEditarDocumentoMutation,
-  useGetDocumentosQuery
+  useGetDocumentosQuery,
 } from "../../graphql/generated";
 import { PencilSimple, Trash } from "phosphor-react";
 import { Pagination } from "../../components/Pagination";
@@ -11,6 +11,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalDocumento } from "../../hooks/useModalDocumento";
 
 function Documentos() {
   const [documentos, setDocumentos] = useState<DocumentationType[]>([]);
@@ -25,6 +26,7 @@ function Documentos() {
   );
 
   const navigate = useNavigate();
+  const modalCadastroDocumento = useModalDocumento();
 
   const { loading, refetch } = useGetDocumentosQuery({
     variables: {
@@ -90,7 +92,7 @@ function Documentos() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/documentos/edicao/${id}`);
+    modalCadastroDocumento.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -135,7 +137,9 @@ function Documentos() {
         setSearch={setPesquisa}
         title="Documentos"
         button="Novo Documento"
-        onClick={() => navigate("/documentos/cadastro")}
+        onClick={() => {
+          modalCadastroDocumento.mostrar(() => refetch());
+        }}
         loading={loading}
       />
       <Table

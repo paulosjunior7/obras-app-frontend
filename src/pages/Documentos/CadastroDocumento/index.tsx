@@ -1,1 +1,1 @@
-export { default } from './CadastroDocumento';
+export * from "./CadastroDocumento";

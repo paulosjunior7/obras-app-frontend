@@ -6,7 +6,6 @@ import Produtos from "./pages/Produtos";
 import Marcas from "./pages/Marcas";
 import CadastroMarca from "./pages/Marcas/CadastroMarca";
 import Documentacao from "./pages/Documentos";
-import CadastroDocumentacao from "./pages/Documentos/CadastroDocumento";
 import Despesas from "./pages/Despesas";
 import CadastroDespesa from "./pages/Despesas/CadastroDespesa";
 import Fornecedores from "./pages/Fornecedores";
@@ -38,11 +37,6 @@ export function Router() {
       <Route path="/marcas/cadastro" element={<CadastroMarca />} />
 
       <Route path="/documentos" element={<Documentacao />} />
-      <Route
-        path="/documentos/edicao/:slug"
-        element={<CadastroDocumentacao />}
-      />
-      <Route path="/documentos/cadastro" element={<CadastroDocumentacao />} />
 
       <Route path="/despesas" element={<Despesas />} />
       <Route path="/despesas/edicao/:slug" element={<CadastroDespesa />} />
