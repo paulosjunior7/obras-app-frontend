@@ -4,7 +4,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Produtos from "./pages/Produtos";
 import Marcas from "./pages/Marcas";
-import CadastroMarca from "./pages/Marcas/CadastroMarca";
 import Documentacao from "./pages/Documentos";
 import Despesas from "./pages/Despesas";
 import CadastroDespesa from "./pages/Despesas/CadastroDespesa";
@@ -33,14 +32,10 @@ export function Router() {
       <Route path="/produtos" element={<Produtos />} />
 
       <Route path="/marcas" element={<Marcas />} />
-      <Route path="/marcas/edicao/:slug" element={<CadastroMarca />} />
-      <Route path="/marcas/cadastro" element={<CadastroMarca />} />
 
       <Route path="/documentos" element={<Documentacao />} />
 
       <Route path="/despesas" element={<Despesas />} />
-      <Route path="/despesas/edicao/:slug" element={<CadastroDespesa />} />
-      <Route path="/despesas/cadastro" element={<CadastroDespesa />} />
 
       <Route path="/fornecedores" element={<Fornecedores />} />
       <Route

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ExpenseType,
   useEditarDespesaMutation,
-  useGetDespesasQuery
+  useGetDespesasQuery,
 } from "../../graphql/generated";
 import { PencilSimple, Trash } from "phosphor-react";
 import { Pagination } from "../../components/Pagination";
@@ -11,6 +11,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalDespesa } from "../../hooks/useModalDespesas";
 
 function Despesas() {
   const [despesas, setDespesas] = useState<ExpenseType[]>([]);
@@ -25,6 +26,7 @@ function Despesas() {
   );
 
   const navigate = useNavigate();
+  const modalCadastroDespesa = useModalDespesa();
 
   const { loading, refetch } = useGetDespesasQuery({
     variables: {
@@ -90,7 +92,7 @@ function Despesas() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/despesas/edicao/${id}`);
+    modalCadastroDespesa.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -135,7 +137,9 @@ function Despesas() {
         setSearch={setPesquisa}
         title="Despesas"
         button="Cadastrar nova despesa"
-        onClick={() => navigate("/despesas/cadastro")}
+        onClick={() => {
+          modalCadastroDespesa.mostrar(() => refetch());
+        }}
         loading={loading}
       />
 
