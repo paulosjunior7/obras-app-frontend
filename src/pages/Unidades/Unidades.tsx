@@ -11,11 +11,14 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalUnidade } from "../../hooks/useModalUnidade";
 
 function Unidades() {
   const [unidades, setUnidades] = useState<UnityType[] | undefined>([
     {} as UnityType,
   ]);
+
+  const modalCadastroUnidade = useModalUnidade();
 
   const [pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(1);
@@ -94,7 +97,7 @@ function Unidades() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/unidades/edicao/${id}`);
+    modalCadastroUnidade.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -128,10 +131,7 @@ function Unidades() {
     );
   };
 
-
-  const column = [
-    { heading: "Descricao", value: "description" },
-  ];
+  const column = [{ heading: "Descricao", value: "description" }];
 
   return (
     <div className="w-full">
@@ -139,7 +139,9 @@ function Unidades() {
         setSearch={setPesquisa}
         title="Unidades"
         button="Nova Unidade"
-        onClick={() => navigate("/unidades/cadastro")}
+        onClick={() => {
+          modalCadastroUnidade.mostrar(() => refetch());
+        }}
         loading={loading}
       />
       <Table
