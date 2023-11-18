@@ -235,13 +235,13 @@ const CadastroPessoa = forwardRef<
       <form
         className="bg-white grid justify-center flex-col gap-4 grid-cols-2 "
       >
-        <div className="flex border w-full flex-col">
-          <span className="font-semibold">Qual seu tipo de cadastro?</span>
+        <div className="flex border w-full flex-col  p-3  rounded-md">
+          <span className="font-normal text-base">Tipo de cadastro?</span>
 
           <FormGroup row>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              label="Cliente"
+              label="Investidor"
               className="text-gray-700"
               name="client"
               checked={formik.values.client}
@@ -257,9 +257,9 @@ const CadastroPessoa = forwardRef<
             />
           </FormGroup>
         </div>
-        <div className="flex border w-full flex-col">
+        <div className="flex border w-full flex-col p-3  rounded-md">
 
-          <span>
+          <span className="font-normal text-base">
             Tipo de pessoa
           </span>
           <RadioGroup

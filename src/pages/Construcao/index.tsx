@@ -176,29 +176,34 @@ export default function Construcao() {
       >
         Abrir
       </button>
-      <h4 className="text-3xl font-medium leading-none mb-3">
-        Cadastrar Construção
-      </h4>
+      <div className="flex justify-between">
+
+        <h4 className="text-2xl font-normal leading-none mb-3">
+          Cadastrar Construção
+        </h4>
+
+
+      </div>
 
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
-        <Tab label="Detalhes" selected onClick={() => {}}>
+        <Tab label="Detalhes" selected onClick={() => { }}>
           <Detalhes formik={formik} />
         </Tab>
-        <Tab label="Investidores" selected onClick={() => {}}>
+        <Tab label="Investidores" selected onClick={() => { }}>
           <Investidores />
         </Tab>
-        <Tab label="Terreno" selected onClick={() => {}}>
+        <Tab label="Terreno" selected onClick={() => { }}>
           <Terreno />
         </Tab>
-        <Tab label="Unidades residenciais" selected onClick={() => {}}>
+        <Tab label="Unidades residenciais" selected onClick={() => { }}>
           <UnidadeResidencial />
         </Tab>
-        <Tab label="Materiais" selected onClick={() => {}}>
+        <Tab label="Materiais" selected onClick={() => { }}>
           <Materiais />
         </Tab>
-        <Tab label="Mão de obra" selected onClick={() => {}}></Tab>
-        <Tab label="Documentação" selected onClick={() => {}}></Tab>
-        <Tab label="Despesas Diversas" selected onClick={() => {}}></Tab>
+        <Tab label="Mão de obra" selected onClick={() => { }}></Tab>
+        <Tab label="Documentação" selected onClick={() => { }}></Tab>
+        <Tab label="Despesas Diversas" selected onClick={() => { }}></Tab>
       </Tabs>
     </Container>
   );

@@ -24,6 +24,7 @@ export default function Detalhes({
             <input
               id="identificador"
               name="identificador"
+              placeholder='Ex: Casa 1'
               type="text"
               onChange={formik.handleChange}
               value={formik.values.identificador}
