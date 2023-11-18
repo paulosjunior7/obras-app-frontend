@@ -25,15 +25,15 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 
   const menu = [
     {
-      label: "Construções",
-      path: "/obras",
-    },
-    {
       label: "Dashboard",
       path: "/dashboard",
     },
     {
-      label: "Produtos",
+      label: "Construções",
+      path: "/obras",
+    },
+    {
+      label: "Cadastro de Produtos",
       path: "/produtos",
       subMenu: [
         {
@@ -55,30 +55,45 @@ function Sidebar({ children }: { children: React.ReactNode }) {
       ],
     },
     {
-      label: "Documentos",
-      path: "/documentos",
-    },
-    {
-      label: "Despesas",
-      path: "/despesas",
-    },
-    {
-      label: "Fornecedores",
-      path: "/fornecedores",
-    },
-    {
-      label: "Terceirizado",
-      path: "/terceirizados",
-    },
-    {
-      label: "Cargos",
-      path: "/cargos",
-    },
-    {
-      label: "Pessoas",
+      label: "Cadastro de pessoas",
       path: "/pessoas",
+      subMenu: [
+        {
+          label: "Pessoas",
+          path: "/pessoas",
+        },
+        {
+          label: "Clientes",
+          path: "/clientes",
+        },
+        {
+          label: "Fornecedores",
+          path: "/fornecedores",
+        },
+        {
+          label: "Terceirizados",
+          path: "/terceirizados",
+        },
+        {
+          label: "Cargos",
+          path: "/cargos",
+        },
+      ],
     },
-
+    {
+      label: "Cadastros Auxiliares",
+      path: "/obras",
+      subMenu: [
+        {
+          label: "Documentos",
+          path: "/documentos",
+        },
+        {
+          label: "Despesas",
+          path: "/despesas",
+        },
+      ]
+    }
   ];
 
   return (
