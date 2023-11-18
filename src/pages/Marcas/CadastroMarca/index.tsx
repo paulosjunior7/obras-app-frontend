@@ -32,7 +32,6 @@ const CadastroMarca = forwardRef<
     id?: number;
   }
 >(({ id }, ref) => {
-  const navigate = useNavigate();
   const state = useSelector((state: RootState) => state.modalReducer);
 
   const salvar = () => {

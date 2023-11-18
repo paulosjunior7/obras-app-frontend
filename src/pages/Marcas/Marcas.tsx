@@ -30,8 +30,6 @@ function Marcas() {
 
   const modalCadastroMarca = useModalMarca();
 
-  const navigate = useNavigate();
-
   const { loading, refetch } = useGetMarcasQuery({
     variables: {
       pagination: {

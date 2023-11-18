@@ -19,7 +19,8 @@ const Table: React.FC<TableProps> = ({ data, column, element }) => {
         <thead className="bg-gray-50">
           <tr>
             {column.map((item: any, index: Number) => (
-              <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {item.heading}
               </th>
             ))}
@@ -52,7 +53,7 @@ const TableRow: React.FC<TableRowProps> = ({ item, column, element }) => (
       if (columnItem.value.includes(".")) {
         const itemSplit = columnItem.value.split("."); //['address', 'city']
         return (
-          <td className=" px-6">{item[itemSplit[0]][itemSplit[1]]}</td>
+          <td className="px-6" >{item[itemSplit[0]][itemSplit[1]]}</td>
         );
       }
 

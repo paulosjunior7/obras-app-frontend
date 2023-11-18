@@ -11,6 +11,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalPessoa } from "../../hooks/useModalPessoa";
 
 function Pessoas() {
   const [pessoas, setPessoas] = useState<PeopleType[]>([]);
@@ -27,6 +28,8 @@ function Pessoas() {
   );
 
   const navigate = useNavigate();
+
+  const modalCadastroPessoa = useModalPessoa();
 
   const { loading, refetch } = useGetPessoasQuery({
     variables: {
@@ -92,7 +95,7 @@ function Pessoas() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/pessoas/edicao/${id}`);
+    modalCadastroPessoa.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -141,7 +144,9 @@ function Pessoas() {
         setSearch={setPesquisa}
         title="Pessoas"
         button="Nova Pessoa"
-        onClick={() => navigate("/pessoas/cadastro")}
+        onClick={() => {
+          modalCadastroPessoa.mostrar(() => refetch());
+        }}
         loading={loading}
       />
 
