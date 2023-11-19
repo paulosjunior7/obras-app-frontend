@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ProviderType,
   useEditarFornecedorMutation,
-  useGetFornecedoresQuery
+  useGetFornecedoresQuery,
 } from "../../graphql/generated";
 import { PencilSimple, Trash } from "phosphor-react";
 import { Pagination } from "../../components/Pagination";
@@ -11,6 +11,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalFornecedor } from "../../hooks/useModalFornecedor";
 
 function Fornecedores() {
   const [fornecedores, setFornecedores] = useState<ProviderType[]>([]);
@@ -25,6 +26,7 @@ function Fornecedores() {
   );
 
   const navigate = useNavigate();
+  const modalCadastroFornecedor = useModalFornecedor();
 
   const { loading, refetch } = useGetFornecedoresQuery({
     variables: {
@@ -90,7 +92,7 @@ function Fornecedores() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/fornecedores/edicao/${id}`);
+    modalCadastroFornecedor.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -138,7 +140,9 @@ function Fornecedores() {
         setSearch={setPesquisa}
         title="Fornecedores"
         button="Novo Fornecedor"
-        onClick={() => navigate("/fornecedores/cadastro")}
+        onClick={() => {
+          modalCadastroFornecedor.mostrar(() => refetch());
+        }}
         loading={loading}
       />
 

@@ -6,9 +6,7 @@ import Produtos from "./pages/Produtos";
 import Marcas from "./pages/Marcas";
 import Documentacao from "./pages/Documentos";
 import Despesas from "./pages/Despesas";
-import CadastroDespesa from "./pages/Despesas/CadastroDespesa";
 import Fornecedores from "./pages/Fornecedores";
-import CadastroFornecedor from "./pages/Fornecedores/CadastroFornecedor";
 import Terceirizados from "./pages/Terceirizados";
 import CadastroTerceirizado from "./pages/Terceirizados/CadastroTerceirizado";
 import Cargos from "./pages/Cargos";
@@ -38,11 +36,6 @@ export function Router() {
       <Route path="/despesas" element={<Despesas />} />
 
       <Route path="/fornecedores" element={<Fornecedores />} />
-      <Route
-        path="/fornecedores/edicao/:slug"
-        element={<CadastroFornecedor />}
-      />
-      <Route path="/fornecedores/cadastro" element={<CadastroFornecedor />} />
 
       <Route path="/terceirizados" element={<Terceirizados />} />
       <Route
