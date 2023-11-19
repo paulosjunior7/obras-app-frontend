@@ -38,14 +38,6 @@ export function Router() {
       <Route path="/fornecedores" element={<Fornecedores />} />
 
       <Route path="/terceirizados" element={<Terceirizados />} />
-      <Route
-        path="/terceirizados/edicao/:slug"
-        element={<CadastroTerceirizado />}
-      />
-      <Route
-        path="/terceirizados/cadastro"
-        element={<CadastroTerceirizado />}
-      />
 
       <Route path="/pessoas" element={<Pessoas />} />
       <Route path="/pessoas/edicao/:slug" element={<CadastroPessoa />} />

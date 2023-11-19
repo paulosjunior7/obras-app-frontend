@@ -1,1 +1,1 @@
-export { default } from './CadastroTerceirizado';
+export * from "./CadastroTerceirizado";

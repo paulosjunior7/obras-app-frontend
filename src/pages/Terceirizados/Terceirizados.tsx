@@ -11,6 +11,7 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalTerceirizado } from "../../hooks/useModalTercerizado";
 
 function Terceirizados() {
   const [terceirizados, setTerceirizados] = useState<OutsourcedType[]>([]);
@@ -25,6 +26,7 @@ function Terceirizados() {
   );
 
   const navigate = useNavigate();
+  const modalCadastroTerceirizado = useModalTerceirizado();
 
   const { loading, refetch } = useGetTerceirizadosQuery({
     variables: {
@@ -90,7 +92,7 @@ function Terceirizados() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/terceirizados/edicao/${id}`);
+    modalCadastroTerceirizado.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -138,7 +140,9 @@ function Terceirizados() {
         setSearch={setPesquisa}
         title="Terceirizados"
         button="Cadastrar terceirizado"
-        onClick={() => navigate("/terceirizados/cadastro")}
+        onClick={() => {
+          modalCadastroTerceirizado.mostrar(() => refetch());
+        }}
         loading={loading}
       />
       <Table
