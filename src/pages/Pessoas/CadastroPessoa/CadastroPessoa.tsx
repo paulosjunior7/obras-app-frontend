@@ -4,9 +4,11 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  InputAdornment,
   Radio,
   RadioGroup,
   TextField,
+  IconButton,
   TextFieldProps,
 } from "@mui/material";
 import InputMask from "react-input-mask";
@@ -26,6 +28,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/app";
 import { ModalService } from "../../../components/ModalService";
+import SearchIcon from "@mui/icons-material/Search";
 
 export interface CadastroPessoaProps {
   salvar: () => void;
@@ -110,6 +113,28 @@ const CadastroPessoa = forwardRef<
     },
   });
 
+  const handleBuscaCep = () => {
+    if (formik.values.zipCode) {
+      fetch(
+        `https://viacep.com.br/ws/${formik.values
+          .zipCode!.toString()
+          .replace(".", "")
+          .replace("-", "")}/json/`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.cep)
+            formik.setValues({
+              ...formik.values,
+              address: data.logradouro,
+              city: data.localidade,
+              state: data.uf,
+              neighbourhood: data.bairro,
+            });
+        });
+    }
+  };
+
   const formik = useFormik<PeopleType>({
     initialValues: {
       neighbourhood: "",
@@ -137,61 +162,62 @@ const CadastroPessoa = forwardRef<
     onSubmit: (values) => {
       Number(id) > 0
         ? editarPessoa({
-          variables: {
-            id: Number(id),
-            input: {
-              neighbourhood: values.neighbourhood,
-              number: values.number,
-              state: values.state,
-              telephone: values.telephone,
-              zipCode: values.zipCode,
-              address: values.address,
-              cellPhone: values.cellPhone,
-              city: values.city,
-              cnpj: values.cnpj!,
-              cpf: values.cpf!,
-              complement: values.complement,
-              fantasyName: values.fantasyName!,
-              corporateName: values.corporateName!,
-              eMail: values.eMail,
-              typePeople:
-                values.typePeople! == "FISICA"
-                  ? TypePeopleEnumType.Fisica
-                  : TypePeopleEnumType.Juridica,
-              active: values.active!,
-              constructor: values.constructor,
-              investor: values.investor,
-              client: values.client,
+            variables: {
+              id: Number(id),
+              input: {
+                neighbourhood: values.neighbourhood,
+                number: values.number,
+                state: values.state,
+                telephone: values.telephone,
+                zipCode: values.zipCode,
+                address: values.address,
+                cellPhone: values.cellPhone,
+                city: values.city,
+                cnpj: values.cnpj!,
+                cpf: values.cpf!,
+                complement: values.complement,
+                fantasyName: values.fantasyName!,
+                corporateName: values.corporateName!,
+                eMail: values.eMail,
+                typePeople:
+                  values.typePeople! == "FISICA"
+                    ? TypePeopleEnumType.Fisica
+                    : TypePeopleEnumType.Juridica,
+                active: values.active!,
+                constructor: values.constructor,
+                investor: values.investor,
+                client: values.client,
+              },
             },
-          },
-        })
+          })
         : criarPessoa({
-          variables: {
-            input: {
-              neighbourhood: values.neighbourhood,
-              number: values.number,
-              state: values.state,
-              telephone: values.telephone,
-              zipCode: values.zipCode,
-              address: values.address,
-              cellPhone: values.cellPhone,
-              city: values.city,
-              cnpj: values.cnpj!,
-              complement: values.complement,
-              fantasyName: values.fantasyName!,
-              corporateName: values.corporateName!,
-              eMail: values.eMail,
-              typePeople:
-                values.typePeople! == "FISICA"
-                  ? TypePeopleEnumType.Fisica
-                  : TypePeopleEnumType.Juridica,
-              active: values.active!,
-              constructor: values.constructor,
-              investor: values.investor,
-              client: values.client,
+            variables: {
+              input: {
+                neighbourhood: values.neighbourhood,
+                number: values.number,
+                state: values.state,
+                telephone: values.telephone,
+                zipCode: values.zipCode,
+                address: values.address,
+                cellPhone: values.cellPhone,
+                city: values.city,
+                cnpj: values.cnpj || "",
+                cpf: values.cpf || "",
+                complement: values.complement,
+                fantasyName: values.fantasyName!,
+                corporateName: values.corporateName!,
+                eMail: values.eMail,
+                typePeople:
+                  values.typePeople! == "FISICA"
+                    ? TypePeopleEnumType.Fisica
+                    : TypePeopleEnumType.Juridica,
+                active: values.active!,
+                constructor: values.constructor,
+                investor: values.investor,
+                client: values.client,
+              },
             },
-          },
-        });
+          });
     },
   });
 
@@ -232,9 +258,7 @@ const CadastroPessoa = forwardRef<
 
   return (
     <>
-      <form
-        className="bg-white grid justify-center flex-col gap-4 grid-cols-2 "
-      >
+      <form className="bg-white grid justify-center flex-col gap-4 grid-cols-2 ">
         <div className="flex border w-full flex-col  p-3  rounded-md">
           <span className="font-normal text-base">Tipo de cadastro?</span>
 
@@ -258,10 +282,7 @@ const CadastroPessoa = forwardRef<
           </FormGroup>
         </div>
         <div className="flex border w-full flex-col p-3  rounded-md">
-
-          <span className="font-normal text-base">
-            Tipo de pessoa
-          </span>
+          <span className="font-normal text-base">Tipo de pessoa</span>
           <RadioGroup
             name="typePeople"
             className="text-gray-700"
@@ -281,8 +302,7 @@ const CadastroPessoa = forwardRef<
             />
           </RadioGroup>
         </div>
-        {formik.values.typePeople ===
-          TypePeopleEnumType.Juridica ? (
+        {formik.values.typePeople === TypePeopleEnumType.Juridica ? (
           <>
             <TextField
               fullWidth
@@ -295,12 +315,10 @@ const CadastroPessoa = forwardRef<
               value={formik.values.fantasyName}
               onChange={formik.handleChange}
               error={
-                formik.touched.fantasyName &&
-                Boolean(formik.errors.fantasyName)
+                formik.touched.fantasyName && Boolean(formik.errors.fantasyName)
               }
               helperText={
-                formik.touched.fantasyName &&
-                formik.errors.fantasyName
+                formik.touched.fantasyName && formik.errors.fantasyName
               }
             />
             <TextField
@@ -318,8 +336,7 @@ const CadastroPessoa = forwardRef<
                 Boolean(formik.errors.corporateName)
               }
               helperText={
-                formik.touched.corporateName &&
-                formik.errors.corporateName
+                formik.touched.corporateName && formik.errors.corporateName
               }
             />
           </>
@@ -335,123 +352,114 @@ const CadastroPessoa = forwardRef<
             value={formik.values.fantasyName}
             onChange={formik.handleChange}
             error={
-              formik.touched.fantasyName &&
-              Boolean(formik.errors.fantasyName)
+              formik.touched.fantasyName && Boolean(formik.errors.fantasyName)
             }
-            helperText={
-              formik.touched.fantasyName &&
-              formik.errors.fantasyName
-            }
+            helperText={formik.touched.fantasyName && formik.errors.fantasyName}
           />
         )}
-        {/* <Grid item xs={12} md={3}>
-              <InputMask
-                mask="(99) 9999-9999"
-                onChange={formik.handleChange}
+        <Grid item xs={12} md={3}>
+          <InputMask
+            mask="(99) 9999-9999"
+            onChange={formik.handleChange}
+            value={formik.values.telephone}
+          >
+            {(inputProps: any) => (
+              <TextField
+                fullWidth
+                size="small"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                {...inputProps}
+                name="telephone"
+                label="Telefone"
                 value={formik.values.telephone}
-              >
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  name="telephone"
-                  label="Telefone"
-                  value={formik.values.telephone}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.telephone &&
-                    Boolean(formik.errors.telephone)
-                  }
-                  helperText={
-                    formik.touched.telephone &&
-                    formik.errors.telephone
-                  }
-                />
-              </InputMask>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <InputMask
-                mask="(99) 99999-9999"
                 onChange={formik.handleChange}
+                error={
+                  formik.touched.telephone && Boolean(formik.errors.telephone)
+                }
+                helperText={formik.touched.telephone && formik.errors.telephone}
+              />
+            )}
+          </InputMask>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <InputMask
+            mask="(99) 99999-9999"
+            onChange={formik.handleChange}
+            value={formik.values.cellPhone}
+          >
+            {(inputProps: any) => (
+              <TextField
+                fullWidth
+                size="small"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                {...inputProps}
+                name="cellPhone"
+                label="Celular"
                 value={formik.values.cellPhone}
-              >
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.cellPhone && Boolean(formik.errors.cellPhone)
+                }
+                helperText={formik.touched.cellPhone && formik.errors.cellPhone}
+              />
+            )}
+          </InputMask>
+        </Grid>
+        {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
+          <Grid item xs={12} md={3}>
+            <InputMask
+              mask="999.999.999-99"
+              onChange={formik.handleChange}
+              value={formik.values.cpf}
+            >
+              {(inputProps: any) => (
                 <TextField
                   fullWidth
                   size="small"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  name="cellPhone"
-                  label="Celular"
-                  value={formik.values.cellPhone}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.cellPhone &&
-                    Boolean(formik.errors.cellPhone)
-                  }
-                  helperText={
-                    formik.touched.cellPhone &&
-                    formik.errors.cellPhone
-                  }
-                />
-              </InputMask>
-            </Grid> */}
-        {/* {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
-              <Grid item xs={12} md={3}>
-                <InputMask
-                  mask="999.999.999-99"
-                  onChange={formik.handleChange}
+                  {...inputProps}
+                  name="cpf"
+                  label="CPF"
                   value={formik.values.cpf}
-                >
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    name="cpf"
-                    label="CPF"
-                    value={formik.values.cpf}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.cpf && Boolean(formik.errors.cpf)
-                    }
-                    helperText={
-                      formik.touched.cpf && formik.errors.cpf
-                    }
-                  />
-                </InputMask>
-              </Grid>
-            ) : (
-              <Grid item xs={12} md={4}>
-                <InputMask
-                  mask="99.999.999/9999-99"
                   onChange={formik.handleChange}
+                  error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                  helperText={formik.touched.cpf && formik.errors.cpf}
+                />
+              )}
+            </InputMask>
+          </Grid>
+        ) : (
+          <Grid item xs={12} md={4}>
+            <InputMask
+              mask="99.999.999/9999-99"
+              onChange={formik.handleChange}
+              value={formik.values.cnpj}
+            >
+              {(inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="cnpj"
+                  label="CNPJ"
                   value={formik.values.cnpj}
-                >
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    name="cnpj"
-                    label="CNPJ"
-                    value={formik.values.cnpj}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.cnpj &&
-                      Boolean(formik.errors.cnpj)
-                    }
-                    helperText={
-                      formik.touched.cnpj && formik.errors.cnpj
-                    }
-                  />
-                </InputMask>
-              </Grid>
-            )} */}
+                  onChange={formik.handleChange}
+                  error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
+                  helperText={formik.touched.cnpj && formik.errors.cnpj}
+                />
+              )}
+            </InputMask>
+          </Grid>
+        )}
         <TextField
           fullWidth
           size="small"
@@ -462,38 +470,47 @@ const CadastroPessoa = forwardRef<
           label="E-mail"
           value={formik.values.eMail}
           onChange={formik.handleChange}
-          error={
-            formik.touched.eMail && Boolean(formik.errors.eMail)
-          }
+          error={formik.touched.eMail && Boolean(formik.errors.eMail)}
           helperText={formik.touched.eMail && formik.errors.eMail}
         />
 
-        {/* <Grid item xs={12} md={3}>
-              <InputMask
-                mask="99999-999"
-                onChange={formik.handleChange}
+        <Grid item xs={12} md={3}>
+          <InputMask
+            mask="99999-999"
+            onChange={formik.handleChange}
+            value={formik.values.zipCode}
+          >
+            {(inputProps: any) => (
+              <TextField
+                fullWidth
+                size="small"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                {...inputProps}
+                name="zipCode"
+                label="CEP"
                 value={formik.values.zipCode}
-              >
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  name="zipCode"
-                  label="CEP"
-                  value={formik.values.zipCode}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.zipCode &&
-                    Boolean(formik.errors.zipCode)
-                  }
-                  helperText={
-                    formik.touched.zipCode && formik.errors.zipCode
-                  }
-                />
-              </InputMask>
-            </Grid> */}
+                onChange={formik.handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleBuscaCep}
+                        edge="end"
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
+                helperText={formik.touched.zipCode && formik.errors.zipCode}
+              />
+            )}
+          </InputMask>
+        </Grid>
         <TextField
           fullWidth
           size="small"
@@ -504,13 +521,8 @@ const CadastroPessoa = forwardRef<
           label="Endereço"
           value={formik.values.address}
           onChange={formik.handleChange}
-          error={
-            formik.touched.address &&
-            Boolean(formik.errors.address)
-          }
-          helperText={
-            formik.touched.address && formik.errors.address
-          }
+          error={formik.touched.address && Boolean(formik.errors.address)}
+          helperText={formik.touched.address && formik.errors.address}
         />
         <TextField
           fullWidth
@@ -522,12 +534,8 @@ const CadastroPessoa = forwardRef<
           label="Número"
           value={formik.values.number}
           onChange={formik.handleChange}
-          error={
-            formik.touched.number && Boolean(formik.errors.number)
-          }
-          helperText={
-            formik.touched.number && formik.errors.number
-          }
+          error={formik.touched.number && Boolean(formik.errors.number)}
+          helperText={formik.touched.number && formik.errors.number}
         />
         <TextField
           fullWidth
@@ -540,12 +548,10 @@ const CadastroPessoa = forwardRef<
           value={formik.values.neighbourhood}
           onChange={formik.handleChange}
           error={
-            formik.touched.neighbourhood &&
-            Boolean(formik.errors.neighbourhood)
+            formik.touched.neighbourhood && Boolean(formik.errors.neighbourhood)
           }
           helperText={
-            formik.touched.neighbourhood &&
-            formik.errors.neighbourhood
+            formik.touched.neighbourhood && formik.errors.neighbourhood
           }
         />
         <TextField
@@ -558,9 +564,7 @@ const CadastroPessoa = forwardRef<
           label="UF"
           value={formik.values.state}
           onChange={formik.handleChange}
-          error={
-            formik.touched.state && Boolean(formik.errors.state)
-          }
+          error={formik.touched.state && Boolean(formik.errors.state)}
           helperText={formik.touched.state && formik.errors.state}
         />
         <TextField
@@ -573,9 +577,7 @@ const CadastroPessoa = forwardRef<
           label="Cidade"
           value={formik.values.city}
           onChange={formik.handleChange}
-          error={
-            formik.touched.city && Boolean(formik.errors.city)
-          }
+          error={formik.touched.city && Boolean(formik.errors.city)}
           helperText={formik.touched.city && formik.errors.city}
         />
         <TextField
@@ -588,13 +590,8 @@ const CadastroPessoa = forwardRef<
           label="Complemento"
           value={formik.values.complement}
           onChange={formik.handleChange}
-          error={
-            formik.touched.complement &&
-            Boolean(formik.errors.complement)
-          }
-          helperText={
-            formik.touched.complement && formik.errors.complement
-          }
+          error={formik.touched.complement && Boolean(formik.errors.complement)}
+          helperText={formik.touched.complement && formik.errors.complement}
         />
       </form>
     </>

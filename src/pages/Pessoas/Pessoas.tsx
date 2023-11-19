@@ -39,7 +39,7 @@ function Pessoas() {
       },
       filter: {
         fantasyName: pesquisa,
-        active: true
+        active: true,
       },
     },
     fetchPolicy: "cache-and-network",
