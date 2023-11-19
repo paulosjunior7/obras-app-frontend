@@ -11,10 +11,12 @@ import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
+import { useModalCargo } from "../../hooks/useModalCargos";
 
 function Cargos() {
-
-  const [cargos, setCargos] = useState<ResponsibilityType[] | undefined>([{} as ResponsibilityType]);
+  const [cargos, setCargos] = useState<ResponsibilityType[] | undefined>([
+    {} as ResponsibilityType,
+  ]);
   const [pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(1);
   const [start, setStart] = useState(0);
@@ -26,6 +28,7 @@ function Cargos() {
   );
 
   const navigate = useNavigate();
+  const modalCadastroCargo = useModalCargo();
 
   const { loading, refetch } = useGetCargosQuery({
     variables: {
@@ -54,7 +57,6 @@ function Cargos() {
       }
     },
   });
-
 
   const [editarCargo] = useEditarCargoMutation({
     onCompleted: (resposta) => {
@@ -93,7 +95,7 @@ function Cargos() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/cargos/edicao/${id}`);
+    modalCadastroCargo.mostrar(() => refetch(), id);
   };
 
   const handleDelete = () => {
@@ -138,7 +140,9 @@ function Cargos() {
         setSearch={setPesquisa}
         title="Cargos"
         button="Novo Cargo"
-        onClick={() => navigate("/cargos/cadastro")}
+        onClick={() => {
+          modalCadastroCargo.mostrar(() => refetch());
+        }}
         loading={loading}
       />
       <Table

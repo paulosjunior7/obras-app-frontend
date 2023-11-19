@@ -1,1 +1,1 @@
-export { default } from './CadastroCargo';
+export * from "./CadastroCargo";

@@ -8,9 +8,7 @@ import Documentacao from "./pages/Documentos";
 import Despesas from "./pages/Despesas";
 import Fornecedores from "./pages/Fornecedores";
 import Terceirizados from "./pages/Terceirizados";
-import CadastroTerceirizado from "./pages/Terceirizados/CadastroTerceirizado";
 import Cargos from "./pages/Cargos";
-import CadastroCargo from "./pages/Cargos/CadastroCargo";
 import Login from "./pages/Login/Login";
 import Pessoas from "./pages/Pessoas";
 import CadastroPessoa from "./pages/Pessoas/CadastroPessoa";
@@ -44,8 +42,6 @@ export function Router() {
       <Route path="/pessoas/cadastro" element={<CadastroPessoa />} />
 
       <Route path="/cargos" element={<Cargos />} />
-      <Route path="/cargos/edicao/:slug" element={<CadastroCargo />} />
-      <Route path="/cargos/cadastro" element={<CadastroCargo />} />
 
       <Route path="/obras" element={<Obras />} />
 
