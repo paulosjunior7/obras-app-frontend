@@ -202,22 +202,24 @@ export const CadastroFornecedor = forwardRef<
           onChange={formik.handleChange}
           value={formik.values.cnpj}
         >
-          {(inputProps) => (
-            <TextField
-              size="small"
-              {...inputProps}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="cnpj"
-              label="CNPJ"
-              className="w-72"
-              value={formik.values.cnpj}
-              onChange={formik.handleChange}
-              error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
-              helperText={formik.touched.cnpj && formik.errors.cnpj}
-            />
-          )}
+          {
+            ((inputProps: any) => (
+              <TextField
+                size="small"
+                {...inputProps}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="cnpj"
+                label="CNPJ"
+                className="w-72"
+                value={formik.values.cnpj}
+                onChange={formik.handleChange}
+                error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
+                helperText={formik.touched.cnpj && formik.errors.cnpj}
+              />
+            )) as any
+          }
         </InputMask>
         <TextField
           fullWidth
@@ -239,46 +241,50 @@ export const CadastroFornecedor = forwardRef<
           onChange={formik.handleChange}
           value={formik.values.telephone}
         >
-          {(inputProps) => (
-            <TextField
-              fullWidth
-              size="small"
-              {...inputProps}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="telephone"
-              label="Telefone"
-              error={
-                formik.touched.telephone && Boolean(formik.errors.telephone)
-              }
-              helperText={formik.touched.telephone && formik.errors.telephone}
-            />
-          )}
+          {
+            ((inputProps: any) => (
+              <TextField
+                fullWidth
+                size="small"
+                {...inputProps}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="telephone"
+                label="Telefone"
+                error={
+                  formik.touched.telephone && Boolean(formik.errors.telephone)
+                }
+                helperText={formik.touched.telephone && formik.errors.telephone}
+              />
+            )) as any
+          }
         </InputMask>
         <InputMask
           mask="(99) 99999-9999"
           onChange={formik.handleChange}
           value={formik.values.cellPhone}
         >
-          {(inputProps) => (
-            <TextField
-              fullWidth
-              size="small"
-              {...inputProps}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="cellPhone"
-              label="Celular"
-              value={formik.values.cellPhone}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.cellPhone && Boolean(formik.errors.cellPhone)
-              }
-              helperText={formik.touched.cellPhone && formik.errors.cellPhone}
-            />
-          )}
+          {
+            ((inputProps: any) => (
+              <TextField
+                fullWidth
+                size="small"
+                {...inputProps}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="cellPhone"
+                label="Celular"
+                value={formik.values.cellPhone}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.cellPhone && Boolean(formik.errors.cellPhone)
+                }
+                helperText={formik.touched.cellPhone && formik.errors.cellPhone}
+              />
+            )) as any
+          }
         </InputMask>
       </div>
       <div className="flex justify-center md:flex-row gap-2">
@@ -302,35 +308,37 @@ export const CadastroFornecedor = forwardRef<
           onChange={formik.handleChange}
           value={formik.values.zipCode}
         >
-          {(inputProps) => (
-            <TextField
-              className="w-64"
-              size="small"
-              {...inputProps}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="zipCode"
-              label="CEP"
-              value={formik.values.zipCode}
-              onChange={formik.handleChange}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleBuscaCep}
-                      edge="end"
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
-              helperText={formik.touched.zipCode && formik.errors.zipCode}
-            />
-          )}
+          {
+            ((inputProps: any) => (
+              <TextField
+                className="w-64"
+                size="small"
+                {...inputProps}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="zipCode"
+                label="CEP"
+                value={formik.values.zipCode}
+                onChange={formik.handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleBuscaCep}
+                        edge="end"
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
+                helperText={formik.touched.zipCode && formik.errors.zipCode}
+              />
+            )) as any
+          }
         </InputMask>
         <TextField
           fullWidth
