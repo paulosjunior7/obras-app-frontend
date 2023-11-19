@@ -332,22 +332,24 @@ export const CadastroTerceirizado = forwardRef<
                 onChange={formik.handleChange}
                 value={formik.values.cpf}
               >
-                {(inputProps: any) => (
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    {...inputProps}
-                    name="cpf"
-                    label="CPF"
-                    value={formik.values.cpf}
-                    onChange={formik.handleChange}
-                    error={formik.touched.cpf && Boolean(formik.errors.cpf)}
-                    helperText={formik.touched.cpf && formik.errors.cpf}
-                  />
-                )}
+                {
+                  ((inputProps: any) => (
+                    <TextField
+                      fullWidth
+                      size="small"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      {...inputProps}
+                      name="cpf"
+                      label="CPF"
+                      value={formik.values.cpf}
+                      onChange={formik.handleChange}
+                      error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                      helperText={formik.touched.cpf && formik.errors.cpf}
+                    />
+                  )) as any
+                }
               </InputMask>
             </Grid>
           ) : (
@@ -357,22 +359,24 @@ export const CadastroTerceirizado = forwardRef<
                 onChange={formik.handleChange}
                 value={formik.values.cnpj}
               >
-                {(inputProps: any) => (
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    {...inputProps}
-                    name="cnpj"
-                    label="CNPJ"
-                    value={formik.values.cnpj}
-                    onChange={formik.handleChange}
-                    error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
-                    helperText={formik.touched.cnpj && formik.errors.cnpj}
-                  />
-                )}
+                {
+                  ((inputProps: any) => (
+                    <TextField
+                      fullWidth
+                      size="small"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      {...inputProps}
+                      name="cnpj"
+                      label="CNPJ"
+                      value={formik.values.cnpj}
+                      onChange={formik.handleChange}
+                      error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
+                      helperText={formik.touched.cnpj && formik.errors.cnpj}
+                    />
+                  )) as any
+                }
               </InputMask>
             </Grid>
           )}
@@ -383,26 +387,29 @@ export const CadastroTerceirizado = forwardRef<
               onChange={formik.handleChange}
               value={formik.values.telephone}
             >
-              {(inputProps: any) => (
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...inputProps}
-                  name="telephone"
-                  label="Telefone"
-                  value={formik.values.telephone}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.telephone && Boolean(formik.errors.telephone)
-                  }
-                  helperText={
-                    formik.touched.telephone && formik.errors.telephone
-                  }
-                />
-              )}
+              {
+                ((inputProps: any) => (
+                  <TextField
+                    fullWidth
+                    size="small"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    {...inputProps}
+                    name="telephone"
+                    label="Telefone"
+                    value={formik.values.telephone}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.telephone &&
+                      Boolean(formik.errors.telephone)
+                    }
+                    helperText={
+                      formik.touched.telephone && formik.errors.telephone
+                    }
+                  />
+                )) as any
+              }
             </InputMask>
           </Grid>
           <Grid item xs={12} md={3}>
@@ -411,26 +418,29 @@ export const CadastroTerceirizado = forwardRef<
               onChange={formik.handleChange}
               value={formik.values.cellPhone}
             >
-              {(inputProps: any) => (
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...inputProps}
-                  name="cellPhone"
-                  label="Celular"
-                  value={formik.values.cellPhone}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.cellPhone && Boolean(formik.errors.cellPhone)
-                  }
-                  helperText={
-                    formik.touched.cellPhone && formik.errors.cellPhone
-                  }
-                />
-              )}
+              {
+                ((inputProps: any) => (
+                  <TextField
+                    fullWidth
+                    size="small"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    {...inputProps}
+                    name="cellPhone"
+                    label="Celular"
+                    value={formik.values.cellPhone}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.cellPhone &&
+                      Boolean(formik.errors.cellPhone)
+                    }
+                    helperText={
+                      formik.touched.cellPhone && formik.errors.cellPhone
+                    }
+                  />
+                )) as any
+              }
             </InputMask>
           </Grid>
           <Grid item xs={12} md={3}>
@@ -439,7 +449,7 @@ export const CadastroTerceirizado = forwardRef<
               onChange={formik.handleChange}
               value={formik.values.zipCode}
             >
-              {(inputProps: any) => (
+              {((inputProps: any) => (
                 <TextField
                   fullWidth
                   size="small"
@@ -469,7 +479,7 @@ export const CadastroTerceirizado = forwardRef<
                   }
                   helperText={formik.touched.zipCode && formik.errors.zipCode}
                 />
-              )}
+              )) as any}
             </InputMask>
           </Grid>
           <Grid item xs={12} md={6}>
