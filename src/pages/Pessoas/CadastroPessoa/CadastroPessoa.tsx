@@ -363,24 +363,28 @@ const CadastroPessoa = forwardRef<
             onChange={formik.handleChange}
             value={formik.values.telephone}
           >
-            {(inputProps: any) => (
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                {...inputProps}
-                name="telephone"
-                label="Telefone"
-                value={formik.values.telephone}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.telephone && Boolean(formik.errors.telephone)
-                }
-                helperText={formik.touched.telephone && formik.errors.telephone}
-              />
-            )}
+            {
+              ((inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="telephone"
+                  label="Telefone"
+                  value={formik.values.telephone}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.telephone && Boolean(formik.errors.telephone)
+                  }
+                  helperText={
+                    formik.touched.telephone && formik.errors.telephone
+                  }
+                />
+              )) as any
+            }
           </InputMask>
         </Grid>
         <Grid item xs={12} md={3}>
@@ -389,24 +393,28 @@ const CadastroPessoa = forwardRef<
             onChange={formik.handleChange}
             value={formik.values.cellPhone}
           >
-            {(inputProps: any) => (
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                {...inputProps}
-                name="cellPhone"
-                label="Celular"
-                value={formik.values.cellPhone}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.cellPhone && Boolean(formik.errors.cellPhone)
-                }
-                helperText={formik.touched.cellPhone && formik.errors.cellPhone}
-              />
-            )}
+            {
+              ((inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="cellPhone"
+                  label="Celular"
+                  value={formik.values.cellPhone}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.cellPhone && Boolean(formik.errors.cellPhone)
+                  }
+                  helperText={
+                    formik.touched.cellPhone && formik.errors.cellPhone
+                  }
+                />
+              )) as any
+            }
           </InputMask>
         </Grid>
         {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
@@ -416,22 +424,24 @@ const CadastroPessoa = forwardRef<
               onChange={formik.handleChange}
               value={formik.values.cpf}
             >
-              {(inputProps: any) => (
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...inputProps}
-                  name="cpf"
-                  label="CPF"
-                  value={formik.values.cpf}
-                  onChange={formik.handleChange}
-                  error={formik.touched.cpf && Boolean(formik.errors.cpf)}
-                  helperText={formik.touched.cpf && formik.errors.cpf}
-                />
-              )}
+              {
+                ((inputProps: any) => (
+                  <TextField
+                    fullWidth
+                    size="small"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    {...inputProps}
+                    name="cpf"
+                    label="CPF"
+                    value={formik.values.cpf}
+                    onChange={formik.handleChange}
+                    error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                    helperText={formik.touched.cpf && formik.errors.cpf}
+                  />
+                )) as any
+              }
             </InputMask>
           </Grid>
         ) : (
@@ -441,22 +451,24 @@ const CadastroPessoa = forwardRef<
               onChange={formik.handleChange}
               value={formik.values.cnpj}
             >
-              {(inputProps: any) => (
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...inputProps}
-                  name="cnpj"
-                  label="CNPJ"
-                  value={formik.values.cnpj}
-                  onChange={formik.handleChange}
-                  error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
-                  helperText={formik.touched.cnpj && formik.errors.cnpj}
-                />
-              )}
+              {
+                ((inputProps: any) => (
+                  <TextField
+                    fullWidth
+                    size="small"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    {...inputProps}
+                    name="cnpj"
+                    label="CNPJ"
+                    value={formik.values.cnpj}
+                    onChange={formik.handleChange}
+                    error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
+                    helperText={formik.touched.cnpj && formik.errors.cnpj}
+                  />
+                )) as any
+              }
             </InputMask>
           </Grid>
         )}
@@ -480,35 +492,39 @@ const CadastroPessoa = forwardRef<
             onChange={formik.handleChange}
             value={formik.values.zipCode}
           >
-            {(inputProps: any) => (
-              <TextField
-                fullWidth
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                {...inputProps}
-                name="zipCode"
-                label="CEP"
-                value={formik.values.zipCode}
-                onChange={formik.handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleBuscaCep}
-                        edge="end"
-                      >
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
-                helperText={formik.touched.zipCode && formik.errors.zipCode}
-              />
-            )}
+            {
+              ((inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="zipCode"
+                  label="CEP"
+                  value={formik.values.zipCode}
+                  onChange={formik.handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleBuscaCep}
+                          edge="end"
+                        >
+                          <SearchIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  error={
+                    formik.touched.zipCode && Boolean(formik.errors.zipCode)
+                  }
+                  helperText={formik.touched.zipCode && formik.errors.zipCode}
+                />
+              )) as any
+            }
           </InputMask>
         </Grid>
         <TextField
