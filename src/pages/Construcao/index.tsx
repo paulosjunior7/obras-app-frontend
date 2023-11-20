@@ -11,13 +11,12 @@ import Materiais from "./Materiais";
 import { useModalProduto } from "../../hooks/useModalProduto";
 import { ConstructionInputType, useCriarConstrucaoMutation } from "../../graphql/generated";
 
-
 export default function Construcao() {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const [criarConstrucao] = useCriarConstrucaoMutation({
-    onCompleted: (resposta) => {
-      console.log(resposta)
+    onCompleted: (response) => {
+      console.log(response)
     },
     onError: (error) => {
       console.log(error)
@@ -51,35 +50,41 @@ export default function Construcao() {
       active: true,
     },
     onSubmit: (values) => {
-      criarConstrucao({
-        variables: {
-          input: {
-            identifier: values.identifier,
-            statusConstruction: values.statusConstruction,
-            dateBegin: values.dateBegin,
-            dateEnd: values.dateEnd,
-            zipCode: values.zipCode,
-            address: values.address,
-            number: values.number,
-            neighbourhood: values.neighbourhood,
-            city: values.city,
-            state: values.state,
-            complement: values.complement,
-            batchArea: values.batchArea,
-            buildingArea: values.buildingArea,
-            municipalRegistration: values.municipalRegistration,
-            license: values.license,
-            undergroundUse: values.undergroundUse,
-            art: values.art,
-            cno: values.cno,
-            motherEnrollment: values.motherEnrollment,
-            latitude: values.latitude,
-            longitude: values.longitude,
-            saleValue: values.saleValue,
-            active: values.active,
+      alert(JSON.stringify(values, null, 2));
+      try {
+        criarConstrucao({
+          variables: {
+            input: {
+              identifier: values.identifier,
+              statusConstruction: values.statusConstruction,
+              dateBegin: values.dateBegin,
+              dateEnd: values.dateEnd,
+              zipCode: values.zipCode,
+              address: values.address,
+              number: values.number,
+              neighbourhood: values.neighbourhood,
+              city: values.city,
+              state: values.state,
+              complement: values.complement,
+              batchArea: values.batchArea,
+              buildingArea: values.buildingArea,
+              municipalRegistration: values.municipalRegistration,
+              license: values.license,
+              undergroundUse: values.undergroundUse,
+              art: values.art,
+              cno: values.cno,
+              motherEnrollment: values.motherEnrollment,
+              latitude: values.latitude,
+              longitude: values.longitude,
+              saleValue: values.saleValue,
+              active: values.active,
+            },
           },
-        },
-      })
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   });
 
@@ -87,15 +92,7 @@ export default function Construcao() {
 
   return (
     <Container>
-
-      <button
-        className="fixed left-16 h-16 w-16 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-30"
-        onClick={() => modalProduto.mostrar()}
-      >
-        Abrir
-      </button>
       <div className="flex justify-between">
-
         <h4 className="text-2xl font-normal leading-none mb-3">
           Cadastrar Construção
         </h4>

@@ -1,6 +1,8 @@
-import { FormikProps } from 'formik';
-import { ConstructionInputType } from '../../../graphql/generated';
-
+import { FormikProps, useFormik } from 'formik';
+import { ConstructionInputType, ConstructionType, StatusConstructionEnumType, useCriarConstrucaoMutation, useEditarConstrucaoMutation } from '../../../graphql/generated';
+import * as yup from "yup";
+import { toast } from 'react-toastify';
+import { parseISO } from 'date-fns';
 interface DetalhesProps {
   formik: FormikProps<ConstructionInputType>;
 }
@@ -8,6 +10,7 @@ interface DetalhesProps {
 export default function Detalhes({
   formik
 }: DetalhesProps) {
+
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function Detalhes({
             <label htmlFor="dataFim">Data de Fim</label>
             <input
               id="dataFim"
-              name="dataFim"
+              name="dateEnd"
               type="date"
               min={formik.values.dateEnd}
               onChange={formik.handleChange}
@@ -285,7 +288,6 @@ export default function Detalhes({
               }
               }
               value={formik.values.longitude}
-
             />
 
           </div>
@@ -311,7 +313,11 @@ export default function Detalhes({
         <div className="flex justify-end w-full gap-2 col-span-2 ">
           <button className="border-[#003569] text-[#003569] border px-4 py-2 rounded-md"
           >Cancelar</button>
-          <button type="submit" className="bg-[#003569] text-white px-4 py-2 rounded-md w-[100px]">Salvar</button>
+          <button
+            onClick={() => {
+              formik.handleSubmit();
+            }}
+            className="bg-[#003569] text-white px-4 py-2 rounded-md w-[100px]">Salvar</button>
         </div>
       </form></>
   )

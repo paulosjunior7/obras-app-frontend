@@ -128,7 +128,7 @@ function Obras() {
   };
 
   const column = [
-    { heading: "Descricao", value: "description" },
+    { heading: "Descricao", value: "indetifier" },
     { heading: "Detalhe", value: "detail" },
     { heading: "Status", value: "active" },
   ];
