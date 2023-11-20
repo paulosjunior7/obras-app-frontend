@@ -132,56 +132,56 @@ export const CadastroTerceirizado = forwardRef<
     onSubmit: (values) => {
       Number(id) > 0
         ? editarTerceirizado({
-            variables: {
-              id: Number(id),
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj,
-                cpf: values.cpf,
-                complement: values.complement,
-                corporateName: values.corporateName!,
-                typePeople:
-                  values.typePeople! == "FISICA"
-                    ? TypePeopleEnumType.Fisica
-                    : TypePeopleEnumType.Juridica,
-                fantasyName: values.fantasyName,
-                eMail: values.eMail,
-                active: values.active,
-              },
+          variables: {
+            id: Number(id),
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj,
+              cpf: values.cpf,
+              complement: values.complement,
+              corporateName: values.corporateName!,
+              typePeople:
+                values.typePeople! == "FISICA"
+                  ? TypePeopleEnumType.Fisica
+                  : TypePeopleEnumType.Juridica,
+              fantasyName: values.fantasyName,
+              eMail: values.eMail,
+              active: values.active,
             },
-          })
+          },
+        })
         : criarTerceirizado({
-            variables: {
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj,
-                cpf: values.cpf,
-                complement: values.complement,
-                corporateName: values.corporateName!,
-                typePeople:
-                  values.typePeople! == "FISICA"
-                    ? TypePeopleEnumType.Fisica
-                    : TypePeopleEnumType.Juridica,
-                fantasyName: values.fantasyName,
-                eMail: values.eMail,
-                active: values.active,
-              },
+          variables: {
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj,
+              cpf: values.cpf,
+              complement: values.complement,
+              corporateName: values.corporateName!,
+              typePeople:
+                values.typePeople! == "FISICA"
+                  ? TypePeopleEnumType.Fisica
+                  : TypePeopleEnumType.Juridica,
+              fantasyName: values.fantasyName,
+              eMail: values.eMail,
+              active: values.active,
             },
-          });
+          },
+        });
     },
   });
 
@@ -222,72 +222,52 @@ export const CadastroTerceirizado = forwardRef<
       onSubmit={formik.handleSubmit}
       className="bg-white flex justify-center flex-col "
     >
-      <div className="py-5 px-3 flex justify-center items-center">
-        <Grid container spacing={3} xs={12}>
-          <Grid item xs={12} md={12}>
-            <RadioGroup
-              row
-              name="typePeople"
-              className="text-gray-700"
-              value={formik.values.typePeople}
-              onChange={formik.handleChange}
-            >
-              <FormControlLabel
-                value={TypePeopleEnumType.Fisica}
-                control={<Radio />}
-                label="Física"
-              />
-              <FormControlLabel
-                value={TypePeopleEnumType.Juridica}
-                control={<Radio />}
-                label="Jurídica"
-              />
-            </RadioGroup>
-          </Grid>
-          {formik.values.typePeople === TypePeopleEnumType.Juridica ? (
-            <>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  name="fantasyName"
-                  label="Nome fantasia"
-                  value={formik.values.fantasyName}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.fantasyName &&
-                    Boolean(formik.errors.fantasyName)
-                  }
-                  helperText={
-                    formik.touched.fantasyName && formik.errors.fantasyName
-                  }
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  name="corporateName"
-                  label="Razão social"
-                  value={formik.values.corporateName}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.corporateName &&
-                    Boolean(formik.errors.corporateName)
-                  }
-                  helperText={
-                    formik.touched.corporateName && formik.errors.corporateName
-                  }
-                />
-              </Grid>
-            </>
-          ) : (
+      <Grid container spacing={2} xs={12}>
+        <Grid item xs={12} md={12}>
+          <span className="text-gray-700">Forma de contratação</span>
+          <RadioGroup
+            row
+            name="typePeople"
+            className="text-gray-700"
+            value={formik.values.typePeople}
+            onChange={formik.handleChange}
+          >
+            <FormControlLabel
+              value={TypePeopleEnumType.Fisica}
+              control={<Radio />}
+              label="Funcionário"
+            />
+            <FormControlLabel
+              value={TypePeopleEnumType.Juridica}
+              control={<Radio />}
+              label="Terceirizado"
+            />
+          </RadioGroup>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <span className="text-gray-700">Tipo de pessoa</span>
+          <RadioGroup
+            row
+            name="typePeople"
+            className="text-gray-700"
+            value={formik.values.typePeople}
+            onChange={formik.handleChange}
+          >
+            <FormControlLabel
+              value={TypePeopleEnumType.Fisica}
+              control={<Radio />}
+              label="Física"
+            />
+            <FormControlLabel
+              value={TypePeopleEnumType.Juridica}
+              control={<Radio />}
+              label="Jurídica"
+            />
+          </RadioGroup>
+        </Grid>
+
+        {formik.values.typePeople === TypePeopleEnumType.Juridica ? (
+          <>
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
@@ -296,7 +276,7 @@ export const CadastroTerceirizado = forwardRef<
                   shrink: true,
                 }}
                 name="fantasyName"
-                label="Nome"
+                label="Nome fantasia"
                 value={formik.values.fantasyName}
                 onChange={formik.handleChange}
                 error={
@@ -308,7 +288,28 @@ export const CadastroTerceirizado = forwardRef<
                 }
               />
             </Grid>
-          )}
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                size="small"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="corporateName"
+                label="Razão social"
+                value={formik.values.corporateName}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.corporateName &&
+                  Boolean(formik.errors.corporateName)
+                }
+                helperText={
+                  formik.touched.corporateName && formik.errors.corporateName
+                }
+              />
+            </Grid>
+          </>
+        ) : (
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
@@ -316,76 +317,42 @@ export const CadastroTerceirizado = forwardRef<
               InputLabelProps={{
                 shrink: true,
               }}
-              name="eMail"
-              label="E-mail"
-              value={formik.values.eMail}
+              name="fantasyName"
+              label="Nome"
+              value={formik.values.fantasyName}
               onChange={formik.handleChange}
-              error={formik.touched.eMail && Boolean(formik.errors.eMail)}
-              helperText={formik.touched.eMail && formik.errors.eMail}
+              error={
+                formik.touched.fantasyName &&
+                Boolean(formik.errors.fantasyName)
+              }
+              helperText={
+                formik.touched.fantasyName && formik.errors.fantasyName
+              }
             />
           </Grid>
+        )}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="eMail"
+            label="E-mail"
+            value={formik.values.eMail}
+            onChange={formik.handleChange}
+            error={formik.touched.eMail && Boolean(formik.errors.eMail)}
+            helperText={formik.touched.eMail && formik.errors.eMail}
+          />
+        </Grid>
 
-          {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
-            <Grid item xs={12} md={3}>
-              <InputMask
-                mask="999.999.999-99"
-                onChange={formik.handleChange}
-                value={formik.values.cpf}
-              >
-                {
-                  ((inputProps: any) => (
-                    <TextField
-                      fullWidth
-                      size="small"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      {...inputProps}
-                      name="cpf"
-                      label="CPF"
-                      value={formik.values.cpf}
-                      onChange={formik.handleChange}
-                      error={formik.touched.cpf && Boolean(formik.errors.cpf)}
-                      helperText={formik.touched.cpf && formik.errors.cpf}
-                    />
-                  )) as any
-                }
-              </InputMask>
-            </Grid>
-          ) : (
-            <Grid item xs={12} md={3}>
-              <InputMask
-                mask="99.999.999/9999-99"
-                onChange={formik.handleChange}
-                value={formik.values.cnpj}
-              >
-                {
-                  ((inputProps: any) => (
-                    <TextField
-                      fullWidth
-                      size="small"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      {...inputProps}
-                      name="cnpj"
-                      label="CNPJ"
-                      value={formik.values.cnpj}
-                      onChange={formik.handleChange}
-                      error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
-                      helperText={formik.touched.cnpj && formik.errors.cnpj}
-                    />
-                  )) as any
-                }
-              </InputMask>
-            </Grid>
-          )}
-
+        {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
           <Grid item xs={12} md={3}>
             <InputMask
-              mask="(99) 9999-9999"
+              mask="999.999.999-99"
               onChange={formik.handleChange}
-              value={formik.values.telephone}
+              value={formik.values.cpf}
             >
               {
                 ((inputProps: any) => (
@@ -396,27 +363,23 @@ export const CadastroTerceirizado = forwardRef<
                       shrink: true,
                     }}
                     {...inputProps}
-                    name="telephone"
-                    label="Telefone"
-                    value={formik.values.telephone}
+                    name="cpf"
+                    label="CPF"
+                    value={formik.values.cpf}
                     onChange={formik.handleChange}
-                    error={
-                      formik.touched.telephone &&
-                      Boolean(formik.errors.telephone)
-                    }
-                    helperText={
-                      formik.touched.telephone && formik.errors.telephone
-                    }
+                    error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                    helperText={formik.touched.cpf && formik.errors.cpf}
                   />
                 )) as any
               }
             </InputMask>
           </Grid>
+        ) : (
           <Grid item xs={12} md={3}>
             <InputMask
-              mask="(99) 99999-9999"
+              mask="99.999.999/9999-99"
               onChange={formik.handleChange}
-              value={formik.values.cellPhone}
+              value={formik.values.cnpj}
             >
               {
                 ((inputProps: any) => (
@@ -427,29 +390,27 @@ export const CadastroTerceirizado = forwardRef<
                       shrink: true,
                     }}
                     {...inputProps}
-                    name="cellPhone"
-                    label="Celular"
-                    value={formik.values.cellPhone}
+                    name="cnpj"
+                    label="CNPJ"
+                    value={formik.values.cnpj}
                     onChange={formik.handleChange}
-                    error={
-                      formik.touched.cellPhone &&
-                      Boolean(formik.errors.cellPhone)
-                    }
-                    helperText={
-                      formik.touched.cellPhone && formik.errors.cellPhone
-                    }
+                    error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
+                    helperText={formik.touched.cnpj && formik.errors.cnpj}
                   />
                 )) as any
               }
             </InputMask>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <InputMask
-              mask="99999-999"
-              onChange={formik.handleChange}
-              value={formik.values.zipCode}
-            >
-              {((inputProps: any) => (
+        )}
+
+        <Grid item xs={12} md={3}>
+          <InputMask
+            mask="(99) 9999-9999"
+            onChange={formik.handleChange}
+            value={formik.values.telephone}
+          >
+            {
+              ((inputProps: any) => (
                 <TextField
                   fullWidth
                   size="small"
@@ -457,130 +418,190 @@ export const CadastroTerceirizado = forwardRef<
                     shrink: true,
                   }}
                   {...inputProps}
-                  name="zipCode"
-                  label="CEP"
-                  value={formik.values.zipCode}
+                  name="telephone"
+                  label="Telefone"
+                  value={formik.values.telephone}
                   onChange={formik.handleChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleBuscaCep}
-                          edge="end"
-                        >
-                          <SearchIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
                   error={
-                    formik.touched.zipCode && Boolean(formik.errors.zipCode)
+                    formik.touched.telephone &&
+                    Boolean(formik.errors.telephone)
                   }
-                  helperText={formik.touched.zipCode && formik.errors.zipCode}
+                  helperText={
+                    formik.touched.telephone && formik.errors.telephone
+                  }
                 />
-              )) as any}
-            </InputMask>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="address"
-              label="Endereço"
-              value={formik.values.address}
-              onChange={formik.handleChange}
-              error={formik.touched.address && Boolean(formik.errors.address)}
-              helperText={formik.touched.address && formik.errors.address}
-            />
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <TextField
-              fullWidth
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="number"
-              label="Número"
-              value={formik.values.number}
-              onChange={formik.handleChange}
-              error={formik.touched.number && Boolean(formik.errors.number)}
-              helperText={formik.touched.number && formik.errors.number}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="neighbourhood"
-              label="Bairro"
-              value={formik.values.neighbourhood}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.neighbourhood &&
-                Boolean(formik.errors.neighbourhood)
-              }
-              helperText={
-                formik.touched.neighbourhood && formik.errors.neighbourhood
-              }
-            />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              fullWidth
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="state"
-              label="UF"
-              value={formik.values.state}
-              onChange={formik.handleChange}
-              error={formik.touched.state && Boolean(formik.errors.state)}
-              helperText={formik.touched.state && formik.errors.state}
-            />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              fullWidth
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="city"
-              label="Cidade"
-              value={formik.values.city}
-              onChange={formik.handleChange}
-              error={formik.touched.city && Boolean(formik.errors.city)}
-              helperText={formik.touched.city && formik.errors.city}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="complement"
-              label="Complemento"
-              value={formik.values.complement}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.complement && Boolean(formik.errors.complement)
-              }
-              helperText={formik.touched.complement && formik.errors.complement}
-            />
-          </Grid>
+              )) as any
+            }
+          </InputMask>
         </Grid>
-      </div>
-    </form>
+        <Grid item xs={12} md={3}>
+          <InputMask
+            mask="(99) 99999-9999"
+            onChange={formik.handleChange}
+            value={formik.values.cellPhone}
+          >
+            {
+              ((inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="cellPhone"
+                  label="Celular"
+                  value={formik.values.cellPhone}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.cellPhone &&
+                    Boolean(formik.errors.cellPhone)
+                  }
+                  helperText={
+                    formik.touched.cellPhone && formik.errors.cellPhone
+                  }
+                />
+              )) as any
+            }
+          </InputMask>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <InputMask
+            mask="99999-999"
+            onChange={formik.handleChange}
+            value={formik.values.zipCode}
+          >
+            {((inputProps: any) => (
+              <TextField
+                fullWidth
+                size="small"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                {...inputProps}
+                name="zipCode"
+                label="CEP"
+                value={formik.values.zipCode}
+                onChange={formik.handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleBuscaCep}
+                        edge="end"
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                error={
+                  formik.touched.zipCode && Boolean(formik.errors.zipCode)
+                }
+                helperText={formik.touched.zipCode && formik.errors.zipCode}
+              />
+            )) as any}
+          </InputMask>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="address"
+            label="Endereço"
+            value={formik.values.address}
+            onChange={formik.handleChange}
+            error={formik.touched.address && Boolean(formik.errors.address)}
+            helperText={formik.touched.address && formik.errors.address}
+          />
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="number"
+            label="Número"
+            value={formik.values.number}
+            onChange={formik.handleChange}
+            error={formik.touched.number && Boolean(formik.errors.number)}
+            helperText={formik.touched.number && formik.errors.number}
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="neighbourhood"
+            label="Bairro"
+            value={formik.values.neighbourhood}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.neighbourhood &&
+              Boolean(formik.errors.neighbourhood)
+            }
+            helperText={
+              formik.touched.neighbourhood && formik.errors.neighbourhood
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="state"
+            label="UF"
+            value={formik.values.state}
+            onChange={formik.handleChange}
+            error={formik.touched.state && Boolean(formik.errors.state)}
+            helperText={formik.touched.state && formik.errors.state}
+          />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="city"
+            label="Cidade"
+            value={formik.values.city}
+            onChange={formik.handleChange}
+            error={formik.touched.city && Boolean(formik.errors.city)}
+            helperText={formik.touched.city && formik.errors.city}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            size="small"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="complement"
+            label="Complemento"
+            value={formik.values.complement}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.complement && Boolean(formik.errors.complement)
+            }
+            helperText={formik.touched.complement && formik.errors.complement}
+          />
+        </Grid>
+      </Grid>
+    </form >
   );
 });

@@ -1,8 +1,8 @@
 import { FormikProps } from 'formik';
-import { IConstrucao } from '..';
+import { ConstructionInputType } from '../../../graphql/generated';
 
 interface DetalhesProps {
-  formik: FormikProps<IConstrucao>;
+  formik: FormikProps<ConstructionInputType>;
 }
 
 export default function Detalhes({
@@ -22,17 +22,17 @@ export default function Detalhes({
           <div className="flex flex-col">
             <label htmlFor="identificador">Identificador</label>
             <input
-              id="identificador"
-              name="identificador"
+              id="identifier"
+              name="identifier"
               placeholder='Ex: Casa 1'
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.identificador}
+              value={formik.values.identifier}
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="status">Status</label>
-            <select id="status" name="status" onChange={formik.handleChange} value={formik.values.status} >
+            <select id="status" name="statusConstruction" onChange={formik.handleChange} value={formik.values.statusConstruction} >
               <option value="em andamento">Em andamento</option>
               <option value="concluido">Concluido</option>
               <option value="em construcao">Em construção</option>
@@ -42,10 +42,10 @@ export default function Detalhes({
             <label htmlFor="dataInicio">Data de Início</label>
             <input
               id="dataInicio"
-              name="dataInicio"
+              name="dateBegin"
               type="date"
               onChange={formik.handleChange}
-              value={formik.values.dataInicio}
+              value={formik.values.dateBegin}
             />
           </div>
           <div className="flex flex-col">
@@ -54,9 +54,9 @@ export default function Detalhes({
               id="dataFim"
               name="dataFim"
               type="date"
-              min={formik.values.dataInicio}
+              min={formik.values.dateEnd}
               onChange={formik.handleChange}
-              value={formik.values.dataFim}
+              value={formik.values.dateEnd}
             />
           </div>
         </div>
@@ -70,56 +70,56 @@ export default function Detalhes({
             <label htmlFor="cep">CEP</label>
             <input
               id="cep"
-              name="cep"
+              name="zipCode"
               type="text"
               onChange={(e) => {
                 let inputValue = e.target.value;
                 inputValue = inputValue.replace(/\D/g, "");
                 inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1-$2");
-                formik.setFieldValue('cep', inputValue)
+                formik.setFieldValue('zipCode', inputValue)
               }
               }
-              value={formik.values.cep}
+              value={formik.values.zipCode}
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="endereco">Endereço</label>
             <input
               id="endereco"
-              name="endereco"
+              name="address"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.endereco}
+              value={formik.values.address}
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="numero">Número</label>
             <input
               id="numero"
-              name="numero"
+              name="number"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.numero}
+              value={formik.values.number}
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="bairro">Bairro</label>
             <input
               id="bairro"
-              name="bairro"
+              name="neighbourhood"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.bairro}
+              value={formik.values.neighbourhood}
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="cidade">Cidade</label>
             <input
               id="cidade"
-              name="cidade"
+              name="city"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.cidade}
+              value={formik.values.city}
             />
           </div>
 
@@ -127,10 +127,10 @@ export default function Detalhes({
             <label htmlFor="estado">Estado</label>
             <input
               id="estado"
-              name="estado"
+              name="state"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.estado}
+              value={formik.values.state}
             />
           </div>
 
@@ -138,10 +138,10 @@ export default function Detalhes({
             <label htmlFor="complemento">Complemento</label>
             <input
               id="complemento"
-              name="complemento"
+              name="complement"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.complemento}
+              value={formik.values.complement}
             />
           </div>
         </div>
@@ -156,16 +156,16 @@ export default function Detalhes({
             <label htmlFor="areaLote">Área do Lote</label>
             <input
               id="areaLote"
-              name="areaLote"
+              name="batchArea"
               type="text"
               onChange={(e) => {
                 let inputValue = e.target.value;
                 inputValue = inputValue.replace(/\D/g, "");
                 inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
                 inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('areaLote', inputValue)
+                formik.setFieldValue('batchArea', inputValue)
               }}
-              value={formik.values.areaLote}
+              value={formik.values.batchArea}
             />
           </div>
 
@@ -173,16 +173,16 @@ export default function Detalhes({
             <label htmlFor="areaConstruida">Área Construída</label>
             <input
               id="areaConstruida"
-              name="areaConstruida"
+              name="buildingArea"
               type="text"
               onChange={(e) => {
                 let inputValue = e.target.value;
                 inputValue = inputValue.replace(/\D/g, "");
                 inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
                 inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('areaConstruida', inputValue)
+                formik.setFieldValue('buildingArea', inputValue)
               }}
-              value={formik.values.areaConstruida}
+              value={formik.values.buildingArea}
             />
           </div>
 
@@ -190,10 +190,10 @@ export default function Detalhes({
             <label htmlFor="inscricaoMunicipal">Inscrição Municipal</label>
             <input
               id="inscricaoMunicipal"
-              name="inscricaoMunicipal"
+              name="municipalRegistration"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.inscricaoMunicipal}
+              value={formik.values.municipalRegistration}
             />
           </div>
 
@@ -201,10 +201,10 @@ export default function Detalhes({
             <label htmlFor="alvara">Alvará</label>
             <input
               id="alvara"
-              name="alvara"
+              name="license"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.alvara}
+              value={formik.values.license}
             />
           </div>
 
@@ -212,10 +212,10 @@ export default function Detalhes({
             <label htmlFor="usoDeSolo">Uso de Solo</label>
             <input
               id="usoDeSolo"
-              name="usoDeSolo"
+              name="undergroundUse"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.usoDeSolo}
+              value={formik.values.undergroundUse}
             />
           </div>
 
@@ -245,10 +245,10 @@ export default function Detalhes({
             <label htmlFor="matriculaMae">Matrícula Mãe</label>
             <input
               id="matriculaMae"
-              name="matriculaMae"
+              name="motherEnrollment"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.matriculaMae}
+              value={formik.values.motherEnrollment}
             />
           </div>
 
@@ -294,17 +294,17 @@ export default function Detalhes({
             <label htmlFor="valorVenda">Valor de Venda</label>
             <input
               id="valorVenda"
-              name="valorVenda"
+              name="saleValue"
               type="text"
               onChange={(e) => {
                 let inputValue = e.target.value;
                 inputValue = inputValue.replace(/\D/g, "");
                 inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
                 inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('valorVenda', inputValue)
+                formik.setFieldValue('saleValue', inputValue)
               }
               }
-              value={formik.values.valorVenda}
+              value={formik.values.saleValue}
             />
           </div>
         </div>

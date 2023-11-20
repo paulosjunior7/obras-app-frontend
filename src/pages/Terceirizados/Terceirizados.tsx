@@ -138,8 +138,8 @@ function Terceirizados() {
     <div className="w-full">
       <PageHeader
         setSearch={setPesquisa}
-        title="Terceirizados"
-        button="Cadastrar terceirizado"
+        title="Funcionários"
+        button="Cadastrar funcionário"
         onClick={() => {
           modalCadastroTerceirizado.mostrar(() => refetch());
         }}

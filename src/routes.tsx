@@ -28,21 +28,15 @@ export function Router() {
       <Route path="/produtos" element={<Produtos />} />
 
       <Route path="/marcas" element={<Marcas />} />
-
       <Route path="/documentos" element={<Documentacao />} />
-
       <Route path="/despesas" element={<Despesas />} />
-
       <Route path="/fornecedores" element={<Fornecedores />} />
-
-      <Route path="/terceirizados" element={<Terceirizados />} />
+      <Route path="/funcionarios" element={<Terceirizados />} />
 
       <Route path="/pessoas" element={<Pessoas />} />
       <Route path="/pessoas/edicao/:slug" element={<CadastroPessoa />} />
       <Route path="/pessoas/cadastro" element={<CadastroPessoa />} />
-
       <Route path="/cargos" element={<Cargos />} />
-
       <Route path="/obras" element={<Obras />} />
 
       {/*<Route path="/obra" element={<Obra />} />

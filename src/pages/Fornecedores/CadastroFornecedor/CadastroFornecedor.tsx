@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { Grid, IconButton, InputAdornment, TextField } from "@mui/material";
+import { FormControlLabel, Grid, IconButton, InputAdornment, Radio, RadioGroup, TextField } from "@mui/material";
 import InputMask from "react-input-mask";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -127,44 +127,44 @@ export const CadastroFornecedor = forwardRef<
     onSubmit: (values) => {
       Number(id) > 0
         ? editarFornecedor({
-            variables: {
-              id: Number(id),
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj!,
-                complement: values.complement,
-                name: values.name!,
-                eMail: values.eMail,
-                active: values.active!,
-              },
+          variables: {
+            id: Number(id),
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj!,
+              complement: values.complement,
+              name: values.name!,
+              eMail: values.eMail,
+              active: values.active!,
             },
-          })
+          },
+        })
         : criarFornecedor({
-            variables: {
-              input: {
-                neighbourhood: values.neighbourhood,
-                number: values.number,
-                state: values.state,
-                telephone: values.telephone,
-                zipCode: values.zipCode,
-                address: values.address,
-                cellPhone: values.cellPhone,
-                city: values.city,
-                cnpj: values.cnpj!,
-                complement: values.complement,
-                name: values.name!,
-                eMail: values.eMail,
-                active: values.active!,
-              },
+          variables: {
+            input: {
+              neighbourhood: values.neighbourhood,
+              number: values.number,
+              state: values.state,
+              telephone: values.telephone,
+              zipCode: values.zipCode,
+              address: values.address,
+              cellPhone: values.cellPhone,
+              city: values.city,
+              cnpj: values.cnpj!,
+              complement: values.complement,
+              name: values.name!,
+              eMail: values.eMail,
+              active: values.active!,
             },
-          });
+          },
+        });
     },
   });
 
@@ -196,7 +196,28 @@ export const CadastroFornecedor = forwardRef<
 
   return (
     <form className="bg-white flex justify-center flex-col gap-4">
-      <div className="flex justify-center md:flex-row gap-2">
+      <div className="grid justify-center w-full grid-cols-2 gap-2">
+        <div className="col-span-2">
+          <span className="text-gray-700">Tipo de pessoa</span>
+          <RadioGroup
+            row
+            name="typePeople"
+            className="text-gray-700"
+            // value={formik.values.typePeople}
+            onChange={formik.handleChange}
+          >
+            <FormControlLabel
+              // value={TypePeopleEnumType.Fisica}
+              control={<Radio />}
+              label="Física"
+            />
+            <FormControlLabel
+              // value={TypePeopleEnumType.Juridica}
+              control={<Radio />}
+              label="Jurídica"
+            />
+          </RadioGroup>
+        </div>
         <InputMask
           mask="99.999.999/9999-99"
           onChange={formik.handleChange}
@@ -212,7 +233,6 @@ export const CadastroFornecedor = forwardRef<
                 }}
                 name="cnpj"
                 label="CNPJ"
-                className="w-72"
                 value={formik.values.cnpj}
                 onChange={formik.handleChange}
                 error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}

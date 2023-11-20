@@ -11,7 +11,7 @@ export const useModalTerceirizado = () => {
   const mostrar = (refresh?: () => void, id?: number) => {
     ModalService.show({
       content: <CadastroTerceirizado ref={childRef} id={id} />,
-      title: "Cadastro de Terceirizado",
+      title: "Cadastro de Funcionário",
       onConfirm: () => {
         childRef.current?.salvar();
       },

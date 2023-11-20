@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ProductType,
   useEditarProdutoMutation,
+  useGetObrasQuery,
   useGetProdutosQuery,
 } from "../../graphql/generated";
 import { PencilSimple, Trash } from "phosphor-react";
@@ -27,21 +28,21 @@ function Obras() {
 
   const navigate = useNavigate();
 
-  const { loading, refetch } = useGetProdutosQuery({
+  const { loading, refetch } = useGetObrasQuery({
     variables: {
       pagination: {
         pageNumber: page,
         pageSize: offset,
       },
       filter: {
-        description: pesquisa,
+        identifier: pesquisa,
         active: true,
       },
     },
     fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
-      if (data && data.products?.findall) {
-        const { items, totalCount, pageInfo } = data.products.findall;
+      if (data && data.constructions?.findall) {
+        const { items, totalCount, pageInfo } = data.constructions.findall;
         setProdutos(items as ProductType[]);
         setTotalCount(totalCount!);
         const quantidade = items?.length!;
@@ -132,7 +133,6 @@ function Obras() {
     { heading: "Status", value: "active" },
   ];
 
-  const [showModal, setShowModal] = useState(false);
   return (
     <div className="w-full">
       <>

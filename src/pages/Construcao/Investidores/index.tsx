@@ -1,11 +1,14 @@
 import { MagnifyingGlass } from "phosphor-react";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { CriarVinculoClienteConstrucaoDocument, PeopleType, useCriarVinculoClienteConstrucaoMutation, useGetPessoasLazyQuery } from "../../../graphql/generated";
+import { set } from "date-fns";
+import { toast } from "react-toastify";
 
 export interface IInvestidores {
   id: string;
-  id_obra?: string;
-  id_pessoa?: string;
+  constructionId: number,
+  peopleId: number,
   id_usuario_cadastro?: string;
   id_usuario_alteracao?: string;
   data_alteracao?: string;
@@ -16,75 +19,31 @@ export interface IInvestidores {
   email?: string;
 }
 
-const mockClientes =
-  [
-    {
-      id: '1',
-      id_pessoa: '1',
-      nome: 'João da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-    {
-      id: '2',
-      id_pessoa: '2',
-      nome: 'Maria da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-    {
-      id: '3',
-      id_pessoa: '3',
-      nome: 'José da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-    {
-      id: '4',
-      id_pessoa: '4',
-      nome: 'Pedro da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-    {
-      id: '5',
-      id_pessoa: '5',
-      nome: 'Paulo da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-    {
-      id: '6',
-      id_pessoa: '6',
-      nome: 'Paula da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-    {
-      id: '7',
-      id_pessoa: '7',
-      nome: 'Joana da Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 99999-9999',
-      email: '',
-    },
-  ];
-
 export default function Investidores() {
   const [clientes, setClientes] = useState<IInvestidores[]>([]);
-  const [selectedCliente, setSelectedCliente] = useState({});
+  const [pessoas, setPessoas] = useState<PeopleType[]>([]);
+  const [selectedInvestidor, setSelectedInvestidor] = useState<PeopleType | undefined>(undefined);
+
+  const [criarVinculoInvestidorObra] = useCriarVinculoClienteConstrucaoMutation({
+    onCompleted: (resposta) => {
+      toast.success("Investidor vinculado a Obra", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "foo-bar",
+      });
+    },
+    onError: (error) => {
+      toast.error("Falha ao vincular investidor a obra", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "foo-bar",
+      });
+    },
+  });
 
   const formik = useFormik<IInvestidores>({
     initialValues: {
       id: '',
-      id_obra: '',
-      id_pessoa: '',
+      constructionId: 0,
+      peopleId: 0,
       id_usuario_cadastro: '',
       id_usuario_alteracao: '',
       data_alteracao: '',
@@ -104,11 +63,18 @@ export default function Investidores() {
 
   const handleInsert = (e: any) => {
     e.preventDefault();
-    const cliente = mockClientes.find((cliente) => cliente.id_pessoa === formik.values.id_pessoa);
-    if (cliente) {
-      setClientes([...clientes, cliente]);
-    }
-  };
+    criarVinculoInvestidorObra({
+      variables: {
+        input: {
+          constructionId: formik.values.constructionId,
+          peopleId: selectedInvestidor?.id!,
+          active: true,
+        },
+      },
+    })
+  }
+
+
 
   return (
     <>
@@ -120,23 +86,12 @@ export default function Investidores() {
 
       <form >
         <div className="flex justify-between gap-4 mt-5 ">
-          <select
-            id="id_cliente"
-            name="id_pessoa"
-            className="form-input w-[30rem]"
-            onChange={(e) => {
-              formik.setFieldValue("id_pessoa", e.target.value); // Atualize o campo id_pessoa no estado do Formik
-            }}
-            value={formik.values.id_pessoa}
-          >
-            <option value="">Selecione um cliente</option> {/* Adicione uma opção padrão */}
-            {mockClientes.map((cliente) => (
-              <option key={cliente.id} value={cliente.id_pessoa}>
-                {cliente.nome}
-              </option>
-            ))}
-            <MagnifyingGlass size={32} />
-          </select>
+          <SearchInput
+            setPessoas={setPessoas}
+            pessoas={pessoas}
+            selectedInvestidor={selectedInvestidor}
+            setSelectedInvestidor={setSelectedInvestidor}
+          />
           <button className="bg-[#003569] text-white px-4 py-2 rounded-md w-56"
             onClick={(e) => {
               handleInsert(e);
@@ -189,3 +144,95 @@ export default function Investidores() {
     </>
   );
 }
+
+const SearchInput = ({ setPessoas, pessoas, selectedInvestidor, setSelectedInvestidor }: {
+  pessoas: PeopleType[];
+  setPessoas: (value: PeopleType[]) => void;
+  selectedInvestidor?: PeopleType;
+  setSelectedInvestidor: (investidor: PeopleType) => void;
+}) => {
+  const [page, setPage] = useState(1);
+  const [offset] = useState(10);
+  const [pesquisa, setPesquisa] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setPesquisa(value);
+    setPage(1);
+    if (value === "") {
+      setPessoas([]);
+    }
+    if (value.length > 2) {
+      getPessoas();
+    }
+  };
+
+  const [getPessoas, { loading }] =
+    useGetPessoasLazyQuery({
+      variables: {
+        pagination: {
+          pageNumber: page,
+          pageSize: offset,
+        },
+        filter: {
+          fantasyName: pesquisa,
+          active: true,
+        },
+      },
+      fetchPolicy: "cache-and-network",
+      onCompleted: (data) => {
+        if (data && data.peoples?.findall) {
+          const { items } = data.peoples.findall;
+          setPessoas(items as PeopleType[]);
+        }
+      },
+    });
+
+  return (
+    <div className="relative">
+      <input
+        type="text"
+        id="id_cliente"
+        name="id_pessoa"
+        className="form-input w-[30rem] pr-10 pl-4"
+        autoComplete="off"
+        value={searchTerm}
+        onChange={(e) => {
+          handleSearchChange(e.target.value);
+        }}
+        placeholder="Pesquisar investidor..."
+      />
+
+      {loading ? (
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
+        </div>
+      ) :
+        <MagnifyingGlass
+          size={24}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+        />}
+
+      {pessoas.length > 0 && (
+        <>
+          <ul className="mt-2 text-sm text-[#000} border w-full rounded-md z-50 absolute bg-white">
+            {pessoas.map((cliente) => (
+              <li
+                key={cliente.id}
+                className="cursor-pointer hover:bg-gray-200 p-2"
+                onClick={() => {
+                  setSelectedInvestidor(cliente);
+                  setPessoas([]);
+                  setSearchTerm(cliente.corporateName || cliente.fantasyName || "");
+                }}
+              >
+                {cliente.corporateName || cliente.fantasyName}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+};

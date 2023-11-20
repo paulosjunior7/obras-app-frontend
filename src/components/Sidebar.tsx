@@ -71,8 +71,8 @@ function Sidebar({ children }: { children: React.ReactNode }) {
           path: "/fornecedores",
         },
         {
-          label: "Terceirizados",
-          path: "/terceirizados",
+          label: "Funcionarios",
+          path: "/funcionarios",
         },
         {
           label: "Cargos",

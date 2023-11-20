@@ -9,167 +9,85 @@ import LeftModal from "../../components/LeftModal";
 import UnidadeResidencial from "./UnidadeResidencial";
 import Materiais from "./Materiais";
 import { useModalProduto } from "../../hooks/useModalProduto";
+import { ConstructionInputType, useCriarConstrucaoMutation } from "../../graphql/generated";
 
-export interface IConstrucao {
-  id: string;
-  identificador: string;
-  status: string;
-  dataInicio: string;
-  dataFim: string;
-  cep: string;
-  endereco: string;
-  numero: string;
-  bairro: string;
-  cidade: string;
-  estado: string;
-  complemento: string;
-  areaLote: string;
-  areaConstruida: string;
-  inscricaoMunicipal: string;
-  alvara: string;
-  usoDeSolo: string;
-  art: string;
-  cno: string;
-  matriculaMae: string;
-  latitude: string;
-  longitude: string;
-  valorVenda: string;
-}
 
 export default function Construcao() {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const formik = useFormik<IConstrucao>({
-    initialValues: {
-      id: "",
-      identificador: "",
-      status: "",
-      dataInicio: "",
-      dataFim: "",
-      cep: "",
-      endereco: "",
-      numero: "",
-      bairro: "",
-      cidade: "",
-      estado: "",
-      complemento: "",
-      areaLote: "",
-      areaConstruida: "",
-      inscricaoMunicipal: "",
-      alvara: "",
-      usoDeSolo: "",
-      art: "",
-      cno: "",
-      matriculaMae: "",
-      latitude: "",
-      longitude: "",
-      valorVenda: "",
+  const [criarConstrucao] = useCriarConstrucaoMutation({
+    onCompleted: (resposta) => {
+      console.log(resposta)
     },
-
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onError: (error) => {
+      console.log(error)
     },
   });
-  const [showleftModal, setShowLeftModal] = useState(false);
+
+  const formik = useFormik<ConstructionInputType>({
+    initialValues: {
+      identifier: "",
+      statusConstruction: undefined,
+      dateBegin: "",
+      dateEnd: "",
+      zipCode: "",
+      address: "",
+      number: "",
+      neighbourhood: "",
+      city: "",
+      state: "",
+      complement: "",
+      batchArea: 0,
+      buildingArea: 0,
+      municipalRegistration: 0,
+      license: 0,
+      undergroundUse: 0,
+      art: 0,
+      cno: 0,
+      motherEnrollment: 0,
+      latitude: 0,
+      longitude: 0,
+      saleValue: 0,
+      active: true,
+    },
+    onSubmit: (values) => {
+      criarConstrucao({
+        variables: {
+          input: {
+            identifier: values.identifier,
+            statusConstruction: values.statusConstruction,
+            dateBegin: values.dateBegin,
+            dateEnd: values.dateEnd,
+            zipCode: values.zipCode,
+            address: values.address,
+            number: values.number,
+            neighbourhood: values.neighbourhood,
+            city: values.city,
+            state: values.state,
+            complement: values.complement,
+            batchArea: values.batchArea,
+            buildingArea: values.buildingArea,
+            municipalRegistration: values.municipalRegistration,
+            license: values.license,
+            undergroundUse: values.undergroundUse,
+            art: values.art,
+            cno: values.cno,
+            motherEnrollment: values.motherEnrollment,
+            latitude: values.latitude,
+            longitude: values.longitude,
+            saleValue: values.saleValue,
+            active: values.active,
+          },
+        },
+      })
+    },
+  });
 
   const modalProduto = useModalProduto();
 
   return (
     <Container>
-      {/* <LeftModal showleftModal={showleftModal} setShowLeftModal={setShowLeftModal}
-        title="Cadastrar Casa"
-      >
-        <div className="grid grid-cols-2 gap-4 mt-5">
-          <div className="flex flex-col">
-            <label htmlFor="identificador">Descrição</label>
-            <input
-              id="descricao"
-              name="descricao"
-              type="text"
 
-              placeholder="Ex: Casa 1"
-            />
-          </div>
-          <div className="flex flex-col">
-
-            <label htmlFor="fracao_terreno">Fração do Terreno</label>
-            <input
-              id="fracao_terreno"
-              name="fracao_terreno"
-              type="text"
-
-            />
-          </div>
-          <div className="flex flex-col">
-
-            <label htmlFor="area_construida">Área Construída</label>
-            <input
-              id="area_construida"
-              name="area_construida"
-              type="text"
-
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="area_permeavel">Área Permeável</label>
-            <input
-              id="area_permeavel"
-              name="area_permeavel"
-              type="text"
-
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="matricula">Matrícula</label>
-            <input
-              id="matricula"
-              name="matricula"
-
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="un_cons_energia">Un. Consumidora de Energia</label>
-            <input
-              id="un_cons_energia"
-              name="un_cons_energia"
-              type="text"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="un_cons_agua">Un. Consumidora de Água</label>
-            <input
-              id="un_cons_agua"
-              name="un_cons_agua"
-              type="text"
-
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="valor_venda">Valor de Venda</label>
-            <input
-              id="valor_venda"
-              name="valor_venda"
-              type="text"
-
-            />
-          </div>
-          <div className="flex justify-end w-full gap-2 col-span-2 ">
-            <button className="border-[#003569] text-[#003569] border px-4 py-2 rounded-md"
-              onClick={() => {
-                setShowLeftModal(showleftModal => !showleftModal)
-              }}
-            >Cancelar</button>
-            <button type="submit" className="bg-[#003569] text-white px-4 py-2 rounded-md w-[100px]">Salvar</button>
-          </div>
-        </div>
-      </LeftModal >
-
-      <button
-        className="fixed left-16 h-16 w-16 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-30"
-        onClick={() => setShowLeftModal(showleftModal => !showleftModal)}
-      >Abrir
-      </button>
-       */}
       <button
         className="fixed left-16 h-16 w-16 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-30"
         onClick={() => modalProduto.mostrar()}
@@ -181,13 +99,13 @@ export default function Construcao() {
         <h4 className="text-2xl font-normal leading-none mb-3">
           Cadastrar Construção
         </h4>
-
-
       </div>
 
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
         <Tab label="Detalhes" selected onClick={() => { }}>
-          <Detalhes formik={formik} />
+          <Detalhes
+            formik={formik}
+          />
         </Tab>
         <Tab label="Investidores" selected onClick={() => { }}>
           <Investidores />
