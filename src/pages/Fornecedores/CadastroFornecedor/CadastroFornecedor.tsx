@@ -1,10 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { FormControlLabel, Grid, IconButton, InputAdornment, Radio, RadioGroup, TextField } from "@mui/material";
+import {
+  FormControlLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
 import InputMask from "react-input-mask";
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
   ProviderType,
+  TypePeopleEnumType,
   useCriarFornecedorMutation,
   useEditarFornecedorMutation,
   useGetFornecedorByIdQuery,
@@ -17,6 +26,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/app";
 import { ModalService } from "../../../components/ModalService";
+import React from "react";
 
 export interface CadastroFornecedorProps {
   salvar: () => void;
@@ -120,6 +130,8 @@ export const CadastroFornecedor = forwardRef<
       complement: "",
       name: "",
       eMail: "",
+      cpf: "",
+      typePeople: TypePeopleEnumType.Fisica,
       active: true,
       id: 0,
     },
@@ -127,44 +139,54 @@ export const CadastroFornecedor = forwardRef<
     onSubmit: (values) => {
       Number(id) > 0
         ? editarFornecedor({
-          variables: {
-            id: Number(id),
-            input: {
-              neighbourhood: values.neighbourhood,
-              number: values.number,
-              state: values.state,
-              telephone: values.telephone,
-              zipCode: values.zipCode,
-              address: values.address,
-              cellPhone: values.cellPhone,
-              city: values.city,
-              cnpj: values.cnpj!,
-              complement: values.complement,
-              name: values.name!,
-              eMail: values.eMail,
-              active: values.active!,
+            variables: {
+              id: Number(id),
+              input: {
+                neighbourhood: values.neighbourhood,
+                number: values.number,
+                state: values.state,
+                telephone: values.telephone,
+                zipCode: values.zipCode,
+                address: values.address,
+                cellPhone: values.cellPhone,
+                city: values.city,
+                cnpj: values.cnpj!,
+                cpf: values.cpf!,
+                typePeople:
+                  values.typePeople! == "FISICA"
+                    ? TypePeopleEnumType.Fisica
+                    : TypePeopleEnumType.Juridica,
+                complement: values.complement,
+                name: values.name!,
+                eMail: values.eMail,
+                active: values.active!,
+              },
             },
-          },
-        })
+          })
         : criarFornecedor({
-          variables: {
-            input: {
-              neighbourhood: values.neighbourhood,
-              number: values.number,
-              state: values.state,
-              telephone: values.telephone,
-              zipCode: values.zipCode,
-              address: values.address,
-              cellPhone: values.cellPhone,
-              city: values.city,
-              cnpj: values.cnpj!,
-              complement: values.complement,
-              name: values.name!,
-              eMail: values.eMail,
-              active: values.active!,
+            variables: {
+              input: {
+                neighbourhood: values.neighbourhood,
+                number: values.number,
+                state: values.state,
+                telephone: values.telephone,
+                zipCode: values.zipCode,
+                address: values.address,
+                cellPhone: values.cellPhone,
+                city: values.city,
+                cnpj: values.cnpj!,
+                cpf: values.cpf || "",
+                typePeople:
+                  values.typePeople! == "FISICA"
+                    ? TypePeopleEnumType.Fisica
+                    : TypePeopleEnumType.Juridica,
+                complement: values.complement,
+                name: values.name!,
+                eMail: values.eMail,
+                active: values.active!,
+              },
             },
-          },
-        });
+          });
     },
   });
 
@@ -188,6 +210,11 @@ export const CadastroFornecedor = forwardRef<
         eMail: response?.providers?.findById?.eMail,
         active: response?.providers?.findById?.active!,
         id: response?.providers?.findById?.id!,
+        typePeople:
+          response?.providers?.findById?.typePeople! == "FISICA"
+            ? TypePeopleEnumType.Fisica
+            : TypePeopleEnumType.Juridica,
+        cpf: response?.providers?.findById?.cpf,
       });
     },
     skip: !!!id,
@@ -200,47 +227,75 @@ export const CadastroFornecedor = forwardRef<
         <div className="col-span-2">
           <span className="text-gray-700">Tipo de pessoa</span>
           <RadioGroup
-            row
             name="typePeople"
             className="text-gray-700"
-            // value={formik.values.typePeople}
+            value={formik.values.typePeople}
             onChange={formik.handleChange}
+            row
           >
             <FormControlLabel
-              // value={TypePeopleEnumType.Fisica}
+              value={TypePeopleEnumType.Fisica}
               control={<Radio />}
               label="Física"
             />
             <FormControlLabel
-              // value={TypePeopleEnumType.Juridica}
+              value={TypePeopleEnumType.Juridica}
               control={<Radio />}
               label="Jurídica"
             />
           </RadioGroup>
         </div>
-        <InputMask
-          mask="99.999.999/9999-99"
-          onChange={formik.handleChange}
-          value={formik.values.cnpj}
-        >
-          {
-            ((inputProps: any) => (
-              <TextField
-                size="small"
-                {...inputProps}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                name="cnpj"
-                label="CNPJ"
-                value={formik.values.cnpj}
-                onChange={formik.handleChange}
-                error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
-                helperText={formik.touched.cnpj && formik.errors.cnpj}
-              />
-            )) as any
-          }
-        </InputMask>
+        {formik.values.typePeople === TypePeopleEnumType.Fisica ? (
+          <InputMask
+            mask="999.999.999-99"
+            onChange={formik.handleChange}
+            value={formik.values.cpf}
+          >
+            {
+              ((inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="cpf"
+                  label="CPF"
+                  value={formik.values.cpf}
+                  onChange={formik.handleChange}
+                  error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                  helperText={formik.touched.cpf && formik.errors.cpf}
+                />
+              )) as any
+            }
+          </InputMask>
+        ) : (
+          <InputMask
+            mask="99.999.999/9999-99"
+            onChange={formik.handleChange}
+            value={formik.values.cnpj}
+          >
+            {
+              ((inputProps: any) => (
+                <TextField
+                  fullWidth
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...inputProps}
+                  name="cnpj"
+                  label="CNPJ"
+                  value={formik.values.cnpj}
+                  onChange={formik.handleChange}
+                  error={formik.touched.cnpj && Boolean(formik.errors.cnpj)}
+                  helperText={formik.touched.cnpj && formik.errors.cnpj}
+                />
+              )) as any
+            }
+          </InputMask>
+        )}
         <TextField
           fullWidth
           size="small"

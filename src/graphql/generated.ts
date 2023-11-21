@@ -2186,12 +2186,14 @@ export type ProviderInputType = {
   cnpj: Scalars['String'];
   companyId?: InputMaybe<Scalars['Int']>;
   complement?: InputMaybe<Scalars['String']>;
+  cpf?: InputMaybe<Scalars['String']>;
   eMail?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   neighbourhood?: InputMaybe<Scalars['String']>;
   number?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
   telephone?: InputMaybe<Scalars['String']>;
+  typePeople?: InputMaybe<TypePeopleEnumType>;
   zipCode?: InputMaybe<Scalars['String']>;
 };
 
@@ -2253,6 +2255,7 @@ export type ProviderType = {
   cnpj?: Maybe<Scalars['String']>;
   company?: Maybe<CompanyType>;
   complement?: Maybe<Scalars['String']>;
+  cpf?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['DateTime']>;
   eMail?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -2262,6 +2265,7 @@ export type ProviderType = {
   registrationUser?: Maybe<UserType>;
   state?: Maybe<Scalars['String']>;
   telephone?: Maybe<Scalars['String']>;
+  typePeople?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
 };
 
@@ -2844,7 +2848,7 @@ export type GetFornecedorByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetFornecedorByIdQuery = { __typename?: 'ObrasQuery', providers?: { __typename?: 'ProviderQuery', findById?: { __typename?: 'ProviderType', id: number, neighbourhood?: string, number?: string, state?: string, telephone?: string, zipCode?: string, active: boolean, address?: string, cellPhone?: string, city?: string, cnpj?: string, complement?: string, name?: string, eMail?: string } } };
+export type GetFornecedorByIdQuery = { __typename?: 'ObrasQuery', providers?: { __typename?: 'ProviderQuery', findById?: { __typename?: 'ProviderType', id: number, neighbourhood?: string, number?: string, state?: string, telephone?: string, zipCode?: string, active: boolean, address?: string, cellPhone?: string, city?: string, cnpj?: string, cpf?: string, typePeople?: string, complement?: string, name?: string, eMail?: string } } };
 
 export type GetFornecedoresQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationDetailsType>;
@@ -4887,6 +4891,8 @@ export const GetFornecedorByIdDocument = gql`
       cellPhone
       city
       cnpj
+      cpf
+      typePeople
       complement
       name
       eMail
