@@ -92,7 +92,7 @@ function Obras() {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/produtos/edicao/${id}`);
+    navigate(`/construcoes/editar/${id}`);
   };
 
   const handleDelete = () => {
@@ -128,8 +128,8 @@ function Obras() {
   };
 
   const column = [
-    { heading: "Descricao", value: "indetifier" },
-    { heading: "Detalhe", value: "detail" },
+    { heading: "Descricao", value: "identifier" },
+    { heading: "Detalhe", value: "dateBegin" },
     { heading: "Status", value: "active" },
   ];
 
@@ -140,7 +140,7 @@ function Obras() {
           setSearch={setPesquisa}
           title="Construções"
           button="Cadastrar nova construção"
-          onClick={() => navigate("/obras/cadastro")}
+          onClick={() => navigate("/construcoes/cadastrar")}
           loading={loading}
         />
         <Table

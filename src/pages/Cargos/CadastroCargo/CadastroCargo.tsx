@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { Grid, Typography, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
 
 import {
   useCriarCargoMutation,
@@ -96,22 +96,22 @@ export const CadastroCargo = forwardRef<
     onSubmit: (values) => {
       Number(id) > 0
         ? editarCargo({
-            variables: {
-              id: Number(id),
-              input: {
-                description: values.description,
-                active: values.active,
-              },
+          variables: {
+            id: Number(id),
+            input: {
+              description: values.description,
+              active: values.active,
             },
-          })
+          },
+        })
         : criarCargo({
-            variables: {
-              input: {
-                description: values.description,
-                active: values.active,
-              },
+          variables: {
+            input: {
+              description: values.description,
+              active: values.active,
             },
-          });
+          },
+        });
     },
   });
 

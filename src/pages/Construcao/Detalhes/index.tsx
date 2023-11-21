@@ -1,8 +1,9 @@
 import { FormikProps, useFormik } from 'formik';
 import { ConstructionInputType, ConstructionType, StatusConstructionEnumType, useCriarConstrucaoMutation, useEditarConstrucaoMutation } from '../../../graphql/generated';
 import * as yup from "yup";
-import { toast } from 'react-toastify';
-import { parseISO } from 'date-fns';
+import SearchIcon from "@mui/icons-material/Search";
+import { IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 interface DetalhesProps {
   formik: FormikProps<ConstructionInputType>;
 }
@@ -10,18 +11,41 @@ interface DetalhesProps {
 export default function Detalhes({
   formik
 }: DetalhesProps) {
+  const navigate = useNavigate();
 
+  const handleBuscaCep = () => {
+    if (formik.values.zipCode) {
+      fetch(
+        `https://viacep.com.br/ws/${formik.values
+          .zipCode!.toString()
+          .replace(".", "")
+          .replace("-", "")}/json/`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.cep)
+            formik.setValues({
+              ...formik.values,
+              address: data.logradouro,
+              city: data.localidade,
+              state: data.uf,
+              neighbourhood: data.bairro,
+            });
+        });
+    }
+  };
 
   return (
     <>
       <div className="flex justify-between">
         <div className="flex justify-between w-full mt-5 bg-gradient-to-r from-gray-100 to-gray-50 p-2 rounded-md">
           <h4 className="text-lg font-normal">Detalhes da construção</h4>
+          {/* <h4 className="text-lg font-normal">{`Código: ${formik.values.identifier}`}</h4> */}
         </div>
       </div>
 
       <form>
-        <div className="grid grid-cols-2 gap-4 mt-5">
+        <div className="grid grid-cols-4 gap-4 mt-5">
           <div className="flex flex-col">
             <label htmlFor="identificador">Identificador</label>
             <input
@@ -68,24 +92,37 @@ export default function Detalhes({
           <h4 className="text-lg font-normal">Endereço</h4>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-5">
+        <div className="grid grid-cols-4 gap-4 mt-5">
           <div className="flex flex-col">
             <label htmlFor="cep">CEP</label>
-            <input
-              id="cep"
-              name="zipCode"
-              type="text"
-              onChange={(e) => {
-                let inputValue = e.target.value;
-                inputValue = inputValue.replace(/\D/g, "");
-                inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1-$2");
-                formik.setFieldValue('zipCode', inputValue)
-              }
-              }
-              value={formik.values.zipCode}
-            />
+            <div className='relative'>
+
+              <input
+                id="cep"
+                name="zipCode"
+                type="text"
+                className='absolute w-full'
+                onChange={(e) => {
+                  let inputValue = e.target.value;
+                  inputValue = inputValue.replace(/\D/g, "");
+                  inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1-$2");
+                  formik.setFieldValue('zipCode', inputValue)
+                }
+                }
+                value={formik.values.zipCode}
+              />
+              <div className='absolute right-4 top-0 cursor-pointer'>
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleBuscaCep}
+                  edge="end"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col col-span-2">
             <label htmlFor="endereco">Endereço</label>
             <input
               id="endereco"
@@ -153,22 +190,22 @@ export default function Detalhes({
           <h4 className="text-lg font-normal">Dados da Construçāo</h4>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-5">
-
+        <div className="grid grid-cols-4 gap-4 mt-5">
           <div className="flex flex-col">
             <label htmlFor="areaLote">Área do Lote</label>
             <input
               id="areaLote"
               name="batchArea"
-              type="text"
+              type="number"
               onChange={(e) => {
-                let inputValue = e.target.value;
-                inputValue = inputValue.replace(/\D/g, "");
-                inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
-                inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('batchArea', inputValue)
+                // inputValue = inputValue.replace(/\D/g, "");
+                // inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
+                // inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+                const inputValue = e.target.value;
+                const numericValue = inputValue !== "" ? parseInt(inputValue, 10) : null;
+                formik.setFieldValue('batchArea', numericValue)
               }}
-              value={formik.values.batchArea}
+              value={formik.values.batchArea || ''}
             />
           </div>
 
@@ -177,15 +214,9 @@ export default function Detalhes({
             <input
               id="areaConstruida"
               name="buildingArea"
-              type="text"
-              onChange={(e) => {
-                let inputValue = e.target.value;
-                inputValue = inputValue.replace(/\D/g, "");
-                inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
-                inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('buildingArea', inputValue)
-              }}
-              value={formik.values.buildingArea}
+              type="number"
+              onChange={formik.handleChange}
+              value={formik.values.buildingArea || ''}
             />
           </div>
 
@@ -194,9 +225,9 @@ export default function Detalhes({
             <input
               id="inscricaoMunicipal"
               name="municipalRegistration"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
-              value={formik.values.municipalRegistration}
+              value={formik.values.municipalRegistration || ''}
             />
           </div>
 
@@ -205,9 +236,9 @@ export default function Detalhes({
             <input
               id="alvara"
               name="license"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
-              value={formik.values.license}
+              value={formik.values.license || ''}
             />
           </div>
 
@@ -216,9 +247,9 @@ export default function Detalhes({
             <input
               id="usoDeSolo"
               name="undergroundUse"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
-              value={formik.values.undergroundUse}
+              value={formik.values.undergroundUse || ''}
             />
           </div>
 
@@ -227,9 +258,9 @@ export default function Detalhes({
             <input
               id="art"
               name="art"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
-              value={formik.values.art}
+              value={formik.values.art || ''}
             />
           </div>
 
@@ -238,9 +269,9 @@ export default function Detalhes({
             <input
               id="cno"
               name="cno"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
-              value={formik.values.cno}
+              value={formik.values.cno || ''}
             />
           </div>
 
@@ -249,48 +280,48 @@ export default function Detalhes({
             <input
               id="matriculaMae"
               name="motherEnrollment"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
-              value={formik.values.motherEnrollment}
+              value={formik.values.motherEnrollment || ''}
             />
           </div>
 
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <label htmlFor="latitude">Latitude</label>
             <input
               id="latitude"
               name="latitude"
-              type="text"
+              type="number"
               onChange={(e) => {
-                let inputValue = e.target.value;
-                inputValue = inputValue.replace(/\D/g, "");
-                inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
-                inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('latitude', inputValue)
+                // let inputValue = e.target.value;
+                // inputValue = inputValue.replace(/\D/g, "");
+                // inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
+                // inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+                formik.setFieldValue('latitude', e.target.value)
               }
               }
               value={formik.values.latitude}
             />
-          </div>
+          </div> */}
 
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <label htmlFor="longitude">Longitude</label>
             <input
               id="longitude"
               name="longitude"
-              type="text"
+              type="number"
               onChange={(e) => {
-                let inputValue = e.target.value;
-                inputValue = inputValue.replace(/\D/g, "");
-                inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
-                inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-                formik.setFieldValue('longitude', inputValue)
+                // let inputValue = e.target.value;
+                // inputValue = inputValue.replace(/\D/g, "");
+                // inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
+                // inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+                formik.setFieldValue('longitude', e.target.value)
               }
               }
               value={formik.values.longitude}
             />
 
-          </div>
+          </div> */}
 
           <div className="flex flex-col">
             <label htmlFor="valorVenda">Valor de Venda</label>
@@ -304,14 +335,19 @@ export default function Detalhes({
                 inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
                 inputValue = inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
                 formik.setFieldValue('saleValue', inputValue)
-              }
-              }
+              }}
               value={formik.values.saleValue}
             />
           </div>
         </div>
         <div className="flex justify-end w-full gap-2 col-span-2 ">
-          <button className="border-[#003569] text-[#003569] border px-4 py-2 rounded-md"
+          <button
+            onClick={() => {
+              formik.resetForm();
+              navigate('/construcoes')
+            }
+            }
+            className="border-[#003569] text-[#003569] border px-4 py-2 rounded-md"
           >Cancelar</button>
           <button
             onClick={() => {

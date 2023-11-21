@@ -74,8 +74,6 @@ export default function Investidores() {
     })
   }
 
-
-
   return (
     <>
       <div className="flex justify-between">

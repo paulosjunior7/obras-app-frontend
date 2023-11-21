@@ -5,21 +5,47 @@ import { useState } from "react";
 import Detalhes from "./Detalhes";
 import Investidores from "./Investidores";
 import Terreno from "./Terreno";
-import LeftModal from "../../components/LeftModal";
 import UnidadeResidencial from "./UnidadeResidencial";
 import Materiais from "./Materiais";
-import { useModalProduto } from "../../hooks/useModalProduto";
-import { ConstructionInputType, useCriarConstrucaoMutation } from "../../graphql/generated";
+import { ConstructionInputType, StatusConstructionEnumType, useCriarConstrucaoMutation, useEditarConstrucaoMutation, useGetObraByIdQuery } from "../../graphql/generated";
+import { convertDateToISOWithTimezone } from "../../utils/convertISOdate";
+import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
+import { format } from "date-fns";
 
 export default function Construcao() {
   const [selectedTab, setSelectedTab] = useState(0);
+  const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
 
   const [criarConstrucao] = useCriarConstrucaoMutation({
     onCompleted: (response) => {
-      console.log(response)
+      toast.success("Construção cadastrada com sucesso", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "foo-bar",
+      });
     },
     onError: (error) => {
-      console.log(error)
+      toast.error("Falha ao cadastrar construção", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "foo-bar",
+      });
+    },
+  });
+
+  const [editarConstrucao] = useEditarConstrucaoMutation({
+    onCompleted: (resposta) => {
+      toast.success("Construção alterada", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "foo-bar",
+      });
+      navigate("/construcoes");
+    },
+    onError: (error) => {
+      toast.error("Falha ao alterar a construção", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "foo-bar",
+      });
     },
   });
 
@@ -50,51 +76,122 @@ export default function Construcao() {
       active: true,
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
       try {
-        criarConstrucao({
-          variables: {
-            input: {
-              identifier: values.identifier,
-              statusConstruction: values.statusConstruction,
-              dateBegin: values.dateBegin,
-              dateEnd: values.dateEnd,
-              zipCode: values.zipCode,
-              address: values.address,
-              number: values.number,
-              neighbourhood: values.neighbourhood,
-              city: values.city,
-              state: values.state,
-              complement: values.complement,
-              batchArea: values.batchArea,
-              buildingArea: values.buildingArea,
-              municipalRegistration: values.municipalRegistration,
-              license: values.license,
-              undergroundUse: values.undergroundUse,
-              art: values.art,
-              cno: values.cno,
-              motherEnrollment: values.motherEnrollment,
-              latitude: values.latitude,
-              longitude: values.longitude,
-              saleValue: values.saleValue,
-              active: values.active,
+        if (slug) {
+          editarConstrucao({
+            variables: {
+              id: Number(slug),
+              input: {
+                identifier: values.identifier,
+                statusConstruction: values.statusConstruction,
+                dateBegin: convertDateToISOWithTimezone(values.dateBegin),
+                dateEnd: convertDateToISOWithTimezone(values.dateEnd),
+                zipCode: values.zipCode,
+                address: values.address,
+                number: values.number,
+                neighbourhood: values.neighbourhood,
+                city: values.city,
+                state: values.state,
+                complement: values.complement,
+                batchArea: values.batchArea,
+                buildingArea: values.buildingArea,
+                municipalRegistration: values.municipalRegistration,
+                license: values.license,
+                undergroundUse: values.undergroundUse,
+                art: values.art,
+                cno: values.cno,
+                motherEnrollment: values.motherEnrollment,
+                latitude: values.latitude,
+                longitude: values.longitude,
+                saleValue: values.saleValue,
+                active: values.active,
+              },
             },
-          },
-        })
+          })
+        } else {
+          criarConstrucao({
+            variables: {
+              input: {
+                identifier: values.identifier,
+                statusConstruction: values.statusConstruction,
+                dateBegin: convertDateToISOWithTimezone(values.dateBegin),
+                dateEnd: convertDateToISOWithTimezone(values.dateEnd),
+                zipCode: values.zipCode,
+                address: values.address,
+                number: values.number,
+                neighbourhood: values.neighbourhood,
+                city: values.city,
+                state: values.state,
+                complement: values.complement,
+                batchArea: values.batchArea,
+                buildingArea: values.buildingArea,
+                municipalRegistration: values.municipalRegistration,
+                license: values.license,
+                undergroundUse: values.undergroundUse,
+                art: values.art,
+                cno: values.cno,
+                motherEnrollment: values.motherEnrollment,
+                latitude: values.latitude,
+                longitude: values.longitude,
+                saleValue: values.saleValue,
+                active: values.active,
+              },
+            },
+          })
+        }
       } catch (error) {
         console.log(error)
       }
-
     },
   });
 
-  const modalProduto = useModalProduto();
+  const { loading } = useGetObraByIdQuery({
+    variables: {
+      id: Number(slug),
+    },
+    skip: !!!slug,
+    fetchPolicy: "cache-and-network",
+    onCompleted: (response) => {
+      formik.setValues({
+        address: response.constructions?.findById?.address!,
+        art: response.constructions?.findById?.art!,
+        batchArea: response.constructions?.findById?.batchArea!,
+        buildingArea: response.constructions?.findById?.buildingArea!,
+        city: response.constructions?.findById?.city!,
+        cno: response.constructions?.findById?.cno!,
+        complement: response.constructions?.findById?.complement!,
+        dateBegin: format(
+          new Date(response.constructions?.findById?.dateBegin),
+          "yyyy-MM-dd"
+        ),
+        dateEnd: response.constructions?.findById?.dateEnd,
+        identifier: response.constructions?.findById?.identifier!,
+        latitude: response.constructions?.findById?.latitude!,
+        license: response.constructions?.findById?.license!,
+        longitude: response.constructions?.findById?.longitude!,
+        motherEnrollment: response.constructions?.findById?.motherEnrollment,
+        municipalRegistration:
+          response.constructions?.findById?.municipalRegistration,
+        neighbourhood: response.constructions?.findById?.neighbourhood,
+        number: response.constructions?.findById?.number,
+        saleValue: response.constructions?.findById?.saleValue,
+        state: response.constructions?.findById?.state!,
+        undergroundUse: response.constructions?.findById?.undergroundUse,
+        zipCode: response.constructions?.findById?.zipCode,
+        statusConstruction:
+          response.constructions?.findById?.statusConstruction as StatusConstructionEnumType,
+        active: response.constructions?.findById?.active!,
+      });
+    },
+  });
 
   return (
     <Container>
       <div className="flex justify-between">
         <h4 className="text-2xl font-normal leading-none mb-3">
-          Cadastrar Construção
+          {
+            slug ? "Editar construção" : "Cadastrar construção"
+          }
         </h4>
       </div>
 

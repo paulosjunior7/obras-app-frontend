@@ -11,7 +11,7 @@ export default function Obras() {
           <h4 className="text-lg font-normal">Minhas Obras</h4>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
             onClick={() => {
-              navigate("/obras/nova")
+              navigate("/construcoes/nova")
             }}
           >Adicionar</button>
         </div>

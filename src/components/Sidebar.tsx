@@ -30,7 +30,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     },
     {
       label: "Construções",
-      path: "/obras",
+      path: "/construcoes",
     },
     {
       label: "Cadastro de Produtos",
@@ -82,7 +82,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     },
     {
       label: "Cadastros Auxiliares",
-      path: "/obras",
+      path: "",
       subMenu: [
         {
           label: "Documentos",

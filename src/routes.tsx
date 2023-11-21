@@ -13,7 +13,6 @@ import Login from "./pages/Login/Login";
 import Pessoas from "./pages/Pessoas";
 import CadastroPessoa from "./pages/Pessoas/CadastroPessoa";
 import Unidades from "./pages/Unidades";
-import Obra from "./pages/Obra";
 import GrupoProduto from "./pages/GrupoProduto";
 import Obras from "./pages/Obras";
 import Construcao from "./pages/Construcao";
@@ -23,7 +22,8 @@ export function Router() {
     <Routes>
       <Route path="*" element={<Navigate to="/" />} />
 
-      <Route path="/obras/cadastro" element={<Construcao />} />
+      <Route path="/construcoes/cadastrar" element={<Construcao />} />
+      <Route path="/construcoes/editar/:slug" element={<Construcao />} />
       <Route path="/" element={<Home />} />
       <Route path="/produtos" element={<Produtos />} />
 
@@ -37,7 +37,7 @@ export function Router() {
       <Route path="/pessoas/edicao/:slug" element={<CadastroPessoa />} />
       <Route path="/pessoas/cadastro" element={<CadastroPessoa />} />
       <Route path="/cargos" element={<Cargos />} />
-      <Route path="/obras" element={<Obras />} />
+      <Route path="/construcoes" element={<Obras />} />
 
       {/*<Route path="/obra" element={<Obra />} />
       <Route path="/obra/:slug" element={<Obra />}>
