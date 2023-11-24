@@ -17,7 +17,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 
   const toggleSubMenu = (path: string) => {
     if (expandedItems.includes(path)) {
-      setExpandedItems(expandedItems.filter(item => item !== path));
+      setExpandedItems(expandedItems.filter((item) => item !== path));
     } else {
       setExpandedItems([...expandedItems, path]);
     }
@@ -27,10 +27,12 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     {
       label: "Dashboard",
       path: "/dashboard",
+      icon: "dashboard",
     },
     {
       label: "Construções",
       path: "/construcoes",
+      icon: "build",
     },
     {
       label: "Cadastro de Produtos",
@@ -51,7 +53,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         {
           label: "Marcas",
           path: "/marcas",
-        }
+        },
       ],
     },
     {
@@ -92,8 +94,8 @@ function Sidebar({ children }: { children: React.ReactNode }) {
           label: "Despesas",
           path: "/despesas",
         },
-      ]
-    }
+      ],
+    },
   ];
 
   return (
@@ -114,7 +116,11 @@ function Sidebar({ children }: { children: React.ReactNode }) {
                   </span>
                   <SvgIcon
                     name="arrow-down"
-                    className={`transform ${expandedItems.includes(item.path) ? 'rotate-0' : '-rotate-90'}`}
+                    className={`transform ${
+                      expandedItems.includes(item.path)
+                        ? "rotate-0"
+                        : "-rotate-90"
+                    }`}
                   />
                 </div>
               ) : (
@@ -122,15 +128,18 @@ function Sidebar({ children }: { children: React.ReactNode }) {
                   onClick={() => {
                     navigate(item.path);
                   }}
-                  className="flex flex-row w-full h-[56px] items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
+                  className="flex flex-row w-full h-[56px] items-center gap-2 px-6 cursor-pointer hover:bg-slate-100"
                 >
+                  <SvgIcon name={item.icon} />
                   <span className="font-normal leading-normal text-xs inline-block">
                     {item.label}
                   </span>
                 </div>
               )}
               {expandedItems.includes(item.path) && item.subMenu && (
-                <div className="ml-5 shadow-sm"> {/* Adicione margem à esquerda para alinhar com o item pai */}
+                <div className="ml-5 shadow-sm">
+                  {" "}
+                  {/* Adicione margem à esquerda para alinhar com o item pai */}
                   {item.subMenu.map((subItem: any) => (
                     <div
                       key={subItem.path}
@@ -151,13 +160,11 @@ function Sidebar({ children }: { children: React.ReactNode }) {
           ))}
         </div>
         <div className="flex w-full bg-[#F1F5F9] py-4 h-full min-h-screen">
-          <div className="flex w-full max-w-[1200px] mx-auto">
-            {children}
-          </div>
+          <div className="flex w-full max-w-[1200px] mx-auto">{children}</div>
         </div>
       </div>
     </>
-  )
+  );
   // return (
   //   <>
 
