@@ -41,18 +41,22 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         {
           label: "Produtos",
           path: "/produtos",
+          icon: "invetory",
         },
         {
           label: "Unidades",
           path: "/unidades",
+          icon: "unity",
         },
         {
           label: "Grupos de Produto",
           path: "/grupos-produto",
+          icon: "group",
         },
         {
           label: "Marcas",
           path: "/marcas",
+          icon: "brand",
         },
       ],
     },
@@ -89,10 +93,12 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         {
           label: "Documentos",
           path: "/documentos",
+          icon: "document",
         },
         {
           label: "Despesas",
           path: "/despesas",
+          icon: "expenses",
         },
       ],
     },
@@ -139,19 +145,18 @@ function Sidebar({ children }: { children: React.ReactNode }) {
               {expandedItems.includes(item.path) && item.subMenu && (
                 <div className="ml-5 shadow-sm">
                   {" "}
-                  {/* Adicione margem à esquerda para alinhar com o item pai */}
                   {item.subMenu.map((subItem: any) => (
                     <div
                       key={subItem.path}
                       onClick={() => {
                         navigate(subItem.path);
                       }}
-                      className="flex flex-row w-full h-[56px] items-center justify-between px-6 cursor-pointer hover:bg-slate-100"
+                      className="flex flex-row w-full h-[56px] items-center gap-2 px-6 cursor-pointer hover:bg-slate-100"
                     >
+                      <SvgIcon name={subItem.icon} />
                       <span className="font-normal leading-normal text-xs inline-block">
                         {subItem.label}
                       </span>
-                      {/* Se os subitens também puderem ter submenus, você pode adicionar um ícone de seta aqui */}
                     </div>
                   ))}
                 </div>
