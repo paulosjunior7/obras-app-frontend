@@ -11,12 +11,27 @@ import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
-import Table from "../../components/Table";
+import Table from "../../components/DataTable";
 import { useModalMarca } from "../../hooks/useModalMarca";
+import { SvgIcon } from "@mui/material";
+import DataTable from "../../components/DataTable";
+import DropdownActions from "../../components/DropdownActions";
+
+export interface MenuAction {
+  label: string;
+  color?: "danger";
+  onClick: (e: number | any) => void;
+}
+
+interface DropdownActionsProps {
+  id: number;
+  actions: Array<MenuAction>;
+}
 
 function Marcas() {
-
-  const [marcas, setMarcas] = useState<BrandType[] | undefined>([{} as BrandType]);
+  const [marcas, setMarcas] = useState<BrandType[] | undefined>([
+    {} as BrandType,
+  ]);
 
   const [pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(1);
@@ -58,7 +73,6 @@ function Marcas() {
     },
   });
 
-
   const [editarMarca] = useEditarMarcaMutation({
     onCompleted: (resposta) => {
       toast.success("Marca excluído", {
@@ -99,13 +113,13 @@ function Marcas() {
     modalCadastroMarca.mostrar(() => refetch(), id);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (id: number) => {
     if (!!showModalDelete) {
       editarMarca({
         variables: {
-          id: showModalDelete?.id,
+          id: id,
           input: {
-            description: showModalDelete?.description!,
+            description: "",
             active: false,
           },
         },
@@ -115,24 +129,55 @@ function Marcas() {
 
   const ActionsButtons = (row: any) => {
     return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
+      <div className="py-4 px-3 text-center flex gap-5 w-[100px]">
         <PencilSimple
           size={20}
-          className="hover:-translate-y-1 cursor-pointer"
+          weight="thin"
+          className="cursor-pointer"
           onClick={() => handleEdit(row.id)}
         />
         <Trash
           size={20}
-          className="hover:-translate-y-1 cursor-pointer"
+          weight="thin"
+          className="cursor-pointer"
           onClick={() => setShowModalDelete(row)}
         />
       </div>
     );
   };
 
-  const column = [
-    { heading: "Descricao", value: "description" },
-    { heading: "Status", value: "active" },
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
+
+  const columns = [
+    {
+      id: "descricao",
+      name: "Descrição",
+      cell: (props: BrandType) => {
+        return <>{props.description}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: BrandType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -146,13 +191,7 @@ function Marcas() {
         }}
         loading={loading}
       />
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={marcas!}
-        element={ActionsButtons}
-      />
+      <DataTable columns={columns} data={marcas!} />
       <Modal
         handleDelete={handleDelete}
         itemDescription={showModalDelete.description!}

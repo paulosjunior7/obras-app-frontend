@@ -20,7 +20,7 @@ body {
   }
 
   input {
-    @apply border border-gray-300 rounded-md px-3 h-10;
+    @apply border border-gray-300 rounded-lg px-3 h-10;
   }
 
   label {

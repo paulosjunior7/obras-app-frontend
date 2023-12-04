@@ -69,10 +69,6 @@ function Sidebar({ children }: { children: React.ReactNode }) {
           path: "/pessoas",
         },
         {
-          label: "Clientes",
-          path: "/clientes",
-        },
-        {
           label: "Fornecedores",
           path: "/fornecedores",
         },
@@ -164,8 +160,12 @@ function Sidebar({ children }: { children: React.ReactNode }) {
             </div>
           ))}
         </div>
-        <div className="flex w-full bg-[#F1F5F9] py-4 h-full min-h-screen">
-          <div className="flex w-full max-w-[1200px] mx-auto">{children}</div>
+        <div
+          className="flex w-full py-4 h-full min-h-screen
+        bg-[#F1F5F9] 
+        "
+        >
+          <div className="flex w-full max-w-[1150px] mx-auto">{children}</div>
         </div>
       </div>
     </>

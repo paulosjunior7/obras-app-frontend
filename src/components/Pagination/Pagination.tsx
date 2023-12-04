@@ -32,12 +32,11 @@ const Pagination = ({
     <nav className="flex justify-between items-center pt-4">
       <div>
         <p className="text-sm text-gray-700">
-          Mostrando <span className="font-medium">1</span> até {" "}
+          Mostrando <span className="font-medium">1</span> até{" "}
           <span className="font-medium">10</span> de{" "}
           <span className="font-medium">{totalCount}</span> resultados
         </p>
       </div>
-
 
       <ul className="inline-flex items-center -space-x-px">
         {items.map((item, index) => (
