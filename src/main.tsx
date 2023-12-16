@@ -11,12 +11,15 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { client } from "./lib/apollo.ts";
+import ProviderUserContext from "./context/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ToastContainer />
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <ProviderUserContext>
+      <ToastContainer />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </ProviderUserContext>
   </React.StrictMode>
 );

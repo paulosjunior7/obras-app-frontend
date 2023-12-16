@@ -1,9 +1,39 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
+import { getAuthentication, setAuthentication } from "../services/localStorage";
+
+const httpLink = createHttpLink({
+  uri: "http://0.0.0.0:5000/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = getAuthentication();
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    for (let err of graphQLErrors) {
+      console.log(err);
+      if (err.extensions?.number === "authorization") {
+        // Handle the 401 error here (e.g., redirect to login)
+        setAuthentication("");
+        window.location.reload();
+      }
+    }
+  }
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
+  }
+});
 
 export const client = new ApolloClient({
-  uri: "http://0.0.0.0:5000/graphql",
-  headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmODFkY2IyOGQ0NmM0YTVlOTU2MzQzZjIzODlhYmNmMCIsInN1YiI6IlBhdWxvIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI4MGQzMGE0ZS01MzRiLTQyZDktODgzNS02NmVkNjI2NDEyZjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcwMTgyMzU3MCwiaXNzIjoiWW91cklzc3Vlck5hbWUiLCJhdWQiOiJodHRwczovL3BlcmZvcm1hbmNlYnVpbGRlci5henVyZXdlYnNpdGVzLm5ldCJ9.j5n8Br5EGhITTyyGFemKss3DHouO-HUIXothwVpuo9k`,
-  },
+  link: errorLink.concat(authLink.concat(httpLink)),
   cache: new InMemoryCache(),
 });
