@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import { useModalUnidade } from "../../hooks/useModalUnidade";
+import DataTable from "../../components/DataTable";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
 
 function Unidades() {
   const [unidades, setUnidades] = useState<UnityType[] | undefined>([
@@ -131,7 +133,46 @@ function Unidades() {
     );
   };
 
-  const column = [{ heading: "Descricao", value: "description" }];
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
+
+  const columns = [
+    {
+      id: "descricao",
+      name: "Descrição",
+      cell: (props: UnityType) => {
+        return <>{props.description}</>;
+      },
+    },
+    {
+      id: "multiplicador",
+      name: "Multiplicador",
+      cell: (props: UnityType) => {
+        return <>{props.multiplier}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: UnityType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
+  ];
 
   return (
     <div className="w-full">
@@ -144,13 +185,7 @@ function Unidades() {
         }}
         loading={loading}
       />
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={unidades!}
-        element={ActionsButtons}
-      />
+      <DataTable columns={columns} data={unidades!} />
       <Modal
         handleDelete={handleDelete}
         itemDescription={showModalDelete.description!}

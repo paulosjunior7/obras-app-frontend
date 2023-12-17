@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import { useModalProduto } from "../../hooks/useModalProduto";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
+import DataTable from "../../components/DataTable";
 
 function Produtos() {
   const [produtos, setProdutos] = useState<ProductType[]>([]);
@@ -126,9 +128,45 @@ function Produtos() {
     );
   };
 
-  const column = [
-    { heading: "Descricao", value: "description" },
-    { heading: "Detalhe", value: "detail" },
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
+
+  const columns = [
+    {
+      id: "descricao",
+      name: "Descrição",
+      cell: (props: ProductType) => {
+        return <>{props.description}</>;
+      },
+    },
+    {
+      id: "detalhe",
+      name: "Detalhe",
+      cell: (props: ProductType) => {
+        return <>{props.detail}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: ProductType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -143,13 +181,7 @@ function Produtos() {
           }}
           loading={loading}
         />
-        <Table
-          handleEdit={handleEdit}
-          setShowModalDelete={setShowModalDelete}
-          column={column}
-          data={produtos}
-          element={ActionsButtons}
-        />
+        <DataTable columns={columns} data={produtos!} />
         <Modal
           handleDelete={handleDelete}
           itemDescription={showModalDelete.description!}

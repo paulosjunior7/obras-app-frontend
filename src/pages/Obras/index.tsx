@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  ProductType,
+  ConstructionType,
   useEditarProdutoMutation,
   useGetObrasQuery,
   useGetProdutosQuery,
@@ -13,17 +13,19 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import LeftModal from "../../components/LeftModal";
+import DataTable from "../../components/DataTable";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
 
 function Obras() {
-  const [produtos, setProdutos] = useState<ProductType[]>([]);
+  const [obras, setObras] = useState<ConstructionType[]>([]);
   const [pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(1);
   const [start, setStart] = useState(0);
   const [offset, setOffset] = useState(5);
   const [totalBullets, setTotalBullets] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
-  const [showModalDelete, setShowModalDelete] = useState<ProductType>(
-    {} as ProductType
+  const [showModalDelete, setShowModalDelete] = useState<ConstructionType>(
+    {} as ConstructionType
   );
 
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ function Obras() {
     onCompleted: (data) => {
       if (data && data.constructions?.findall) {
         const { items, totalCount, pageInfo } = data.constructions.findall;
-        setProdutos(items as ProductType[]);
+        setObras(items as ConstructionType[]);
         setTotalCount(totalCount!);
         const quantidade = items?.length!;
         const _count = quantidade > totalCount! ? totalCount! : quantidade;
@@ -62,7 +64,7 @@ function Obras() {
         className: "foo-bar",
       });
       refetch();
-      setShowModalDelete({} as ProductType);
+      setShowModalDelete({} as ConstructionType);
     },
     onError: (error) => {
       toast.error("Falha ao excluir produto", {
@@ -83,7 +85,7 @@ function Obras() {
   const handlePageChange = (event: any, page: number) => {
     event.preventDefault();
 
-    setProdutos([]);
+    setObras([]);
     const LIMIT = 5;
 
     setStart(page - 1 === 0 ? 0 : page * LIMIT - LIMIT);
@@ -99,10 +101,10 @@ function Obras() {
     if (!!showModalDelete) {
       editarProduto({
         variables: {
-          id: showModalDelete?.id,
+          id: showModalDelete?.id!,
           input: {
-            description: showModalDelete?.description!,
-            detail: showModalDelete?.detail!,
+            description: showModalDelete?.identifier!,
+            detail: showModalDelete?.address!,
             active: false,
           },
         },
@@ -110,27 +112,38 @@ function Obras() {
     }
   };
 
-  const ActionsButtons = (row: any) => {
-    return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
-        <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => handleEdit(row.id)}
-        />
-        <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => setShowModalDelete(row)}
-        />
-      </div>
-    );
-  };
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
 
-  const column = [
-    { heading: "Descricao", value: "identifier" },
-    { heading: "Detalhe", value: "dateBegin" },
-    { heading: "Status", value: "active" },
+  const columns = [
+    {
+      id: "identificador",
+      name: "Identificador",
+      cell: (props: ConstructionType) => {
+        return <>{props.identifier}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: ConstructionType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -143,16 +156,10 @@ function Obras() {
           onClick={() => navigate("/construcoes/cadastrar")}
           loading={loading}
         />
-        <Table
-          handleEdit={handleEdit}
-          setShowModalDelete={setShowModalDelete}
-          column={column}
-          data={produtos}
-          element={ActionsButtons}
-        />
+        <DataTable columns={columns} data={obras!} />
         <Modal
           handleDelete={handleDelete}
-          itemDescription={showModalDelete.description!}
+          itemDescription={showModalDelete.identifier}
           showModalDelete={showModalDelete}
           setShowModalDelete={setShowModalDelete}
         />

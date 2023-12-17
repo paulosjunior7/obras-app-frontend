@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import { useModalDocumento } from "../../hooks/useModalDocumento";
+import DataTable from "../../components/DataTable";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
 
 function Documentos() {
   const [documentos, setDocumentos] = useState<DocumentationType[]>([]);
@@ -109,26 +111,38 @@ function Documentos() {
     }
   };
 
-  const actionBtn = (row: any) => {
-    return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
-        <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => handleEdit(row.id)}
-        />
-        <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => setShowModalDelete(row)}
-        />
-      </div>
-    );
-  };
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
 
-  const column = [
-    { heading: "Descricao", value: "description" },
-    { heading: "Status", value: "active" },
+  const columns = [
+    {
+      id: "descricao",
+      name: "Descrição",
+      cell: (props: DocumentationType) => {
+        return <>{props.description}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: DocumentationType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -142,13 +156,7 @@ function Documentos() {
         }}
         loading={loading}
       />
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={documentos}
-        element={actionBtn}
-      />
+      <DataTable columns={columns} data={documentos!} />
       <Modal
         handleDelete={handleDelete}
         itemDescription={showModalDelete.description!}

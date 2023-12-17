@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import { useModalTerceirizado } from "../../hooks/useModalTercerizado";
+import DataTable from "../../components/DataTable";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
 
 function Terceirizados() {
   const [terceirizados, setTerceirizados] = useState<OutsourcedType[]>([]);
@@ -127,11 +129,52 @@ function Terceirizados() {
     );
   };
 
-  const column = [
-    { heading: "Nome Fantasia", value: "fantasyName" },
-    { heading: "Razão Social", value: "corporateName" },
-    { heading: "Tipo Cadastro", value: "typePeople" },
-    { heading: "Status", value: "active" },
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
+
+  const columns = [
+    {
+      id: "Nome Fantasia",
+      name: "fantasyName",
+      cell: (props: OutsourcedType) => {
+        return <>{props.fantasyName}</>;
+      },
+    },
+    {
+      id: "Razão Social",
+      name: "corporateName",
+      cell: (props: OutsourcedType) => {
+        return <>{props.corporateName}</>;
+      },
+    },
+    {
+      id: "Tipo Cadastro",
+      name: "typePeople",
+      cell: (props: OutsourcedType) => {
+        return <>{props.typePeople}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: OutsourcedType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -145,13 +188,7 @@ function Terceirizados() {
         }}
         loading={loading}
       />
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={terceirizados}
-        element={actionBtn}
-      />
+      <DataTable columns={columns} data={terceirizados!} />
       <Modal
         handleDelete={handleDelete}
         itemDescription={showModalDelete.fantasyName!}

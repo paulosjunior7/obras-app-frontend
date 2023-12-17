@@ -4,14 +4,14 @@ import {
   useEditarDespesaMutation,
   useGetDespesasQuery,
 } from "../../graphql/generated";
-import { PencilSimple, Trash } from "phosphor-react";
 import { Pagination } from "../../components/Pagination";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
-import Table from "../../components/Table";
 import { useModalDespesa } from "../../hooks/useModalDespesas";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
+import DataTable from "../../components/DataTable";
 
 function Despesas() {
   const [despesas, setDespesas] = useState<ExpenseType[]>([]);
@@ -109,26 +109,38 @@ function Despesas() {
     }
   };
 
-  const ActionsButton = (row: any) => {
-    return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
-        <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => handleEdit(row.id)}
-        />
-        <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => setShowModalDelete(row)}
-        />
-      </div>
-    );
-  };
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
+  ];
 
-  const column = [
-    { heading: "Descricao", value: "description" },
-    { heading: "Status", value: "active" },
+  const columns = [
+    {
+      id: "descricao",
+      name: "Descrição",
+      cell: (props: ExpenseType) => {
+        return <>{props.description}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: ExpenseType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -142,14 +154,7 @@ function Despesas() {
         }}
         loading={loading}
       />
-
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={despesas}
-        element={ActionsButton}
-      />
+      <DataTable columns={columns} data={despesas!} />
       <Modal
         handleDelete={handleDelete}
         showModalDelete={showModalDelete}

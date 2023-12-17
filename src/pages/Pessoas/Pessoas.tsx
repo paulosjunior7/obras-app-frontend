@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import { useModalPessoa } from "../../hooks/useModalPessoa";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
+import DataTable from "../../components/DataTable";
 
 function Pessoas() {
   const [pessoas, setPessoas] = useState<PeopleType[]>([]);
@@ -114,28 +116,38 @@ function Pessoas() {
     }
   };
 
-  const ActionsButtons = (row: any) => {
-    return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
-        <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => handleEdit(row.id)}
-        />
-        <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => setShowModalDelete(row)}
-        />
-      </div>
-    );
-  };
+  const columns = [
+    {
+      id: "Nome",
+      name: "Nome",
+      cell: (props: PeopleType) => {
+        return <>{props.fantasyName}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: PeopleType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
+  ];
 
-  const column = [
-    { heading: "Nome", value: "fantasyName" },
-    { heading: "CNPJ", value: "cnpj" },
-    { heading: "E-mail", value: "eMail" },
-    { heading: "Status", value: "active" },
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
   ];
 
   return (
@@ -149,14 +161,7 @@ function Pessoas() {
         }}
         loading={loading}
       />
-
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={pessoas}
-        element={ActionsButtons}
-      />
+      <DataTable columns={columns} data={pessoas!} />
       <Modal
         handleDelete={handleDelete}
         itemDescription={showModalDelete.fantasyName!}

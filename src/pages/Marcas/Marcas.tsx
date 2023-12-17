@@ -1,6 +1,5 @@
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  BrandConnection,
   BrandType,
   useEditarMarcaMutation,
   useGetMarcasQuery,
@@ -11,9 +10,7 @@ import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/HeaderPage";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
-import Table from "../../components/DataTable";
 import { useModalMarca } from "../../hooks/useModalMarca";
-import { SvgIcon } from "@mui/material";
 import DataTable from "../../components/DataTable";
 import DropdownActions from "../../components/DropdownActions";
 
@@ -125,25 +122,6 @@ function Marcas() {
         },
       });
     }
-  };
-
-  const ActionsButtons = (row: any) => {
-    return (
-      <div className="py-4 px-3 text-center flex gap-5 w-[100px]">
-        <PencilSimple
-          size={20}
-          weight="thin"
-          className="cursor-pointer"
-          onClick={() => handleEdit(row.id)}
-        />
-        <Trash
-          size={20}
-          weight="thin"
-          className="cursor-pointer"
-          onClick={() => setShowModalDelete(row)}
-        />
-      </div>
-    );
   };
 
   const menuItemActions: Array<MenuAction> = [

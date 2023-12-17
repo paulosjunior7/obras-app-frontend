@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import Modal from "../../components/Modal";
 import Table from "../../components/Table";
 import { useModalFornecedor } from "../../hooks/useModalFornecedor";
+import DropdownActions, { MenuAction } from "../../components/DropdownActions";
+import DataTable from "../../components/DataTable";
 
 function Fornecedores() {
   const [fornecedores, setFornecedores] = useState<ProviderType[]>([]);
@@ -110,28 +112,52 @@ function Fornecedores() {
     }
   };
 
-  const actionBtn = (row: any) => {
-    return (
-      <div className="py-4 px-3 text-center flex justify-evenly max-w-xs">
-        <PencilSimple
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => handleEdit(row.id)}
-        />
-        <Trash
-          size={20}
-          className="hover:-translate-y-1 cursor-pointer"
-          onClick={() => setShowModalDelete(row)}
-        />
-      </div>
-    );
-  };
+  const columns = [
+    {
+      id: "descricao",
+      name: "Descrição",
+      cell: (props: ProviderType) => {
+        return <>{props.name}</>;
+      },
+    },
+    {
+      id: "cnpj",
+      name: "cnpj",
+      cell: (props: ProviderType) => {
+        return <>{props.cnpj}</>;
+      },
+    },
+    {
+      id: "email",
+      name: "email",
+      cell: (props: ProviderType) => {
+        return <>{props.eMail}</>;
+      },
+    },
+    {
+      id: "",
+      width: 100,
+      cell: (props: ProviderType) => {
+        return (
+          <>
+            {props.id && (
+              <DropdownActions actions={menuItemActions} id={props.id} />
+            )}
+          </>
+        );
+      },
+    },
+  ];
 
-  const column = [
-    { heading: "Nome", value: "name" },
-    { heading: "CNPJ", value: "cnpj" },
-    { heading: "E-mail", value: "eMail" },
-    { heading: "Status", value: "active" },
+  const menuItemActions: Array<MenuAction> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+    },
   ];
 
   return (
@@ -145,14 +171,7 @@ function Fornecedores() {
         }}
         loading={loading}
       />
-
-      <Table
-        handleEdit={handleEdit}
-        setShowModalDelete={setShowModalDelete}
-        column={column}
-        data={fornecedores}
-        element={actionBtn}
-      />
+      <DataTable columns={columns} data={fornecedores!} />
       <Modal
         handleDelete={handleDelete}
         itemDescription={showModalDelete.name!}
