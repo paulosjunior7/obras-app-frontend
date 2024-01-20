@@ -1316,15 +1316,19 @@ export type EmployeeInputType = {
   address?: InputMaybe<Scalars['String']>;
   cellPhone?: InputMaybe<Scalars['String']>;
   city?: InputMaybe<Scalars['String']>;
+  cnpj?: InputMaybe<Scalars['String']>;
   complement?: InputMaybe<Scalars['String']>;
   cpf?: InputMaybe<Scalars['String']>;
   eMail?: InputMaybe<Scalars['String']>;
+  employed?: InputMaybe<Scalars['Boolean']>;
   name: Scalars['String'];
   neighbourhood?: InputMaybe<Scalars['String']>;
   number?: InputMaybe<Scalars['String']>;
+  outsourced?: InputMaybe<Scalars['Boolean']>;
   responsibilityId: Scalars['Int'];
   state?: InputMaybe<Scalars['String']>;
   telephone?: InputMaybe<Scalars['String']>;
+  typePeople?: InputMaybe<Scalars['String']>;
   zipCode?: InputMaybe<Scalars['String']>;
 };
 
@@ -1386,19 +1390,23 @@ export type EmployeeType = {
   changeDate?: Maybe<Scalars['DateTime']>;
   changeUser?: Maybe<UserType>;
   city?: Maybe<Scalars['String']>;
+  cnpj?: Maybe<Scalars['String']>;
   company?: Maybe<CompanyType>;
   complement?: Maybe<Scalars['String']>;
   cpf?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['DateTime']>;
   eMail?: Maybe<Scalars['String']>;
+  employed?: Maybe<Scalars['Boolean']>;
   id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   neighbourhood?: Maybe<Scalars['String']>;
   number?: Maybe<Scalars['String']>;
+  outsourced?: Maybe<Scalars['Boolean']>;
   registrationUser?: Maybe<UserType>;
   responsibility?: Maybe<ResponsibilityType>;
   state?: Maybe<Scalars['String']>;
   telephone?: Maybe<Scalars['String']>;
+  typePeople?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
 };
 
@@ -1644,6 +1652,7 @@ export type ObrasQuery = {
   providers?: Maybe<ProviderQuery>;
   responsibilities?: Maybe<ResponsibilityQuery>;
   unity?: Maybe<UnityQuery>;
+  user?: Maybe<UserQuery>;
 };
 
 export type OutsourcedByInputType = {
@@ -2479,6 +2488,11 @@ export type UnityType = {
   registrationUser?: Maybe<UserType>;
 };
 
+export type UserQuery = {
+  __typename?: 'UserQuery';
+  findMe?: Maybe<UserType>;
+};
+
 export type UserType = {
   __typename?: 'UserType';
   company?: Maybe<CompanyType>;
@@ -2890,6 +2904,11 @@ export type GetUnidadesQueryVariables = Exact<{
 
 
 export type GetUnidadesQuery = { __typename?: 'ObrasQuery', unity?: { __typename?: 'UnityQuery', findall?: { __typename?: 'UnityConnection', totalCount?: number, items?: Array<{ __typename?: 'UnityType', id: number, description?: string, multiplier?: number, active: boolean }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string, endCursor?: string } } } };
+
+export type GetUserMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserMeQuery = { __typename?: 'ObrasQuery', user?: { __typename?: 'UserQuery', findMe?: { __typename?: 'UserType', id: string, userName: string, phoneNumber?: string, email?: string, company?: { __typename?: 'CompanyType', id: number, corporateName?: string, fantasyName?: string, cnpj?: string } } } };
 
 
 export const CriarMarcaDocument = gql`
@@ -5175,3 +5194,48 @@ export function useGetUnidadesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetUnidadesQueryHookResult = ReturnType<typeof useGetUnidadesQuery>;
 export type GetUnidadesLazyQueryHookResult = ReturnType<typeof useGetUnidadesLazyQuery>;
 export type GetUnidadesQueryResult = Apollo.QueryResult<GetUnidadesQuery, GetUnidadesQueryVariables>;
+export const GetUserMeDocument = gql`
+    query getUserMe {
+  user {
+    findMe {
+      id
+      userName
+      phoneNumber
+      email
+      company {
+        id
+        corporateName
+        fantasyName
+        cnpj
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserMeQuery__
+ *
+ * To run a query within a React component, call `useGetUserMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserMeQuery(baseOptions?: Apollo.QueryHookOptions<GetUserMeQuery, GetUserMeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserMeQuery, GetUserMeQueryVariables>(GetUserMeDocument, options);
+      }
+export function useGetUserMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserMeQuery, GetUserMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserMeQuery, GetUserMeQueryVariables>(GetUserMeDocument, options);
+        }
+export type GetUserMeQueryHookResult = ReturnType<typeof useGetUserMeQuery>;
+export type GetUserMeLazyQueryHookResult = ReturnType<typeof useGetUserMeLazyQuery>;
+export type GetUserMeQueryResult = Apollo.QueryResult<GetUserMeQuery, GetUserMeQueryVariables>;

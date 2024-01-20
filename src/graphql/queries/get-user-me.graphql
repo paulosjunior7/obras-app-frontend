@@ -1,0 +1,16 @@
+query getUserMe {
+  user {
+    findMe {
+      id
+      userName
+      phoneNumber
+      email
+      company {
+        id
+        corporateName
+        fantasyName
+        cnpj
+      }
+    }
+  }
+}
