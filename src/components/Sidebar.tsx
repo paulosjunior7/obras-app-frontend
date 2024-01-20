@@ -61,7 +61,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
       ],
     },
     {
-      label: "Cadastro de pessoas",
+      label: "Cadastro de Pessoas",
       path: "/pessoas",
       subMenu: [
         {

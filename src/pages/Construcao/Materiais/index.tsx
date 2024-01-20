@@ -123,9 +123,8 @@ export default function Materiais() {
     }
   };
 
-  const handleProdutoSelect = (productId: number) => {
-    formik.setFieldValue("id_produto", productId);
-    // setSearchResults();
+  const handleProdutoSelect = (productId: any) => {
+    console.log("productId", productId);
   };
 
   return (
@@ -146,11 +145,7 @@ export default function Materiais() {
         </div>
       </div>
 
-      <LeftModal
-        showleftModal={showModalCadastro}
-        setShowLeftModal={setShowModalCadastro}
-        title="Cadastrar Material"
-      >
+      <div>
         <div className="grid grid-cols-2 gap-4 mt-5">
           <div className="flex flex-col col-span-2">
             <label htmlFor="id_produto">Produto</label>
@@ -321,8 +316,8 @@ export default function Materiais() {
               Salvar
             </button>
           </div>
-        </div >
-      </LeftModal >
+        </div>
+      </div>
 
       <table className="min-w-full divide-y divide-gray-200 mt-5">
         <thead className="bg-gray-50">

@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         {jwt ? (
           <>
-            <Header />
+            {/* <Header /> */}
             <Sidebar>
               <Provider store={Store}>
                 <RouterAuth />
